@@ -1,0 +1,9 @@
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Model.Database.resources
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Properties.Resources.resources
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.csproj.GenerateResource.Cache
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.exe
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\bin\Debug\PagoElectronico.pdb
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.Form1.resources
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.exe
+C:\Users\Usuario\TP-GDD\PAGOELEC\gdd2\Aplicacion Desktop\PagoElectronico\PagoElectronico\obj\Debug\PagoElectronico.pdb
