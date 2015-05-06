@@ -50,6 +50,7 @@ namespace PagoElectronico.Model
             catch (Exception ex) {
 
                 MessageBox.Show( ex.Message + " Query: " + query );
+                
             }
 
             return new DataTable();  

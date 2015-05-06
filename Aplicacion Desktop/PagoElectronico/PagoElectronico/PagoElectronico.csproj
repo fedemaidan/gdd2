@@ -48,6 +48,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABM de Usuario\edit_window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Usuario\edit_window.Designer.cs">
+      <DependentUpon>edit_window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Usuario\userABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Usuario\userABM.Designer.cs">
+      <DependentUpon>userABM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\ABMAlta_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\ABMAlta_Rol.Designer.cs">
+      <DependentUpon>ABMAlta_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\ABM_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\ABM_Rol.Designer.cs">
+      <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\ABMRol_Modificacion_Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\ABMRol_Modificacion_Listado.Designer.cs">
+      <DependentUpon>ABMRol_Modificacion_Listado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Home\homeDB.cs" />
+    <Compile Include="Login\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Database.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,8 +97,24 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ABM de Usuario\edit_window.resx">
+      <DependentUpon>edit_window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\userABM.resx">
+      <DependentUpon>userABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\ABMAlta_Rol.resx">
+      <DependentUpon>ABMAlta_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\ABMRol_Modificacion_Listado.resx">
+      <DependentUpon>ABMRol_Modificacion_Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
+      <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,13 +143,10 @@
   <ItemGroup>
     <Folder Include="ABM Cliente\" />
     <Folder Include="ABM Cuenta\" />
-    <Folder Include="ABM de Usuario\" />
-    <Folder Include="ABM Rol\" />
     <Folder Include="Consulta Saldos\" />
     <Folder Include="Depositos\" />
     <Folder Include="Facturacion\" />
     <Folder Include="Listados\" />
-    <Folder Include="Login\" />
     <Folder Include="Retiros\" />
     <Folder Include="Transferencias\" />
   </ItemGroup>
