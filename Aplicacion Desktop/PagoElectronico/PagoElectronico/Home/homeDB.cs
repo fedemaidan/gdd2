@@ -42,22 +42,22 @@ namespace PagoElectronico.Home
         //Verifico que su password sea correcta
         //Verifico que no este inhabilitado
         //public void verifyUser(User logginUser) {
-        private void verifyUser(String user, String password2)
+        private void verifyUser(String user, String password)
         {
             /*String user = logginUser.getUserName();
             String password = logginUser.getPassword(); */
-            string password = encriptacionSHA256(password2);
+            //string password = encriptacionSHA256(password2);
 
 
             String rol = "";
             String db_password = "";
-            String query = "select r.rol, u.password from qwerty.usuarios u, qwerty.usuarios_roles ur,qwerty.roles r where ur.rol_id = r.rol_id and u.Username= ur.Username and	ur.username = '" + user + "';";
+            String query = "select r.descripcion, u.pass_usuario from qwerty.usuarios u, qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and u.nombre_usuario= ur.nombre_usuario and	ur.nombre_usuario = '" + user + "'";
             DataTable dt = db.select_query(query);
 
             if (dt.Rows.Count != 0)
             {
-                rol = (string)dt.Rows[0]["rol"];
-                db_password = (string)dt.Rows[0]["password"];
+                rol = (string)dt.Rows[0]["descripcion"];
+                db_password = (string)dt.Rows[0]["pass_usuario"];
             }
 
             if (rol != "Administrador" && rol != "Recepcionista" && rol != "Administrador General")
@@ -117,7 +117,7 @@ namespace PagoElectronico.Home
         //Obtengo una lista de todos los usuarios 
         public DataTable getUsersList()
         {
-            String query = "select u.username from qwerty.usuarios;";
+            String query = "select u.nombre_usuario from qwerty.usuarios;";
             DataTable dt = db.select_query(query);
             return dt;
         }
@@ -128,18 +128,18 @@ namespace PagoElectronico.Home
             /*String username = user.getUserName();
             String password = user.getPassword();*/
             //String query = "select * from qwerty.usuarios where username ='"+username+"' and password = '"+password+"';";
-            String query = "select * from qwerty.usuarios where username ='" + username + "';";
-            String query_rol = "select r.rol as rol from qwerty.usuarios_roles ur,qwerty.roles r where ur.rol_id = r.rol_id and ur.username = '" + username + "';";
-            String query_hotel = "select h.nombre as hotel from qwerty.usuarios u, qwerty.personal_hoteles ph, qwerty.hotel h where u.username =ph.username and ph.hotel_id = h.hotel_id and u.username = '" + username + "';";
-            String query_address = "select calle,altura,piso,dpto from qwerty.domicilio a, QWERTY.Usuarios b where a.id_domicilio = b.domicilio and b.username = '" + username + "';";
+            String query = "select * from qwerty.usuarios where nombre_usuario ='" + username + "';";
+            String query_rol = "select r.rol_id as rol from qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and ur.nombre_usuario = '" + username + "'";
+            //String query_hotel = "select h.nombre as hotel from qwerty.usuarios u, qwerty.personal_hoteles ph, qwerty.hotel h where u.nombre_usuario =ph.username and ph.hotel_id = h.hotel_id and u.nombre_usuario = '" + username + "';";
+            //String query_address = "select calle,altura,piso,dpto from qwerty.domicilio a, QWERTY.Usuarios b where a.id_domicilio = b.domicilio and b.nombre_usuario = '" + username + "';";
             DataTable dt = db.select_query(query);
             DataTable dt_rol = db.select_query(query_rol);
-            DataTable dt_hotel = db.select_query(query_hotel);
-            DataTable dt_address = db.select_query(query_address);
+            //DataTable dt_hotel = db.select_query(query_hotel);
+            //DataTable dt_address = db.select_query(query_address);
             Dictionary<String, Object> dic = new Dictionary<String, Object>();
             Dictionary<String, Object> dic_rol = new Dictionary<String, Object>();
-            Dictionary<String, Object> dic_hotel = new Dictionary<String, Object>();
-            Dictionary<String, Object> dic_address = new Dictionary<String, Object>();
+            //Dictionary<String, Object> dic_hotel = new Dictionary<String, Object>();
+            //Dictionary<String, Object> dic_address = new Dictionary<String, Object>();
 
             /*CARGO DIC*/
             foreach (DataColumn dc in dt.Columns)
@@ -159,22 +159,23 @@ namespace PagoElectronico.Home
             }
 
             /*cargo dic hotel*/
-            foreach (DataColumn dc in dt_hotel.Columns)
+            /*foreach (DataColumn dc in dt_hotel.Columns)
             {
                 int rows = dt_hotel.Rows.Count;
                 for (int i = 0; i < rows; i++)
                     dic_hotel[dc.ToString().ToLower() + "_" + i.ToString()] = dt_hotel.Rows[i][dc];
             }
-
+            */
             /*cargo dic address*/
-            foreach (DataColumn dc in dt_address.Columns)
+            /*foreach (DataColumn dc in dt_address.Columns)
             {
                 int rows = dt_address.Rows.Count;
                 for (int i = 0; i < rows; i++)
                     dic_address[dc.ToString().ToLower()] = dt_address.Rows[i][dc];
-            }
-            Dictionary<String, Object> dic_final = dic.Union(dic_rol).Union(dic_hotel).Union(dic_address).ToDictionary(key => key.Key, value => value.Value);
-
+            }*/
+            //Dictionary<String, Object> dic_final = dic.Union(dic_rol).Union(dic_hotel).Union(dic_address).ToDictionary(key => key.Key, value => value.Value);
+            Dictionary<String, Object> dic_final = dic.Union(dic_rol).ToDictionary(key => key.Key, value => value.Value);
+            
             return dic_final;
         }
 
@@ -192,9 +193,9 @@ namespace PagoElectronico.Home
             String query_user;
             
             if (user.getPassword() != "" && user.getPassword() != null)
-                query_user = "update qwerty.usuarios set password='" + this.encriptacionSHA256(user.getPassword()) + "',nombre='" + user.getName() + "',apellido='" + user.getLastName() + "',mail='" + user.getMail() + ",dni=" + user.getDocument() + ",telefono=" + user.getTelephone() + " where username = '" + user.getUserName() + "';";
+                query_user = "update qwerty.usuarios set password='" + this.encriptacionSHA256(user.getPassword()) + "',nombre='" + user.getName() + "',apellido='" + user.getLastName() + "',mail='" + user.getMail() + ",dni=" + user.getDocument() + ",telefono=" + user.getTelephone() + " where nombre_usuario = '" + user.getUserName() + "';";
             else
-                query_user = "update qwerty.usuarios set nombre='" + user.getName() + "',apellido='" + user.getLastName() + "',mail='" + user.getMail() + ",dni=" + user.getDocument() + ",telefono=" + user.getTelephone() + " where username = '" + user.getUserName() + "';";
+                query_user = "update qwerty.usuarios set nombre='" + user.getName() + "',apellido='" + user.getLastName() + "',mail='" + user.getMail() + ",dni=" + user.getDocument() + ",telefono=" + user.getTelephone() + " where nombre_usuario = '" + user.getUserName() + "';";
             
             String query_employees_hotel = "update qwerty.personal_hoteles set username = '" + user.getUserName() + "' where username='" + user.getUserName() + "';";
             db.update_query(query_user);

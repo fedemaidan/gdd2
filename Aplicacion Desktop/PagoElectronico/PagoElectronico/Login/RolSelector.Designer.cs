@@ -1,6 +1,6 @@
-﻿namespace PagoElectronico
+﻿namespace PagoElectronico.Login
 {
-    partial class Form1
+    partial class RolSelector
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_accept = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btn_accept
             // 
-            this.button1.Location = new System.Drawing.Point(62, 44);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "ABM de ROL";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_accept.Location = new System.Drawing.Point(105, 120);
+            this.btn_accept.Name = "btn_accept";
+            this.btn_accept.Size = new System.Drawing.Size(75, 23);
+            this.btn_accept.TabIndex = 2;
+            this.btn_accept.Text = "Aceptar";
+            this.btn_accept.UseVisualStyleBackColor = true;
+            this.btn_accept.Click += new System.EventHandler(this.btn_accept_Click);
             // 
-            // Form1
+            // RolSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Controls.Add(this.btn_accept);
+            this.Name = "RolSelector";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_accept;
+
     }
 }
-

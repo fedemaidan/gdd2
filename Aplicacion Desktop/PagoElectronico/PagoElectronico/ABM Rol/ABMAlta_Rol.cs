@@ -27,7 +27,7 @@ namespace PagoElectronico.ABM_Rol
         {
             Database db = new Database();
             DataTable dt = new DataTable();
-            string qeriFuncionalidades = "select f.Nombre from qwerty.funcionalidades f";
+            string qeriFuncionalidades = "select f.descripcion from qwerty.funcionalidades f";
             dt = db.select_query(qeriFuncionalidades);
             foreach (DataRow row in dt.Rows)
             {

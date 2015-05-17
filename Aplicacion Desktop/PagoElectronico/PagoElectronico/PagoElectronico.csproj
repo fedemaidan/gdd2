@@ -79,11 +79,17 @@
       <DependentUpon>ABMRol_Modificacion_Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Home\homeDB.cs" />
-    <Compile Include="Login\Form1.cs">
+    <Compile Include="Login\RolSelector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Login\RolSelector.Designer.cs">
+      <DependentUpon>RolSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Database.cs">
       <SubType>Form</SubType>
@@ -91,13 +97,14 @@
     <Compile Include="Model\Database.Designer.cs">
       <DependentUpon>Database.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserAdmin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ABM de Usuario\edit_window.resx">
@@ -115,8 +122,14 @@
     <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\login.resx">
+      <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\RolSelector.resx">
+      <DependentUpon>RolSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model\Database.resx">
       <DependentUpon>Database.cs</DependentUpon>

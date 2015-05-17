@@ -95,10 +95,24 @@
             this.Actualizar.TabIndex = 12;
             this.Actualizar.Text = "Actualizar";
             this.Actualizar.UseVisualStyleBackColor = true;
+            this.Actualizar.Click += new System.EventHandler(this.Actualizar_Click);
             // 
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "ABM de Rol",
+            "ABM de Usuarios",
+            "ABM de Clientes",
+            "ABM de Cuentas",
+            "Asociar tarjeta de crédito",
+            "Desasociar tarjeta de crédito",
+            "Depósito",
+            "Retiro de efectivo",
+            "Transferencia entre cuentas",
+            "Facturación de costos",
+            "Consulta de saldo",
+            "Listado estadístico"});
             this.checkedListBox1.Location = new System.Drawing.Point(121, 76);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(120, 94);
@@ -110,6 +124,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 13;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // ABMRol_Modificacion_Listado
             // 

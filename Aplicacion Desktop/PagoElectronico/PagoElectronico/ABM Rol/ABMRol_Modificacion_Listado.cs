@@ -18,8 +18,8 @@ namespace PagoElectronico.ABM_Rol
         {
             InitializeComponent();
 
-            InitializeComponent();
-            this.agregoFuncionalidades();
+            //InitializeComponent();
+            //this.agregoFuncionalidades();
             this.id_rol = id_rol;
             this.buscoFuncionalidadesDeEsteRol();
 
@@ -29,7 +29,7 @@ namespace PagoElectronico.ABM_Rol
         {
             Database db = new Database();
             DataTable dt = new DataTable();
-            string qeriFuncionalidades = "select f.Nombre from qwerty.funcionalidades f";
+            string qeriFuncionalidades = "select f.descripcion from qwerty.funcionalidades f";
             dt = db.select_query(qeriFuncionalidades);
             foreach (DataRow row in dt.Rows)
             {
@@ -44,11 +44,13 @@ namespace PagoElectronico.ABM_Rol
         {
             Database db = new Database();
             DataTable dt = new DataTable();
-            string qeri = "select rf.Funcionalidad_ID from QWERTY.Roles_Funcionalidades rf where rf.Rol_ID=" + id_rol;
+            string qeri = "select rf.funcion_id from QWERTY.funcionalidades_por_rol rf where rf.Rol_ID=" + id_rol;
             dt = db.select_query(qeri);
             foreach (DataRow row in dt.Rows)
             {
-                checkedListBox1.SetItemChecked(row.Field<int>(0) - 1, true);
+                int index = Convert.ToInt32(row["funcion_id"]);
+                checkedListBox1.SetItemChecked(index - 1, true);
+                
             }
         }
 
@@ -87,6 +89,41 @@ namespace PagoElectronico.ABM_Rol
 
         private void ABMRol_Modificacion_Listado_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Actualizar_Click(object sender, EventArgs e)
+        {
+            Database db = new Database();
+            string qeri_delete = "delete from qwerty.funcionalidades_por_rol where qwerty.funcionalidades_por_rol.rol_id ="+id_rol;
+            db.delete_query(qeri_delete);
+            bool activo;
+            if (radioButton_alta.Checked == true) { 
+                activo = true;}
+                else 
+            {  activo=false; }
+
+            foreach (int i in checkedListBox1.CheckedIndices)
+                    {
+
+                        string qeri_update = "insert into qwerty.funcionalidades_por_rol (qwerty.funcionalidades_por_rol.rol_id,qwerty.funcionalidades_por_rol.funcion_id) values (" + id_rol + "," + (i + 1)+ ")";
+                //tengo que hacer el update
+                db.insert_query(qeri_update);
+
+                    }
+            //actualizar tabla roles
+            string qeri_roles = "update qwerty.roles set estado='"+activo+"' where rol_id="+id_rol;
+            db.update_query(qeri_roles);
+
+            MessageBox.Show("Datos actualizados");
+            this.Close();
+
+            
 
         }
     }
