@@ -50,7 +50,7 @@ namespace PagoElectronico.Model
             Boolean exists_rol = true;
             long i = 0;
             
-            this.password = (string)values["password"];
+            this.password = (string)values["pass_usuario"];
             while (exists_rol)
             {
 
@@ -67,23 +67,27 @@ namespace PagoElectronico.Model
                     this.roles.Add(rol);
                 }
 
+                if (rol == "")
+                    exists_rol = false;
+
 
                 i++;
 
             }
-            this.mail = (string)values["mail"];
-            this.name = (string)values["nombre"];
-            this.lastName = (string)values["apellido"];
-            this.username = (string)values["username"];
-            this.document = Convert.ToInt64(values["dni"].ToString());
-            this.telephone = Convert.ToInt64(values["telefono"].ToString());
-            this.date = (DateTime)values["fecha_nacimiento"];
+            //this.mail = (string)values["mail"];
+            //this.name = (string)values["nombre"];
+            //this.lastName = (string)values["apellido"];
+            //this.username = (string)values["username"];
+            //this.document = Convert.ToInt64(values["dni"].ToString());
+            //this.telephone = Convert.ToInt64(values["telefono"].ToString());
+            //this.date = (DateTime)values["fecha_nacimiento"];
 
             //cargo las funcionalidades
-            DataTable dt = new Database().select_query("select rf.Funcionalidad_ID from QWERTY.Roles_Funcionalidades rf join QWERTY.Roles r on r.Rol_ID = rf.Rol_ID where r.Rol = '" + this.rol + "';");
+            DataTable dt = new Database().select_query("select rf.Funcion_ID from QWERTY.funcionalidades_por_rol rf join QWERTY.Roles r on r.Rol_ID = rf.Rol_ID where r.descripcion = '" + this.rol + "';");
             foreach (DataRow row in dt.Rows)
             {
-                this.funcionalidades.Add(row.Field<int>(0));
+                this.funcionalidades.Add(Convert.ToInt32(row["funcion_id"]));
+               
             }
 
         }

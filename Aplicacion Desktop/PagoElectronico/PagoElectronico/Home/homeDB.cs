@@ -129,7 +129,7 @@ namespace PagoElectronico.Home
             String password = user.getPassword();*/
             //String query = "select * from qwerty.usuarios where username ='"+username+"' and password = '"+password+"';";
             String query = "select * from qwerty.usuarios where nombre_usuario ='" + username + "';";
-            String query_rol = "select r.rol_id as rol from qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and ur.nombre_usuario = '" + username + "'";
+            String query_rol = "select r.descripcion as rol from qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and ur.nombre_usuario = '" + username + "'";
             //String query_hotel = "select h.nombre as hotel from qwerty.usuarios u, qwerty.personal_hoteles ph, qwerty.hotel h where u.nombre_usuario =ph.username and ph.hotel_id = h.hotel_id and u.nombre_usuario = '" + username + "';";
             //String query_address = "select calle,altura,piso,dpto from qwerty.domicilio a, QWERTY.Usuarios b where a.id_domicilio = b.domicilio and b.nombre_usuario = '" + username + "';";
             DataTable dt = db.select_query(query);

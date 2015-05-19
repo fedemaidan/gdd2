@@ -233,10 +233,10 @@ namespace PagoElectronico.Login
                 logged_user = new UserAdmin(user_values);
 
                 //cargo las funcionalidades
-                DataTable dt = new Database().select_query("select rf.Funcionalidad_ID from QWERTY.Roles_Funcionalidades rf join QWERTY.Roles r on r.Rol_ID = rf.Rol_ID where r.Rol = '" + rol + "';");
+                DataTable dt = new Database().select_query("select rf.Funcion_ID from QWERTY.funcionalidades_por_rol rf join QWERTY.Roles r on r.Rol_ID = rf.Rol_ID where r.descripcion = '" + rol + "';");
                 foreach (DataRow row in dt.Rows)
                 {
-                    logged_user.funcionalidades.Add(row.Field<int>(0));
+                    logged_user.funcionalidades.Add(Convert.ToInt32(row["funcion_id"]));
                 }
 
 
