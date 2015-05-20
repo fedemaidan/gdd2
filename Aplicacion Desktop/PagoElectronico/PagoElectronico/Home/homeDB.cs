@@ -42,11 +42,11 @@ namespace PagoElectronico.Home
         //Verifico que su password sea correcta
         //Verifico que no este inhabilitado
         //public void verifyUser(User logginUser) {
-        private void verifyUser(String user, String password)
+        private void verifyUser(String user, String password2)
         {
             /*String user = logginUser.getUserName();
             String password = logginUser.getPassword(); */
-            //string password = encriptacionSHA256(password2);
+            string password = encriptacionSHA256(password2);
 
 
             String rol = "";
@@ -60,8 +60,8 @@ namespace PagoElectronico.Home
                 db_password = (string)dt.Rows[0]["pass_usuario"];
             }
 
-            if (rol != "Administrador" && rol != "Recepcionista" && rol != "Administrador General")
-                throw new Exception("No sos Administrador ni Recepcionista");
+            if (rol != "Administrador" && rol != "Cliente")
+                throw new Exception("No sos Administrador ni Cliente");
 
             if (db_password != password)
             {
