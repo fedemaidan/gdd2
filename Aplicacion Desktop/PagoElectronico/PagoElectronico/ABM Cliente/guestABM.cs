@@ -64,7 +64,9 @@ namespace PagoElectronico.ABM_Cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string id = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+            string username = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            UpdateCliente update = new UpdateCliente(username);
+            update.Show();
 
         }
 
@@ -73,6 +75,21 @@ namespace PagoElectronico.ABM_Cliente
             int index = e.RowIndex;
             dataGridView1.Rows[index].Selected = true;
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AddCliente add = new AddCliente();
+            add.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Home2 home2 = new Home2();
+            string username = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            home2.bajaCliente(username);
+            this.buscarClientes();
+            
         }
     }
 }

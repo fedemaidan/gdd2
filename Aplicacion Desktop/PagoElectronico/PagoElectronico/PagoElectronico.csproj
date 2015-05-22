@@ -48,11 +48,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABM Cliente\AddCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Cliente\AddCliente.Designer.cs">
+      <DependentUpon>AddCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM Cliente\guestABM.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ABM Cliente\guestABM.Designer.cs">
       <DependentUpon>guestABM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Cliente\UpdateCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Cliente\UpdateCliente.Designer.cs">
+      <DependentUpon>UpdateCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Usuario\edit_window.cs">
       <SubType>Form</SubType>
@@ -111,12 +123,19 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Dia.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserAdmin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ABM Cliente\AddCliente.resx">
+      <DependentUpon>AddCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM Cliente\guestABM.resx">
       <DependentUpon>guestABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Cliente\UpdateCliente.resx">
+      <DependentUpon>UpdateCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Usuario\edit_window.resx">
       <DependentUpon>edit_window.cs</DependentUpon>
@@ -154,6 +173,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
