@@ -77,7 +77,7 @@ namespace PagoElectronico.Model
             //this.mail = (string)values["mail"];
             //this.name = (string)values["nombre"];
             //this.lastName = (string)values["apellido"];
-            //this.username = (string)values["username"];
+            this.username = (string)values["nombre_usuario"];
             //this.document = Convert.ToInt64(values["dni"].ToString());
             //this.telephone = Convert.ToInt64(values["telefono"].ToString());
             //this.date = (DateTime)values["fecha_nacimiento"];

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using PagoElectronico.Model;
 using PagoElectronico.ABM_Rol;
 using PagoElectronico.ABM_de_Usuario;
+using PagoElectronico.ABM_Cuenta;
 using PagoElectronico.Login;
 
 namespace PagoElectronico
@@ -71,6 +72,24 @@ namespace PagoElectronico
         {
             login_window log = new login_window();
             log.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //int id_cliente = 1; //falta 
+            ABM_Cuenta.ABM_Cuenta_Menu abm2 = new ABM_Cuenta.ABM_Cuenta_Menu(this.logged_user);
+            abm2.Show();
+        }
+
+        private void label_logged_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ABM_de_Usuario.altaUsuario abm = new ABM_de_Usuario.altaUsuario();
+            abm.Show();
         }
     }
 }

@@ -44,8 +44,8 @@ namespace PagoElectronico.Home
         //public void verifyUser(User logginUser) {
         private void verifyUser(String user, String password2)
         {
-            /*String user = logginUser.getUserName();
-            String password = logginUser.getPassword(); */
+            //user = UserAdmin.logginUser.getUserName();
+            /*String password = logginUser.getPassword(); */
             string password = encriptacionSHA256(password2);
 
 
@@ -125,8 +125,8 @@ namespace PagoElectronico.Home
         //Traigo datos del usuario y los paso de un dataTable a un diccionario
         public Dictionary<String, Object> getUserConfig(String username, String password)
         {
-            /*String username = user.getUserName();
-            String password = user.getPassword();*/
+            //String username = user.getUserName();
+            /*String password = user.getPassword();*/
             //String query = "select * from qwerty.usuarios where username ='"+username+"' and password = '"+password+"';";
             String query = "select * from qwerty.usuarios where nombre_usuario ='" + username + "';";
             String query_rol = "select r.descripcion as rol from qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and ur.nombre_usuario = '" + username + "'";

@@ -48,6 +48,7 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.btn_accept);
             this.Name = "RolSelector";
+            this.Load += new System.EventHandler(this.RolSelector_Load_1);
             this.ResumeLayout(false);
 
         }

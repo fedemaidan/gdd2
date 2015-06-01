@@ -30,10 +30,10 @@ namespace PagoElectronico.Login
             String user = txt_user.Text;
             String pass = txt_pass.Text;
             User logged_user = null;
-            /*User onLogginUser =  new User();
+            User onLogginUser =  new User();
             onLogginUser.setUsername(user);
             onLogginUser.setPassword(pass);
-            */
+            
 
             try
             {
@@ -172,10 +172,10 @@ namespace PagoElectronico.Login
             String user = txt_user.Text;
             String pass = txt_pass.Text;
             User logged_user = null;
-            /*User onLogginUser =  new User();
+            User onLogginUser =  new User();
             onLogginUser.setUsername(user);
             onLogginUser.setPassword(pass);
-            */
+            
 
             try
             {
@@ -297,6 +297,11 @@ namespace PagoElectronico.Login
         private void btn_cancel_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void login_window_Load_1(object sender, EventArgs e)
+        {
+
         }
 
     }
