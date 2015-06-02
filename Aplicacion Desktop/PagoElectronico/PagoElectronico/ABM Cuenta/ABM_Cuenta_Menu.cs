@@ -16,6 +16,7 @@ namespace PagoElectronico.ABM_Cuenta
         {
             InitializeComponent();
             this.user = user;
+            
         }
         private User user;
 

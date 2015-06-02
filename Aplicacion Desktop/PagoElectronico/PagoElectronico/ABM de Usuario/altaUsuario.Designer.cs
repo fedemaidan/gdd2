@@ -33,11 +33,23 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_usuario = new System.Windows.Forms.TextBox();
             this.textBox_pass = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox_nombre = new System.Windows.Forms.TextBox();
+            this.textBox_apellido = new System.Windows.Forms.TextBox();
+            this.textBox_mail = new System.Windows.Forms.TextBox();
+            this.textBox_nrodoc = new System.Windows.Forms.TextBox();
+            this.comboBox_tipodoc = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox_rol = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(104, 180);
+            this.button1.Location = new System.Drawing.Point(379, 203);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -77,11 +89,127 @@
             this.textBox_pass.Size = new System.Drawing.Size(100, 20);
             this.textBox_pass.TabIndex = 4;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(316, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Nombre:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(316, 118);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Apellido:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(566, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Mail:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(494, 118);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Nro. de documento:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(494, 153);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(102, 13);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Tipo de documento:";
+            // 
+            // textBox_nombre
+            // 
+            this.textBox_nombre.Location = new System.Drawing.Point(379, 54);
+            this.textBox_nombre.Name = "textBox_nombre";
+            this.textBox_nombre.Size = new System.Drawing.Size(100, 20);
+            this.textBox_nombre.TabIndex = 10;
+            // 
+            // textBox_apellido
+            // 
+            this.textBox_apellido.Location = new System.Drawing.Point(379, 115);
+            this.textBox_apellido.Name = "textBox_apellido";
+            this.textBox_apellido.Size = new System.Drawing.Size(100, 20);
+            this.textBox_apellido.TabIndex = 11;
+            // 
+            // textBox_mail
+            // 
+            this.textBox_mail.Location = new System.Drawing.Point(601, 54);
+            this.textBox_mail.Name = "textBox_mail";
+            this.textBox_mail.Size = new System.Drawing.Size(100, 20);
+            this.textBox_mail.TabIndex = 12;
+            // 
+            // textBox_nrodoc
+            // 
+            this.textBox_nrodoc.Location = new System.Drawing.Point(601, 114);
+            this.textBox_nrodoc.Name = "textBox_nrodoc";
+            this.textBox_nrodoc.Size = new System.Drawing.Size(100, 20);
+            this.textBox_nrodoc.TabIndex = 13;
+            // 
+            // comboBox_tipodoc
+            // 
+            this.comboBox_tipodoc.FormattingEnabled = true;
+            this.comboBox_tipodoc.Items.AddRange(new object[] {
+            "Pasaporte"});
+            this.comboBox_tipodoc.Location = new System.Drawing.Point(601, 145);
+            this.comboBox_tipodoc.Name = "comboBox_tipodoc";
+            this.comboBox_tipodoc.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_tipodoc.TabIndex = 14;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(71, 166);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Rol:";
+            // 
+            // comboBox_rol
+            // 
+            this.comboBox_rol.Enabled = false;
+            this.comboBox_rol.FormattingEnabled = true;
+            this.comboBox_rol.Items.AddRange(new object[] {
+            "Administrador",
+            "Cliente"});
+            this.comboBox_rol.Location = new System.Drawing.Point(103, 158);
+            this.comboBox_rol.Name = "comboBox_rol";
+            this.comboBox_rol.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_rol.TabIndex = 16;
+            // 
             // altaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(795, 295);
+            this.Controls.Add(this.comboBox_rol);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.comboBox_tipodoc);
+            this.Controls.Add(this.textBox_nrodoc);
+            this.Controls.Add(this.textBox_mail);
+            this.Controls.Add(this.textBox_apellido);
+            this.Controls.Add(this.textBox_nombre);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox_pass);
             this.Controls.Add(this.textBox_usuario);
             this.Controls.Add(this.label2);
@@ -89,6 +217,7 @@
             this.Controls.Add(this.button1);
             this.Name = "altaUsuario";
             this.Text = "altaUsuario";
+            this.Load += new System.EventHandler(this.altaUsuario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,5 +230,17 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox_usuario;
         private System.Windows.Forms.TextBox textBox_pass;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox_nombre;
+        private System.Windows.Forms.TextBox textBox_apellido;
+        private System.Windows.Forms.TextBox textBox_mail;
+        private System.Windows.Forms.TextBox textBox_nrodoc;
+        private System.Windows.Forms.ComboBox comboBox_tipodoc;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox_rol;
     }
 }

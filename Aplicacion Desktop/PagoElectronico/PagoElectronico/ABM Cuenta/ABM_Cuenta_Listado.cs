@@ -33,6 +33,8 @@ namespace PagoElectronico.ABM_Cuenta
             dt2 = db.select_query(qeri);
             bsource.DataSource = dt2;
             dataGridView1.DataSource = bsource;
+            
+            if (Convert.ToInt32(dataGridView1.RowCount.ToString()) == 1) { button4.Enabled = false; }
         }
         private int id_cliente;
 
@@ -54,7 +56,7 @@ namespace PagoElectronico.ABM_Cuenta
             Database db = new Database();
             DataTable dt = new DataTable();
             BindingSource bsource = new BindingSource();
-            string qeri = "select * from qwerty.cuentas c where c.numero_cuenta like '%"+textBox_cuenta.Text+"%' and c.pais  like '%"+textBox_pais.Text+"%'";
+            string qeri = "select * from qwerty.cuentas c where c.numero_cuenta like '%"+textBox_cuenta.Text+"%' and c.pais  like '%"+textBox_pais.Text+"%' and c.cliente_id="+id_cliente;
             dt = db.select_query(qeri);
             bsource.DataSource = dt;
             dataGridView1.DataSource = bsource;

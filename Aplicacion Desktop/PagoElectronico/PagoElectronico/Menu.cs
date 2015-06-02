@@ -88,8 +88,9 @@ namespace PagoElectronico
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ABM_de_Usuario.altaUsuario abm = new ABM_de_Usuario.altaUsuario();
-            abm.Show();
+            ABM_de_Usuario.altaUsuario abm = new ABM_de_Usuario.altaUsuario(this.logged_user);
+                abm.Show();
+            
         }
     }
 }

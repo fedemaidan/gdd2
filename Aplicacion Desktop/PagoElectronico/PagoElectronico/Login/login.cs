@@ -223,6 +223,7 @@ namespace PagoElectronico.Login
                     RolSelector rolWindows = new RolSelector(logged_user.getRoles());
                     rolWindows.ShowDialog();
                     rol = rolWindows.getSelectedRol();
+                    
                 }
                 else
                 {
@@ -260,7 +261,7 @@ namespace PagoElectronico.Login
                 }
 
                 logged_user.setLoggedHotel(new Hotel(hotel));*/
-
+                logged_user.setRol(rol);
                 //home_db.verifyUser(user,pass);
                 verify = true;
 
