@@ -11,6 +11,7 @@ using PagoElectronico.ABM_Rol;
 using PagoElectronico.ABM_de_Usuario;
 using PagoElectronico.ABM_Cuenta;
 using PagoElectronico.Login;
+using PagoElectronico.Depositos;
 
 namespace PagoElectronico
 {
@@ -91,6 +92,13 @@ namespace PagoElectronico
             ABM_de_Usuario.altaUsuario abm = new ABM_de_Usuario.altaUsuario(this.logged_user);
                 abm.Show();
             
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ABM_depositos abm = new ABM_depositos(this.logged_user);
+            abm.Show();
+                      
         }
     }
 }

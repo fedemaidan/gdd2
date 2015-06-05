@@ -26,10 +26,15 @@ namespace PagoElectronico.ABM_Cuenta
             }
             //termino de buscar el cliente_id
             InitializeComponent();
+            string qeri;
+            // el if es para que si entro como administrador puedo ver y modificar todas las   IMPORTANTEE
+            //cuentas entonces cuando haga una modficacion tengo que avisar a qe usuario afecto IMPORTANTEEEE
+            if (user.getRol() == "Administrador") { qeri = "select * from qwerty.cuentas c, qwerty.clientes cl where c.cliente_id=cl.cliente_id"; }
+            else { qeri = "select * from qwerty.cuentas where cliente_id=" + id_cliente; }
             
             DataTable dt2 = new DataTable();
             BindingSource bsource = new BindingSource();
-            string qeri = "select * from qwerty.cuentas where cliente_id="+id_cliente;
+            //string qeri = "select * from qwerty.cuentas where cliente_id="+id_cliente;
             dt2 = db.select_query(qeri);
             bsource.DataSource = dt2;
             dataGridView1.DataSource = bsource;

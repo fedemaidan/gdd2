@@ -114,6 +114,12 @@
     <Compile Include="ABM Rol\ABMRol_Modificacion_Listado.Designer.cs">
       <DependentUpon>ABMRol_Modificacion_Listado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Depositos\ABM_depositos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Depositos\ABM_depositos.Designer.cs">
+      <DependentUpon>ABM_depositos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home\Home2.cs" />
     <Compile Include="Home\homeDB.cs" />
     <Compile Include="Login\RolSelector.cs">
@@ -179,6 +185,9 @@
     <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Depositos\ABM_depositos.resx">
+      <DependentUpon>ABM_depositos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,7 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Consulta Saldos\" />
-    <Folder Include="Depositos\" />
     <Folder Include="Facturacion\" />
     <Folder Include="Listados\" />
     <Folder Include="Retiros\" />
