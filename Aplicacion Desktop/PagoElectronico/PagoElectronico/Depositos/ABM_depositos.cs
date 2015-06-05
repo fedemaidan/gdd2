@@ -84,6 +84,24 @@ namespace PagoElectronico.Depositos
             string qeri_insert = "insert into qwerty.depositos values (" + aleatorio + "," + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
             Database db = new Database();
             db.insert_query(qeri_insert);
+            
+            //actualizar cuenta
+
+            string saldo_cuenta = "select c.saldo from qwerty.cuentas c where c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
+            DataTable dt2 = new DataTable();
+            dt2 = db.select_query(saldo_cuenta);
+            double saldo_anterior = 0;
+            foreach (DataRow row in dt2.Rows)
+            {
+                saldo_anterior = Convert.ToDouble(row["saldo"].ToString());
+            }
+            double saldo_final = saldo_anterior + Convert.ToDouble(textBox_importe.Text);
+            string qeri_actualizocuenta = "update qwerty.cuentas set saldo=" + saldo_final + " where numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
+            db.update_query(qeri_actualizocuenta);
+
+
+
+            //termino de actualizar cuenta
             this.Close();
             
         }

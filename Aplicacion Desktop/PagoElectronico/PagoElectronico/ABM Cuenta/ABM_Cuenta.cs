@@ -51,7 +51,7 @@ namespace PagoElectronico.ABM_Cuenta
             // agregando al campo numero_cuenta la propiedad para que sea autoincrementable
             Random r = new Random();
             int aleatorio = r.Next(1,10000000);
-            string queri = "insert into qwerty.cuentas (numero_cuenta, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id,pais) values ("+aleatorio+"," + this.moneda + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1, '" + textBox_pais.Text + "')";
+            string queri = "insert into qwerty.cuentas (numero_cuenta, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id) values ("+aleatorio+"," + this.moneda + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1)";
             db.insert_query(queri);
 
             this.Close();

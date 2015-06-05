@@ -16,9 +16,16 @@ namespace PagoElectronico.ABM_de_Usuario
         {
             InitializeComponent();
             this.user = user;
-            MessageBox.Show(user.getRol());
+            //MessageBox.Show(user.getRol());
             //me tengo q fijar si es administrador le permito crear otro admin sino solo un cliente
-            if (user.getRol() =="Administrador"){ comboBox_rol.Enabled=true;} ;
+            if (user == null)
+            {
+
+
+            }
+            else {
+                if (user.getRol() == "Administrador") { comboBox_rol.Enabled = true; };
+            }
         }
         private int tipodoc;
         private User user;
@@ -44,9 +51,9 @@ namespace PagoElectronico.ABM_de_Usuario
                 string q_user = "insert into qwerty.usuarios (nombre_usuario,pass_usuario,estado) values ('" + textBox_usuario.Text + "','" + pass + "',1)";
                 db.insert_query(q_user);
 
-                if (comboBox_rol.Enabled == false) { id_rol = 2; }
+                if (comboBox_rol.Enabled == false) { id_rol = 2; } else { id_rol = (comboBox_rol.SelectedIndex + 1); }
                 
-                string q_userroles = "insert into qwerty.roles_de_usuarios values ('"+textBox_usuario.Text+"',"+(comboBox_rol.SelectedIndex + 1)+")";
+                string q_userroles = "insert into qwerty.roles_de_usuarios values ('"+textBox_usuario.Text+"',"+id_rol+")";
 
                 db.insert_query(q_userroles);
 
