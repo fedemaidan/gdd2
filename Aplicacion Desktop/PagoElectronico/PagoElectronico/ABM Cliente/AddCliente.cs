@@ -17,6 +17,7 @@ namespace PagoElectronico.ABM_Cliente
         {
             InitializeComponent();
             this.cargarComboTipoDoc();
+            this.cargarComboPaises();
         }
 
         private void cargarComboTipoDoc()
@@ -31,6 +32,17 @@ namespace PagoElectronico.ABM_Cliente
             }
         }
 
+        private void cargarComboPaises()
+        {
+            Home2 home2 = new Home2();
+            DataTable paises = home2.getPaisesList();
+
+            int rows = paises.Rows.Count;
+            for (int i = 0; i < rows; i++)
+            {
+                cb_pais.Items.Add(paises.Rows[i]["desc_pais"]);
+            }
+        }
 
         private void btn_accept_Click(object sender, EventArgs e)
         {
@@ -39,7 +51,7 @@ namespace PagoElectronico.ABM_Cliente
                 Home2 home2 = new Home2();
                 DateTime nacimiento = Convert.ToDateTime(textBox_fecha.Text);
 
-                int resultado = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
+                int resultado = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
                 if (resultado == 1)
                     this.Close();
                 else
@@ -222,6 +234,11 @@ namespace PagoElectronico.ABM_Cliente
         private void btn_close_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cb_docs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

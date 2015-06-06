@@ -169,6 +169,15 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tarjeta\agregarTarjeta.resx">
+      <DependentUpon>agregarTarjeta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tarjeta\editTarjeta.resx">
+      <DependentUpon>editTarjeta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tarjeta\Tarjetas.resx">
+      <DependentUpon>Tarjetas.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -182,6 +191,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Tarjeta\agregarTarjeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tarjeta\agregarTarjeta.Designer.cs">
+      <DependentUpon>agregarTarjeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tarjeta\editTarjeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tarjeta\editTarjeta.Designer.cs">
+      <DependentUpon>editTarjeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tarjeta\Tarjetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tarjeta\Tarjetas.Designer.cs">
+      <DependentUpon>Tarjetas.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

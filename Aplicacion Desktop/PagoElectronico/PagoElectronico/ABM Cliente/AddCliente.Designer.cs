@@ -43,7 +43,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txt_mail = new System.Windows.Forms.TextBox();
             this.txt_dni = new System.Windows.Forms.TextBox();
-            this.txt_pais = new System.Windows.Forms.TextBox();
             this.txt_nombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -69,6 +68,7 @@
             this.textBox_fecha = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txt_localidad = new System.Windows.Forms.TextBox();
+            this.cb_pais = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -168,6 +168,7 @@
             this.cb_docs.Name = "cb_docs";
             this.cb_docs.Size = new System.Drawing.Size(121, 21);
             this.cb_docs.TabIndex = 85;
+            this.cb_docs.SelectedIndexChanged += new System.EventHandler(this.cb_docs_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -203,14 +204,6 @@
             this.txt_dni.Size = new System.Drawing.Size(100, 20);
             this.txt_dni.TabIndex = 81;
             this.txt_dni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_dni_KeyPress);
-            // 
-            // txt_pais
-            // 
-            this.txt_pais.Location = new System.Drawing.Point(309, 184);
-            this.txt_pais.Name = "txt_pais";
-            this.txt_pais.Size = new System.Drawing.Size(100, 20);
-            this.txt_pais.TabIndex = 80;
-            this.txt_pais.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_pais_KeyPress);
             // 
             // txt_nombre
             // 
@@ -433,11 +426,20 @@
             this.txt_localidad.TabIndex = 109;
             this.txt_localidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_localidad_KeyPress);
             // 
+            // cb_pais
+            // 
+            this.cb_pais.FormattingEnabled = true;
+            this.cb_pais.Location = new System.Drawing.Point(300, 183);
+            this.cb_pais.Name = "cb_pais";
+            this.cb_pais.Size = new System.Drawing.Size(121, 21);
+            this.cb_pais.TabIndex = 111;
+            // 
             // AddCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(908, 317);
+            this.Controls.Add(this.cb_pais);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txt_localidad);
             this.Controls.Add(this.button2);
@@ -468,7 +470,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txt_mail);
             this.Controls.Add(this.txt_dni);
-            this.Controls.Add(this.txt_pais);
             this.Controls.Add(this.txt_nombre);
             this.Controls.Add(this.label1);
             this.Name = "AddCliente";
@@ -498,7 +499,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_mail;
         private System.Windows.Forms.TextBox txt_dni;
-        private System.Windows.Forms.TextBox txt_pais;
         private System.Windows.Forms.TextBox txt_nombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
@@ -524,5 +524,6 @@
         private System.Windows.Forms.TextBox textBox_fecha;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt_localidad;
+        private System.Windows.Forms.ComboBox cb_pais;
     }
 }

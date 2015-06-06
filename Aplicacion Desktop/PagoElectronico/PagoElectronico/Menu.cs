@@ -11,6 +11,7 @@ using PagoElectronico.ABM_Rol;
 using PagoElectronico.ABM_de_Usuario;
 using PagoElectronico.ABM_Cliente;
 using PagoElectronico.Login;
+using PagoElectronico.Tarjeta;
 
 namespace PagoElectronico
 {
@@ -78,6 +79,13 @@ namespace PagoElectronico
         {
             guestABM abm = new guestABM();
             abm.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Tarjetas tarjeta = new Tarjetas("gato");
+            tarjeta.Show();
+
         }
     }
 }
