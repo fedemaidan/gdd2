@@ -102,11 +102,11 @@ namespace PagoElectronico.ABM_Rol
             Database db = new Database();
             string qeri_delete = "delete from qwerty.funcionalidades_por_rol where qwerty.funcionalidades_por_rol.rol_id ="+id_rol;
             db.delete_query(qeri_delete);
-            bool activo;
+            char activo;
             if (radioButton_alta.Checked == true) { 
-                activo = true;}
+                activo = '1';}
                 else 
-            {  activo=false; }
+            {  activo='0'; }
 
             foreach (int i in checkedListBox1.CheckedIndices)
                     {

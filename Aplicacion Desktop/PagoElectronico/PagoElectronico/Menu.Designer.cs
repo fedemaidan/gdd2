@@ -28,46 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.ABM_de_Rol = new System.Windows.Forms.Button();
+            this.ABM_de_Usuario = new System.Windows.Forms.Button();
+            this.iniciar_sesion = new System.Windows.Forms.Button();
             this.label_logged = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.ABM_de_cuenta = new System.Windows.Forms.Button();
+            this.registrarse = new System.Windows.Forms.Button();
+            this.Deposito = new System.Windows.Forms.Button();
+            this.Transferencias = new System.Windows.Forms.Button();
+            this.retirar_dinero = new System.Windows.Forms.Button();
+            this.button_facturacion = new System.Windows.Forms.Button();
+            this.button_consulta_saldo = new System.Windows.Forms.Button();
+            this.button_listado = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // ABM_de_Rol
             // 
-            this.button1.Location = new System.Drawing.Point(62, 44);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "ABM de Rol";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ABM_de_Rol.Location = new System.Drawing.Point(62, 44);
+            this.ABM_de_Rol.Name = "ABM_de_Rol";
+            this.ABM_de_Rol.Size = new System.Drawing.Size(150, 23);
+            this.ABM_de_Rol.TabIndex = 0;
+            this.ABM_de_Rol.Text = "ABM de Rol";
+            this.ABM_de_Rol.UseVisualStyleBackColor = true;
+            this.ABM_de_Rol.Visible = false;
+            this.ABM_de_Rol.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // ABM_de_Usuario
             // 
-            this.button2.Location = new System.Drawing.Point(62, 96);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(150, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "ABM de Usuario";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ABM_de_Usuario.Location = new System.Drawing.Point(62, 96);
+            this.ABM_de_Usuario.Name = "ABM_de_Usuario";
+            this.ABM_de_Usuario.Size = new System.Drawing.Size(150, 23);
+            this.ABM_de_Usuario.TabIndex = 1;
+            this.ABM_de_Usuario.Text = "ABM de Usuario";
+            this.ABM_de_Usuario.UseVisualStyleBackColor = true;
+            this.ABM_de_Usuario.Visible = false;
+            this.ABM_de_Usuario.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // iniciar_sesion
             // 
-            this.button3.Location = new System.Drawing.Point(62, 144);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(150, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Iniciar sesión";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.iniciar_sesion.Location = new System.Drawing.Point(62, 144);
+            this.iniciar_sesion.Name = "iniciar_sesion";
+            this.iniciar_sesion.Size = new System.Drawing.Size(150, 23);
+            this.iniciar_sesion.TabIndex = 2;
+            this.iniciar_sesion.Text = "Iniciar sesión";
+            this.iniciar_sesion.UseVisualStyleBackColor = true;
+            this.iniciar_sesion.Click += new System.EventHandler(this.button3_Click);
             // 
             // label_logged
             // 
@@ -79,70 +84,107 @@
             this.label_logged.Text = "Logged user";
             this.label_logged.Click += new System.EventHandler(this.label_logged_Click);
             // 
-            // button4
+            // ABM_de_cuenta
             // 
-            this.button4.Location = new System.Drawing.Point(62, 187);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(150, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "ABM de Cuenta";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.ABM_de_cuenta.Location = new System.Drawing.Point(62, 187);
+            this.ABM_de_cuenta.Name = "ABM_de_cuenta";
+            this.ABM_de_cuenta.Size = new System.Drawing.Size(150, 23);
+            this.ABM_de_cuenta.TabIndex = 4;
+            this.ABM_de_cuenta.Text = "ABM de Cuenta";
+            this.ABM_de_cuenta.UseVisualStyleBackColor = true;
+            this.ABM_de_cuenta.Visible = false;
+            this.ABM_de_cuenta.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button5
+            // registrarse
             // 
-            this.button5.Location = new System.Drawing.Point(62, 227);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(150, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Registrarse";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.registrarse.Location = new System.Drawing.Point(62, 227);
+            this.registrarse.Name = "registrarse";
+            this.registrarse.Size = new System.Drawing.Size(150, 23);
+            this.registrarse.TabIndex = 5;
+            this.registrarse.Text = "Registrarse";
+            this.registrarse.UseVisualStyleBackColor = true;
+            this.registrarse.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button6
+            // Deposito
             // 
-            this.button6.Location = new System.Drawing.Point(247, 44);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(150, 23);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Depósito";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.Deposito.Location = new System.Drawing.Point(247, 44);
+            this.Deposito.Name = "Deposito";
+            this.Deposito.Size = new System.Drawing.Size(150, 23);
+            this.Deposito.TabIndex = 6;
+            this.Deposito.Text = "Depósito";
+            this.Deposito.UseVisualStyleBackColor = true;
+            this.Deposito.Visible = false;
+            this.Deposito.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button7
+            // Transferencias
             // 
-            this.button7.Location = new System.Drawing.Point(247, 96);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(150, 23);
-            this.button7.TabIndex = 7;
-            this.button7.Text = "Transferencias";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.Transferencias.Location = new System.Drawing.Point(247, 96);
+            this.Transferencias.Name = "Transferencias";
+            this.Transferencias.Size = new System.Drawing.Size(150, 23);
+            this.Transferencias.TabIndex = 7;
+            this.Transferencias.Text = "Transferencias";
+            this.Transferencias.UseVisualStyleBackColor = true;
+            this.Transferencias.Visible = false;
+            this.Transferencias.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
+            // retirar_dinero
             // 
-            this.button8.Location = new System.Drawing.Point(247, 144);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(150, 23);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "Retirar dinero";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.retirar_dinero.Location = new System.Drawing.Point(247, 144);
+            this.retirar_dinero.Name = "retirar_dinero";
+            this.retirar_dinero.Size = new System.Drawing.Size(150, 23);
+            this.retirar_dinero.TabIndex = 8;
+            this.retirar_dinero.Text = "Retirar dinero";
+            this.retirar_dinero.UseVisualStyleBackColor = true;
+            this.retirar_dinero.Visible = false;
+            this.retirar_dinero.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button_facturacion
+            // 
+            this.button_facturacion.Location = new System.Drawing.Point(247, 187);
+            this.button_facturacion.Name = "button_facturacion";
+            this.button_facturacion.Size = new System.Drawing.Size(150, 23);
+            this.button_facturacion.TabIndex = 9;
+            this.button_facturacion.Text = "Facturar";
+            this.button_facturacion.UseVisualStyleBackColor = true;
+            this.button_facturacion.Visible = false;
+            // 
+            // button_consulta_saldo
+            // 
+            this.button_consulta_saldo.Location = new System.Drawing.Point(247, 227);
+            this.button_consulta_saldo.Name = "button_consulta_saldo";
+            this.button_consulta_saldo.Size = new System.Drawing.Size(150, 23);
+            this.button_consulta_saldo.TabIndex = 10;
+            this.button_consulta_saldo.Text = "Consulta de saldo";
+            this.button_consulta_saldo.UseVisualStyleBackColor = true;
+            this.button_consulta_saldo.Visible = false;
+            // 
+            // button_listado
+            // 
+            this.button_listado.Location = new System.Drawing.Point(247, 272);
+            this.button_listado.Name = "button_listado";
+            this.button_listado.Size = new System.Drawing.Size(150, 23);
+            this.button_listado.TabIndex = 11;
+            this.button_listado.Text = "Listado estadístico";
+            this.button_listado.UseVisualStyleBackColor = true;
+            this.button_listado.Visible = false;
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 262);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.ClientSize = new System.Drawing.Size(460, 307);
+            this.Controls.Add(this.button_listado);
+            this.Controls.Add(this.button_consulta_saldo);
+            this.Controls.Add(this.button_facturacion);
+            this.Controls.Add(this.retirar_dinero);
+            this.Controls.Add(this.Transferencias);
+            this.Controls.Add(this.Deposito);
+            this.Controls.Add(this.registrarse);
+            this.Controls.Add(this.ABM_de_cuenta);
             this.Controls.Add(this.label_logged);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.iniciar_sesion);
+            this.Controls.Add(this.ABM_de_Usuario);
+            this.Controls.Add(this.ABM_de_Rol);
             this.Name = "Menu";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Menu_Load);
@@ -153,15 +195,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button ABM_de_Rol;
+        private System.Windows.Forms.Button ABM_de_Usuario;
+        private System.Windows.Forms.Button iniciar_sesion;
         private System.Windows.Forms.Label label_logged;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button ABM_de_cuenta;
+        private System.Windows.Forms.Button registrarse;
+        private System.Windows.Forms.Button Deposito;
+        private System.Windows.Forms.Button Transferencias;
+        private System.Windows.Forms.Button retirar_dinero;
+        private System.Windows.Forms.Button button_facturacion;
+        private System.Windows.Forms.Button button_consulta_saldo;
+        private System.Windows.Forms.Button button_listado;
     }
 }
 

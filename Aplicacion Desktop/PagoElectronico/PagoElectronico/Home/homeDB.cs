@@ -51,21 +51,30 @@ namespace PagoElectronico.Home
 
             String rol = "";
             String db_password = "";
-            String query = "select r.descripcion, u.pass_usuario from qwerty.usuarios u, qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and u.nombre_usuario= ur.nombre_usuario and	ur.nombre_usuario = '" + user + "'";
+            string estado="1";
+            String query = "select r.descripcion, u.pass_usuario,u.estado from qwerty.usuarios u, qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and u.nombre_usuario= ur.nombre_usuario and	ur.nombre_usuario = 'yo'";
             DataTable dt = db.select_query(query);
 
             if (dt.Rows.Count != 0)
             {
-                rol = (string)dt.Rows[0]["descripcion"];
-                db_password = (string)dt.Rows[0]["pass_usuario"];
+                estado=(string)dt.Rows[0]["estado"];
+                if ( estado == "0")
+                {
+                    throw new Exception("Usuario inhabilitado");
+                }
+                else
+                {
+                    rol = (string)dt.Rows[0]["descripcion"];
+                    db_password = (string)dt.Rows[0]["pass_usuario"];
+                }
             }
 
             if (rol != "Administrador" && rol != "Cliente")
-                throw new Exception("No sos Administrador ni Cliente");
+                throw new Exception("Usuario inexistente");
 
             if (db_password != password)
             {
-                throw new Exception("Contrasenia incorrecta");
+                throw new Exception("Contraseña incorrecta");
             }
 
         }
@@ -73,9 +82,13 @@ namespace PagoElectronico.Home
         //Verifico que no este en la tabla de usuarios inhabilitados
         private void isUserAvaible(String username)
         {
-            String query = "select username from qwerty.usuarios_inhabilitados where username = '" + username + "';";
+            String query = "select u.estado from qwerty.usuarios u where u.nombre_usuario='"+username+"'";
             DataTable dt = db.select_query(query);
-            if (dt.Rows.Count != 0)
+            char estado = '0';
+            foreach(DataRow row in dt.Rows){
+                estado = Convert.ToChar(row["estado"].ToString());             
+            }
+            if (estado == '0')
             {
                 throw new Exception("Usuario Inhabilitado");
             }
@@ -183,8 +196,9 @@ namespace PagoElectronico.Home
         public void setUnavaibleUser(String user)
         {
             Database db = new Database();
-            String query = "insert into qwerty.usuarios_inhabilitados values('" + user.ToString() + "',Intento loguearse 3 veces sin exito);";
-            db.insert_query(query);
+            string qeri = "update qwerty.usuarios set estado=0 where nombre_usuario='"+user.ToString()+"'";
+            //String query = "insert into qwerty.usuarios_inhabilitados values('" + user.ToString() + "',Intento loguearse 3 veces sin exito);";
+            db.insert_query(qeri);
         }
 
         public void update_user(User user)
