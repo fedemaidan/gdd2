@@ -12,6 +12,7 @@ using PagoElectronico.ABM_de_Usuario;
 using PagoElectronico.ABM_Cliente;
 using PagoElectronico.Login;
 using PagoElectronico.Tarjeta;
+using PagoElectronico.Consulta_Saldos;
 
 namespace PagoElectronico
 {
@@ -86,6 +87,11 @@ namespace PagoElectronico
             Tarjetas tarjeta = new Tarjetas("gato");
             tarjeta.Show();
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new Saldo("gato").Show();
         }
     }
 }

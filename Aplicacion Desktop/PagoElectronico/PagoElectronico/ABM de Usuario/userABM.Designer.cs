@@ -147,6 +147,7 @@
             this.btn_add.TabIndex = 10;
             this.btn_add.Text = "Agregar";
             this.btn_add.UseVisualStyleBackColor = true;
+            this.btn_add.Click += new System.EventHandler(this.btn_add_Click_1);
             // 
             // userABM
             // 

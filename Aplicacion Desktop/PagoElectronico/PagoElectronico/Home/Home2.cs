@@ -95,18 +95,29 @@ namespace PagoElectronico.Home
         public DataTable  getClientList(string nombre, string apellido, string mail, string doc, string tipoDoc){
             String query ;
             if (!tipoDoc.Equals(""))
-                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais , c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and  d.tipo_doc = '" + tipoDoc + "' and habilitado = 1;";
+                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and  d.tipo_doc = '" + tipoDoc + "' and habilitado = 'S';";
             else
-                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais , c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and habilitado = 1 ;";
+                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and habilitado = 'S' ;";
 
             DataTable dt = db.select_query(query);  
             return dt;
         }
 
 
+        public DataTable getCuentas(string username)
+        {
+            DataRow cliente = this.getClient(username);
+            string idCliente = cliente["cliente_id"].ToString();
+            String query = "select numero_cuenta from qwerty.cuentas where cliente_id = '"+idCliente+"';";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+
+
         public DataRow getClient(string username)
         {
-            String query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais , c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento, c.habilitado from qwerty.clientes c  join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where nombre_usuario= '" + username + "';";
+            String query = "select c.cliente_id, c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento, c.habilitado from qwerty.clientes c  join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where nombre_usuario= '" + username + "';";
             DataTable dt = db.select_query(query);
             
             foreach (DataRow row in dt.Rows)
@@ -153,7 +164,7 @@ namespace PagoElectronico.Home
         {
             DateTime fechaCreacion = (new Dia()).Hoy();
             DateTime fechaModificacion = (new Dia()).Hoy();
-            String queryInsertarUsuario = "INSERT INTO qwerty.usuarios VALUES('" + username + "','" + password + "','" + fechaCreacion + "','" + fechaModificacion + "','" + preguntaSecreta + "','" + respuestaSecreta+ "',1);";
+            String queryInsertarUsuario = "INSERT INTO qwerty.usuarios VALUES('" + username + "','" + password + "','" + fechaCreacion + "','" + fechaModificacion + "','" + preguntaSecreta + "','" + respuestaSecreta+ "','S');";
             db.insert_query(queryInsertarUsuario);
 
             String query = "select d.doc_id from qwerty.documentos d where d.tipo_doc = '" + tipoDoc + "' ;";
@@ -196,6 +207,40 @@ namespace PagoElectronico.Home
 
             return 1;
         }
-        
+
+
+        public DataTable getTransferencias10(string numeroCuenta)
+        {
+            String query = "select top 10 fecha_transferencia , cuenta_origen, cuenta_destino, importe, tipo_de_cuenta from qwerty.transferencias where cuenta_origen = '" + numeroCuenta + "' order by fecha_transferencia desc;";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+        public DataTable getDepositos5(string numeroCuenta)
+        {
+            String query = "select top 5 fecha_deposito, importe, numero_trajeta from qwerty.depositos where numero_cuenta = '" + numeroCuenta + "' order by fecha_deposito desc;";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+        public DataTable getRetiros5(string numeroCuenta)
+        {
+            String query = "select top 5 fecha_retiro, importe, numero_egreso, nombre, apellido  from qwerty.retiro_de_efectivo where numero_cuenta = '" + numeroCuenta + "' order by fecha_retiro desc;";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+        public string getSaldo(string numeroCuenta)
+        {
+            String query = "select saldo from qwerty.cuentas  where numero_cuenta = " + numeroCuenta+ ";";
+
+            DataTable dt = db.select_query(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                return row["saldo"].ToString();
+            }
+
+            return "";
+        }
     }
 }
