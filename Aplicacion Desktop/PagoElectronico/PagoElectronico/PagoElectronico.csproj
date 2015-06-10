@@ -66,6 +66,36 @@
     <Compile Include="ABM Cliente\UpdateCliente.Designer.cs">
       <DependentUpon>UpdateCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Cuenta\ABM_Cuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Cuenta\ABM_Cuenta.Designer.cs">
+      <DependentUpon>ABM_Cuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Cuenta\ABM_Cuenta_Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Cuenta\ABM_Cuenta_Listado.Designer.cs">
+      <DependentUpon>ABM_Cuenta_Listado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Cuenta\ABM_Cuenta_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Cuenta\ABM_Cuenta_Menu.Designer.cs">
+      <DependentUpon>ABM_Cuenta_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Cuenta\Modificacion_Cuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Cuenta\Modificacion_Cuenta.Designer.cs">
+      <DependentUpon>Modificacion_Cuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Usuario\altaUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Usuario\altaUsuario.Designer.cs">
+      <DependentUpon>altaUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM de Usuario\edit_window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +131,12 @@
     </Compile>
     <Compile Include="Consulta Saldos\Saldo.Designer.cs">
       <DependentUpon>Saldo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Depositos\ABM_depositos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Depositos\ABM_depositos.Designer.cs">
+      <DependentUpon>ABM_depositos.cs</DependentUpon>
     </Compile>
     <Compile Include="Home\Home2.cs" />
     <Compile Include="Home\homeDB.cs" />
@@ -149,6 +185,21 @@
     <EmbeddedResource Include="ABM Cliente\UpdateCliente.resx">
       <DependentUpon>UpdateCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABM Cuenta\ABM_Cuenta.resx">
+      <DependentUpon>ABM_Cuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Cuenta\ABM_Cuenta_Listado.resx">
+      <DependentUpon>ABM_Cuenta_Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Cuenta\ABM_Cuenta_Menu.resx">
+      <DependentUpon>ABM_Cuenta_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Cuenta\Modificacion_Cuenta.resx">
+      <DependentUpon>Modificacion_Cuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\altaUsuario.resx">
+      <DependentUpon>altaUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM de Usuario\edit_window.resx">
       <DependentUpon>edit_window.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,11 +215,8 @@
     <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Consulta Saldos\Saldo.resx">
-      <DependentUpon>Saldo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Listados\ListadosEstadisticos.resx">
-      <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
+    <EmbeddedResource Include="Depositos\ABM_depositos.resx">
+      <DependentUpon>ABM_depositos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
@@ -187,20 +235,23 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Retiros\ABM_Retiro_de_dinero.resx">
+      <DependentUpon>ABM_Retiro_de_dinero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Retiros\chequeoDNI.resx">
+      <DependentUpon>chequeoDNI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Tarjeta\agregarTarjeta.resx">
       <DependentUpon>agregarTarjeta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tarjeta\editTarjeta.resx">
-      <DependentUpon>editTarjeta.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tarjeta\Tarjetas.resx">
-      <DependentUpon>Tarjetas.cs</DependentUpon>
+    <EmbeddedResource Include="Transferencias\ABM_transferencias.resx">
+      <DependentUpon>ABM_transferencias.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.Config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -209,6 +260,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Retiros\ABM_Retiro_de_dinero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Retiros\ABM_Retiro_de_dinero.Designer.cs">
+      <DependentUpon>ABM_Retiro_de_dinero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Retiros\chequeoDNI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Retiros\chequeoDNI.Designer.cs">
+      <DependentUpon>chequeoDNI.cs</DependentUpon>
     </Compile>
     <Compile Include="Tarjeta\agregarTarjeta.cs">
       <SubType>Form</SubType>
@@ -228,13 +291,15 @@
     <Compile Include="Tarjeta\Tarjetas.Designer.cs">
       <DependentUpon>Tarjetas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transferencias\ABM_transferencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transferencias\ABM_transferencias.Designer.cs">
+      <DependentUpon>ABM_transferencias.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ABM Cuenta\" />
-    <Folder Include="Depositos\" />
     <Folder Include="Facturacion\" />
-    <Folder Include="Retiros\" />
-    <Folder Include="Transferencias\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

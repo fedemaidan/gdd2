@@ -4,6 +4,8 @@ using System.Linq;
 using System.Data;
 using System.Text;
 using PagoElectronico.Model;
+using System.Security.Cryptography;
+
 
 namespace PagoElectronico.Home
 {
@@ -32,10 +34,17 @@ namespace PagoElectronico.Home
             return dt;
         }
 
+        public DataTable getEmisoresList()
+        {
+            String query = "select nombre from qwerty.emisores_de_tarjetas";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+        
         
 
 
-        public int asociarTarjetaACliente(string username, string numeroTarjeta, string bancoNombre, string  fechaEmision , string fechaVencimiento ,  string codigo )
+        public int asociarTarjetaACliente(string username, string numeroTarjeta, string bancoNombre, string  fechaEmision , string fechaVencimiento ,  string codigo, string emisorNombre, string numeroCuenta )
         {
             string numeroTitular = "";
             string bancoId = "";
@@ -55,7 +64,16 @@ namespace PagoElectronico.Home
                 bancoId = row["banco_id"].ToString();
             }
 
-            string query = "INSERT INTO qwerty.tarjetas_de_credito VALUES(" + numeroTarjeta + "," + bancoId + ",'" + fechaEmision + "','" + fechaVencimiento + "','" + codigo + "'," + numeroTitular + ",1);";
+            String queryEmisor = "select emisor_id from qwerty.emisores_de_tarjetas where nombre = '" + emisorNombre + "';";
+            DataTable dtEmisores = db.select_query(queryEmisor);
+            String emisorId = "visa";
+            foreach (DataRow row in dtEmisores.Rows)
+            {
+                emisorId = row["emisor_id"].ToString();
+            }
+
+
+            string query = "INSERT INTO qwerty.tarjetas_de_credito VALUES(" + numeroTarjeta + "," + bancoId + ", " + emisorId  + ", '" + fechaEmision + "','" + fechaVencimiento + "','" + codigo + "', " + numeroCuenta + "," + numeroTitular + ",1);";
 
             db.insert_query(query);
 
@@ -112,7 +130,7 @@ namespace PagoElectronico.Home
             DataTable dt = db.select_query(query);
             return dt;
         }
-
+        
 
 
         public DataRow getClient(string username)
@@ -160,11 +178,18 @@ namespace PagoElectronico.Home
         }
         
 
-        public int insertarCliente(string nombre, string apellido, string mail, string documento , string tipoDoc, string pais, string calle, string altura , string piso, string depto, string localidad, string nacionalidad, DateTime fechaNacimieno, string username, string password, string preguntaSecreta, string respuestaSecreta)
+        public int insertarCliente(string nombre, string apellido, string mail, string documento , string tipoDoc, string pais, string calle, string altura , string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username, string password, string preguntaSecreta, string respuestaSecreta)
         {
-            DateTime fechaCreacion = (new Dia()).Hoy();
-            DateTime fechaModificacion = (new Dia()).Hoy();
-            String queryInsertarUsuario = "INSERT INTO qwerty.usuarios VALUES('" + username + "','" + password + "','" + fechaCreacion + "','" + fechaModificacion + "','" + preguntaSecreta + "','" + respuestaSecreta+ "','S');";
+            DateTime fechaCreacionDateTime = (new Dia()).Hoy();
+            DateTime fechaModificacionDateTime = (new Dia()).Hoy();
+
+            string fechaCreacion = fechaCreacionDateTime.ToString("yyyy-MM-dd");
+            string fechaModificacion = fechaModificacionDateTime.ToString("yyyy-MM-dd");
+
+            string passwordHash = new homeDB().encriptacionSHA256(password);
+            string respuestaSecretaHash = new homeDB().encriptacionSHA256(respuestaSecreta);
+
+            String queryInsertarUsuario = "INSERT INTO qwerty.usuarios VALUES('" + username + "','" + passwordHash + "','" + fechaCreacion + "','" + fechaModificacion + "','" + preguntaSecreta + "','" + respuestaSecretaHash+ "','S');";
             db.insert_query(queryInsertarUsuario);
 
             String query = "select d.doc_id from qwerty.documentos d where d.tipo_doc = '" + tipoDoc + "' ;";
@@ -176,22 +201,25 @@ namespace PagoElectronico.Home
                 doc_id = row["doc_id"].ToString();
             }
 
-            String query2 = "select d.doc_id from qwerty.documentos d where d.tipo_doc = '" + tipoDoc + "' ;";
+            String query2 = "select cod_pais from qwerty.paises where desc_pais = '" + pais + "' ;";
             DataTable dt2 = db.select_query(query2);
 
             string paiss = "Argentina";
-            foreach (DataRow row in dt.Rows)
+            foreach (DataRow row in dt2.Rows)
             {
                 paiss = row["cod_pais"].ToString();
             }
 
-            String queryInsertaCliente = "INSERT INTO qwerty.clientes VALUES ('" + username + "' ,'" + nombre + "','" + apellido + "','" + paiss + "','" + mail + "'," + documento + "," + doc_id + ",'" + calle + "'," + altura + "," + piso + ",'" + depto + "','" + localidad + "','" + nacionalidad + "','" + fechaNacimieno + "',1);";
+            String queryInsertaCliente = "INSERT INTO qwerty.clientes VALUES ('" + username + "' ,'" + nombre + "','" + apellido + "','" + paiss + "','" + mail + "'," + documento + "," + doc_id + ",'" + calle + "'," + altura + "," + piso + ",'" + depto + "','" + localidad + "','" + nacionalidad + "','" + fechaNacimieno + "','S');";
             db.insert_query(queryInsertaCliente);
 
+
+            String queryRoles = "INSERT INTO qwerty.roles_de_usuarios VALUES ('" + username + "', 2)";
+            db.insert_query(queryRoles);
             return 1;
         }
 
-        public int updateCliente(string nombre, string apellido, string mail, string documento, string tipoDoc, string pais, string calle, string altura, string piso, string depto, string localidad, string nacionalidad, DateTime fechaNacimieno, string username)
+        public int updateCliente(string nombre, string apellido, string mail, string documento, string tipoDoc, string pais, string calle, string altura, string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username)
         {
             String query = "select d.doc_id from qwerty.documentos d where d.tipo_doc = '" + tipoDoc + "' ;";
             DataTable dt = db.select_query(query);
@@ -202,7 +230,18 @@ namespace PagoElectronico.Home
                 doc_id = row["doc_id"].ToString();
             }
 
-            String queryUpdateCliente = "UPDATE qwerty.clientes SET  nombre = '" + nombre + "' ,apellido = '" + apellido + "' ,pais = '" + pais + "' ,mail = '" + mail + "' ,nro_documento = " + documento + " ,documento_id = " + doc_id + " ,calle = '" + calle + "' ,altura = " + altura + " ,piso = " + piso + " ,depto = '" + depto + "' ,localidad = '" + localidad + "' ,nacionalidad = '" + nacionalidad + "' ,fecha_nacimiento = '" + fechaNacimieno + "' WHERE nombre_usuario = '" + username + "';";
+
+            String query2 = "select cod_pais from qwerty.paises where desc_pais = '" + pais + "' ;";
+            DataTable dt2 = db.select_query(query2);
+
+            string paiss = "Argentina";
+            foreach (DataRow row in dt2.Rows)
+            {
+                paiss = row["cod_pais"].ToString();
+            }
+
+
+            String queryUpdateCliente = "UPDATE qwerty.clientes SET  nombre = '" + nombre + "' ,apellido = '" + apellido + "' ,pais_id = '" + paiss + "' ,mail = '" + mail + "' ,nro_documento = " + documento + " ,documento_id = " + doc_id + " ,calle = '" + calle + "' ,altura = " + altura + " ,piso = " + piso + " ,depto = '" + depto + "' ,localidad = '" + localidad + "' ,nacionalidad = '" + nacionalidad + "' ,fecha_nacimiento = '" + fechaNacimieno + "' WHERE nombre_usuario = '" + username + "';";
             db.update_query(queryUpdateCliente);
 
             return 1;
@@ -225,7 +264,7 @@ namespace PagoElectronico.Home
 
         public DataTable getRetiros5(string numeroCuenta)
         {
-            String query = "select top 5 fecha_retiro, importe, numero_egreso, nombre, apellido  from qwerty.retiro_de_efectivo where numero_cuenta = '" + numeroCuenta + "' order by fecha_retiro desc;";
+            String query = "select top 5 fecha_retiro, importe, numero_cuenta, nombre, apellido  from qwerty.retiro_de_efectivo where numero_cuenta = '" + numeroCuenta + "' order by fecha_retiro desc;";
             DataTable dt = db.select_query(query);
             return dt;
         }

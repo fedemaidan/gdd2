@@ -18,6 +18,7 @@ namespace PagoElectronico.ABM_Rol
             this.agregoFuncionalidades();
         }
 
+        private int rol_id;
         private void ABMAlta_Rol_Load(object sender, EventArgs e)
         {
 
@@ -67,6 +68,40 @@ namespace PagoElectronico.ABM_Rol
             this.Close();
 
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        
+
+            {
+                Database db = new Database();
+                string qeri_rol = "insert into qwerty.roles (descripcion,estado) values('" + textBox1.Text + "',1)";
+                db.insert_query(qeri_rol);
+                string obtengoID_Rol = "select r.rol_id from qwerty.roles r where r.descripcion ='" + textBox1.Text + "'";
+                DataTable dt = db.select_query(obtengoID_Rol);
+
+                
+                foreach (DataRow row in dt.Rows)
+                {
+                    this.rol_id = Convert.ToInt32(row["rol_id"]);
+                }
+
+                foreach (int i in checkedListBox1.CheckedIndices)
+                {
+    
+                    string qeri_update = "insert into qwerty.funcionalidades_por_rol (qwerty.funcionalidades_por_rol.rol_id,qwerty.funcionalidades_por_rol.funcion_id) values (" + this.rol_id + "," + (i + 1) + ")";
+                    //tengo que hacer el update
+                    db.insert_query(qeri_update);
+
+                }
+                
+
+                MessageBox.Show("Datos actualizados");
+                this.Close();
+
+
+
+            }
+
 
 
     }

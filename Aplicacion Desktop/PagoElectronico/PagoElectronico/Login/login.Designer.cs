@@ -106,6 +106,7 @@
             this.Controls.Add(this.label1);
             this.Name = "login_window";
             this.Text = "Inicie sesión";
+            this.Load += new System.EventHandler(this.login_window_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

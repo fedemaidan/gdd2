@@ -110,6 +110,7 @@
             this.textBox_fecha.ReadOnly = true;
             this.textBox_fecha.Size = new System.Drawing.Size(99, 20);
             this.textBox_fecha.TabIndex = 137;
+            this.textBox_fecha.TextChanged += new System.EventHandler(this.textBox_fecha_TextChanged_1);
             // 
             // label16
             // 

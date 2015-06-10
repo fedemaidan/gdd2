@@ -81,5 +81,10 @@ namespace PagoElectronico.Login
 
 
         }
+
+        private void RolSelector_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

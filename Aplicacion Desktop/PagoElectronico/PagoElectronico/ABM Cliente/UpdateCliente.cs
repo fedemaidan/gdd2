@@ -199,15 +199,20 @@ namespace PagoElectronico.ABM_Cliente
         {
             Home2 home2 = new Home2();
 
-            DateTime nacimiento = Convert.ToDateTime(textBox_fecha.Text);
+            
 
-            int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, this.username);
+            int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, textBox_fecha.Text , this.username);
 
             if (resultado == 1)
                 this.Close();
             else
                 MessageBox.Show("No se pudo editar cliente");
 
+        }
+
+        private void textBox_fecha_TextChanged_1(object sender, EventArgs e)
+        {
+            textBox_fecha.Text = monthCalendar1.SelectionStart.ToString("yyyy-MM-dd");
         }
 
 

@@ -28,13 +28,31 @@ namespace PagoElectronico.Tarjeta
         private void cargarComboBancos()
         {
             Home2 home2 = new Home2();
-            DataTable tipoDoc = home2.getBancosList();
+            DataTable bancos = home2.getBancosList();
 
-            int rows = tipoDoc.Rows.Count;
+            int rows = bancos.Rows.Count;
             for (int i = 0; i < rows; i++)
             {
-               cbEmisor.Items.Add(tipoDoc.Rows[i]["nombre"]);
+               cbBanco.Items.Add(bancos.Rows[i]["nombre"]);
             }
+
+            DataTable emisores = home2.getEmisoresList();
+
+            rows = emisores.Rows.Count;
+
+            for (int i = 0; i < rows; i++)
+            {
+                cbEmisor.Items.Add(emisores.Rows[i]["nombre"]);
+            }
+
+            DataTable cuentas = home2.getCuentas(this.username);
+
+            rows = cuentas.Rows.Count;
+            for (int i = 0; i < rows; i++)
+            {
+                cbCuentas.Items.Add(cuentas.Rows[i]["numero_cuenta"]);
+            }
+
         }
 
 
@@ -86,7 +104,7 @@ namespace PagoElectronico.Tarjeta
             
             string fechaEmision = txtFechaEmision.Text;
             string fechaVen = txtFechaVen.Text;
-            int resultado = new Home2().asociarTarjetaACliente(this.username, txtNumeroTarjeta.Text, cbEmisor.Text,fechaEmision, fechaVen, txtCodSeguridad.Text);
+            int resultado = new Home2().asociarTarjetaACliente(this.username, txtNumeroTarjeta.Text, cbBanco.Text,fechaEmision, fechaVen, txtCodSeguridad.Text, cbEmisor.Text, cbCuentas.Text);
             if (resultado == 1)
             {
                 this.Close();

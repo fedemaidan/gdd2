@@ -163,11 +163,6 @@ namespace PagoElectronico.ABM_de_Usuario
 
             }
 
-            private void btn_add_Click_1(object sender, EventArgs e)
-            {
-
-            }
-
         }
 
     
