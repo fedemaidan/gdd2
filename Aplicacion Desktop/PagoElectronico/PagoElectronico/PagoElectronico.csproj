@@ -221,6 +221,9 @@
     <EmbeddedResource Include="Depositos\ABM_depositos.resx">
       <DependentUpon>ABM_depositos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Listados\ListadosEstadisticos.resx">
+      <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>

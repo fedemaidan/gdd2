@@ -283,5 +283,214 @@ namespace PagoElectronico.Home
 
             return "";
         }
+
+        public DataTable getReporte(string query)
+        {
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+        public DataTable getRepo1(string desde, string hasta)
+        {
+            string query =
+@"select top 5
+	tabla.cliente_id,
+	COUNT(*) as cantidad
+from
+	(select distinct 
+	a.numero_cuenta,
+	b.cliente_id
+from
+	qwerty.inhabilitaciones_por_cuenta a
+inner join
+	qwerty.cuentas b
+on
+	a.numero_cuenta = b.numero_cuenta
+where
+	inhabilitacion_id = 1
+    and a.fecha between '"+desde+"' and '"+hasta+"') tabla group by tabla.cliente_id order by cantidad desc;";
+
+            return this.getReporte(query);
+        }
+        
+
+        public DataTable getRepo2(string desde, string hasta)
+        {
+            string query =
+@"
+select top 5
+	cliente_id,
+	COUNT(*) as comisiones_cobradas
+from
+	qwerty.transacciones
+where
+	factura_id is not null 
+and fecha_transaccion between '" + desde + "' and '" + hasta + "' group by cliente_id order by comisiones_cobradas desc ;";
+
+            return this.getReporte(query);
+        }
+
+        public DataTable getRepo3(string desde, string hasta)
+        {
+            string query =
+@"
+select top 5
+	a.cliente_id,
+	COUNT(*) as transferencias
+from
+	(select distinct
+	cliente_id,
+	numero_cuenta
+from 
+	qwerty.cuentas) a
+inner join
+	(select
+	cliente_id,
+	b.cuenta_origen,
+	b.cuenta_destino
+from
+	qwerty.cuentas a
+inner join
+	qwerty.transferencias b
+on
+	a.numero_cuenta = b.cuenta_origen
+    and b.fecha_transferencia between '" + desde + "' and '" + hasta + "') b on a.cliente_id = b.cliente_id where a.numero_cuenta = b.cuenta_destino		 group by a.cliente_id  order by 2 desc ;";
+
+            return this.getReporte(query);
+        }
+
+        public DataTable getRepo4(string desde, string hasta)
+        {
+            string query =
+@"
+    select top 5 p.desc_pais as pais,(isnull(retiro.cantidad,0) + isnull(depositos.cantidad,0) + isnull(transferencias.cantidad,0) ) as cantidadMovimientos 
+	from qwerty.paises p
+	
+	left join 
+	(select  
+		cod_pais,
+		COUNT(*) as cantidad
+	from 
+		qwerty.cuentas a
+	inner join
+		qwerty.retiro_de_efectivo b
+	on
+		a.numero_cuenta = b.numero_cuenta
+        and b.fecha_retiro between '"+desde+"' and '"+hasta+"' "
++
+	@"group by cod_pais) retiro
+	on retiro.cod_pais = p.cod_pais
+	
+	left join 
+	(select  
+		cod_pais,
+		COUNT(*) as cantidad
+	from 
+		qwerty.cuentas a
+	inner join
+		qwerty.depositos b
+	on
+		a.numero_cuenta = b.numero_cuenta
+and b.fecha_deposito between '"+desde+"' and '"+hasta+"'"
++            
+	@"group by cod_pais) depositos
+	on p.cod_pais = depositos.cod_pais
+	
+	left join 
+	(select  
+		cod_pais,
+		COUNT(*) as cantidad
+	from 
+		qwerty.cuentas a
+	inner join
+		qwerty.transferencias b
+	on
+		(a.numero_cuenta = b.cuenta_origen or  -- egreso
+		 a.numero_cuenta = b.cuenta_destino)  -- ingreso
+    and b.fecha_transferencia between '" + desde + "' and '" + hasta + "'"
++                                 
+	@"group by cod_pais) transferencias
+	on 
+	p.cod_pais = transferencias.cod_pais
+	
+	order by cantidadMovimientos desc;";
+
+            return this.getReporte(query);
+        }
+
+        public DataTable getRepo5(string desde, string hasta)
+        {
+            string query =
+@"
+select c.numero_cuenta, (isnull(comAperturas.comision,0) + isnull(comTransferencias.comision,0) + isnull(comCambioTipo.comision,0)) as comisionTotal from
+
+qwerty.cuentas c 
+
+left join 
+
+(select
+	a.numero_cuenta as cuenta,
+	sum(a.importe * b.costo) as comision 
+from 
+	qwerty.transacciones a
+inner join
+	qwerty.costos_de_transacciones b
+on
+	a.costo_id = b.costo_id
+    where
+	b.tipo_costo = 'Transferencias'
+    and a.fecha_transaccion between '" + desde + "' and '" + hasta + "'"
++
+@"group by a.numero_cuenta) comTransferencias
+
+on c.numero_cuenta = comTransferencias.cuenta
+
+left join
+--- CALCULO COMISON POR APERTURA
+(select
+	a.numero_cuenta as cuenta,
+	sum(b.costo) as comision -- sumo porque el costo de la apertura es fijo para todas las cuentas 
+from 
+	qwerty.transacciones a
+inner join
+	qwerty.costos_de_transacciones b
+on
+	a.costo_id = b.costo_id
+where
+	b.tipo_costo = 'Apertura Cuenta'
+  and a.fecha_transaccion between '" + desde + "' and '" + hasta + "'"
++
+@"group by a.numero_cuenta ) comAperturas
+ on c.numero_cuenta = comAperturas.cuenta
+
+left join
+--- CALCULAMOS COMISION POR CAMBIO DE TIPO DE CUENTA
+(select
+	a.numero_cuenta as cuenta,
+	sum( (a.importe * b.costo + c.costo)) as comision -- se agrega el costo de lo que vale el tipo de categoria cuando cambio
+from 
+	qwerty.transacciones a
+inner join
+	qwerty.costos_de_transacciones b
+on
+	a.costo_id = b.costo_id
+inner join
+	qwerty.categorias_de_cuentas c
+on
+	a.tipo_cuenta = c.descripcion
+where
+	b.tipo_costo = 'Modificacion Cuenta'
+  and a.fecha_transaccion between '" + desde + "' and '" + hasta + "'"
++
+@"group by a.numero_cuenta ) comCambioTipo
+
+on c.numero_cuenta = comCambioTipo.cuenta
+
+order by comisionTotal desc;
+";
+
+            return this.getReporte(query);
+        }
+
     }
 }

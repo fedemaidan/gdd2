@@ -73,8 +73,8 @@ namespace PagoElectronico
             { this.button_consulta_saldo.Visible = true; }
             if (this.logged_user.funcionalidades.Contains(12))  //funcionalidad 12
             { this.button_listado.Visible = true; }
-                
 
+            this.button_listado.Visible = true;
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -153,6 +153,11 @@ namespace PagoElectronico
         {
             Tarjetas tarjeta = new Tarjetas(this.logged_user.getUserName());
             tarjeta.Show();
+        }
+
+        private void button_listado_Click(object sender, EventArgs e)
+        {
+            new Listados.ListadosEstadisticos().Show();
         }
     }
 }

@@ -170,6 +170,7 @@
             this.button_listado.Text = "Listado estadístico";
             this.button_listado.UseVisualStyleBackColor = true;
             this.button_listado.Visible = false;
+            this.button_listado.Click += new System.EventHandler(this.button_listado_Click);
             // 
             // button4
             // 
