@@ -50,7 +50,7 @@ namespace PagoElectronico.Consulta_Saldos
             DataTable depositos = home2.getDepositos5(numeroCuenta);
             BindingSource bsource3 = new BindingSource();
             bsource3.DataSource = depositos;
-            dataGridDepositos.DataSource = bsource;
+            dataGridDepositos.DataSource = bsource3;
 
             saldo1.Text = home2.getSaldo(numeroCuenta);
         }

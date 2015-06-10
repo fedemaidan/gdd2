@@ -72,15 +72,15 @@
             // dataGridTransferencias
             // 
             this.dataGridTransferencias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridTransferencias.Location = new System.Drawing.Point(42, 101);
+            this.dataGridTransferencias.Location = new System.Drawing.Point(344, 27);
             this.dataGridTransferencias.Name = "dataGridTransferencias";
-            this.dataGridTransferencias.Size = new System.Drawing.Size(275, 339);
+            this.dataGridTransferencias.Size = new System.Drawing.Size(570, 244);
             this.dataGridTransferencias.TabIndex = 9;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(49, 85);
+            this.label2.Location = new System.Drawing.Point(351, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 10;
@@ -89,23 +89,23 @@
             // dataGridDepositos
             // 
             this.dataGridDepositos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridDepositos.Location = new System.Drawing.Point(362, 101);
+            this.dataGridDepositos.Location = new System.Drawing.Point(344, 472);
             this.dataGridDepositos.Name = "dataGridDepositos";
-            this.dataGridDepositos.Size = new System.Drawing.Size(240, 154);
+            this.dataGridDepositos.Size = new System.Drawing.Size(563, 154);
             this.dataGridDepositos.TabIndex = 11;
             // 
             // dataGridRetiros
             // 
             this.dataGridRetiros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridRetiros.Location = new System.Drawing.Point(362, 290);
+            this.dataGridRetiros.Location = new System.Drawing.Point(344, 297);
             this.dataGridRetiros.Name = "dataGridRetiros";
-            this.dataGridRetiros.Size = new System.Drawing.Size(240, 150);
+            this.dataGridRetiros.Size = new System.Drawing.Size(563, 143);
             this.dataGridRetiros.TabIndex = 12;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(359, 85);
+            this.label3.Location = new System.Drawing.Point(351, 456);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 13;
@@ -114,7 +114,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(359, 274);
+            this.label4.Location = new System.Drawing.Point(351, 281);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 14;
@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 452);
+            this.ClientSize = new System.Drawing.Size(1074, 733);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);

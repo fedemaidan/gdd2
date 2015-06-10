@@ -257,7 +257,9 @@ namespace PagoElectronico.Home
 
         public DataTable getDepositos5(string numeroCuenta)
         {
-            String query = "select top 5 fecha_deposito, importe, numero_trajeta from qwerty.depositos where numero_cuenta = '" + numeroCuenta + "' order by fecha_deposito desc;";
+            String query = 
+                @"select top 5 fecha_deposito, importe, 
+                numero_trajeta from qwerty.depositos where numero_cuenta = '" + numeroCuenta + "' order by fecha_deposito desc;";
             DataTable dt = db.select_query(query);
             return dt;
         }

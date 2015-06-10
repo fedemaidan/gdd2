@@ -215,6 +215,9 @@
     <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Consulta Saldos\Saldo.resx">
+      <DependentUpon>Saldo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Depositos\ABM_depositos.resx">
       <DependentUpon>ABM_depositos.cs</DependentUpon>
     </EmbeddedResource>
