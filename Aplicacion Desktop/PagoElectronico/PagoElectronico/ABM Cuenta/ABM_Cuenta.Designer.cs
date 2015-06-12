@@ -33,10 +33,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox_pais = new System.Windows.Forms.TextBox();
             this.textBox_fecha = new System.Windows.Forms.TextBox();
             this.comboBox_tipocuenta = new System.Windows.Forms.ComboBox();
             this.comboBox_moneda = new System.Windows.Forms.ComboBox();
+            this.comboBox_pais = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
@@ -85,13 +85,6 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Tipo de cuenta:";
             // 
-            // textBox_pais
-            // 
-            this.textBox_pais.Location = new System.Drawing.Point(126, 35);
-            this.textBox_pais.Name = "textBox_pais";
-            this.textBox_pais.Size = new System.Drawing.Size(100, 20);
-            this.textBox_pais.TabIndex = 5;
-            // 
             // textBox_fecha
             // 
             this.textBox_fecha.Location = new System.Drawing.Point(126, 101);
@@ -103,35 +96,37 @@
             // comboBox_tipocuenta
             // 
             this.comboBox_tipocuenta.FormattingEnabled = true;
-            this.comboBox_tipocuenta.Items.AddRange(new object[] {
-            "Oro",
-            "Plata",
-            "Bronce",
-            "Gratuita"});
             this.comboBox_tipocuenta.Location = new System.Drawing.Point(340, 100);
             this.comboBox_tipocuenta.Name = "comboBox_tipocuenta";
             this.comboBox_tipocuenta.Size = new System.Drawing.Size(100, 21);
             this.comboBox_tipocuenta.TabIndex = 8;
+            this.comboBox_tipocuenta.SelectedIndexChanged += new System.EventHandler(this.comboBox_tipocuenta_SelectedIndexChanged);
             // 
             // comboBox_moneda
             // 
             this.comboBox_moneda.FormattingEnabled = true;
-            this.comboBox_moneda.Items.AddRange(new object[] {
-            "Dólar"});
             this.comboBox_moneda.Location = new System.Drawing.Point(340, 33);
             this.comboBox_moneda.Name = "comboBox_moneda";
             this.comboBox_moneda.Size = new System.Drawing.Size(100, 21);
             this.comboBox_moneda.TabIndex = 9;
+            // 
+            // comboBox_pais
+            // 
+            this.comboBox_pais.FormattingEnabled = true;
+            this.comboBox_pais.Location = new System.Drawing.Point(126, 38);
+            this.comboBox_pais.Name = "comboBox_pais";
+            this.comboBox_pais.Size = new System.Drawing.Size(100, 21);
+            this.comboBox_pais.TabIndex = 10;
             // 
             // ABM_Cuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 214);
+            this.Controls.Add(this.comboBox_pais);
             this.Controls.Add(this.comboBox_moneda);
             this.Controls.Add(this.comboBox_tipocuenta);
             this.Controls.Add(this.textBox_fecha);
-            this.Controls.Add(this.textBox_pais);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -152,9 +147,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox_pais;
         private System.Windows.Forms.TextBox textBox_fecha;
         private System.Windows.Forms.ComboBox comboBox_tipocuenta;
         private System.Windows.Forms.ComboBox comboBox_moneda;
+        private System.Windows.Forms.ComboBox comboBox_pais;
     }
 }

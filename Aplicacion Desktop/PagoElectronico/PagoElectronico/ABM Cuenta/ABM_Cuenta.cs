@@ -20,9 +20,44 @@ namespace PagoElectronico.ABM_Cuenta
             Dia dia = new Dia();
             textBox_fecha.Text = dia.Hoy().ToString();
             this.user=user;
+
+            //agrego paises  al combobox
+            string qeri_paises = "select p.desc_pais from qwerty.paises p";
+            Database db = new Database();
+            DataTable dt = new DataTable();
+            dt = db.select_query(qeri_paises);
+            foreach (DataRow row in dt.Rows)
+            {
+                comboBox_pais.Items.Add(row["desc_pais"].ToString());   
+
+            }
+            //  termino de agregar paises al combobox
+
+            //agrego tipos de cuentas  al combobox
+            string qeri_tiposcuentas = "select c.descripcion from qwerty.categorias_de_cuentas c";
+            
+            dt = db.select_query(qeri_tiposcuentas);
+            foreach (DataRow row in dt.Rows)
+            {
+                comboBox_tipocuenta.Items.Add(row["descripcion"].ToString());
+
+            }
+            //  termino de agregar tipos de cuentas al combobox
+
+            //agrego monedas  al combobox
+            string qeri_monedas = "select m.descripcion from qwerty.monedas m";
+
+            dt = db.select_query(qeri_monedas);
+            foreach (DataRow row in dt.Rows)
+            {
+                comboBox_moneda.Items.Add(row["descripcion"].ToString());
+               
+            }
+            //  termino de agregar monedas al combobox
+
         }
         private User user;
-        private int moneda;
+        
         private int id_cliente;
 
         private void ABM_Cuenta_Load(object sender, EventArgs e)
@@ -33,7 +68,7 @@ namespace PagoElectronico.ABM_Cuenta
         private void button1_Click(object sender, EventArgs e)
         {
             Database db = new Database();
-            if (comboBox_moneda.SelectedIndex == 0) { this.moneda = 1; }
+            
 
             // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
             
@@ -51,10 +86,15 @@ namespace PagoElectronico.ABM_Cuenta
             // agregando al campo numero_cuenta la propiedad para que sea autoincrementable
             Random r = new Random();
             int aleatorio = r.Next(1,10000000);
-            string queri = "insert into qwerty.cuentas (numero_cuenta, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id) values ("+aleatorio+"," + this.moneda + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1)";
+            string queri = "insert into qwerty.cuentas (numero_cuenta,cod_pais, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id) values ("+aleatorio+","+(comboBox_pais.SelectedIndex +1) +"," + (comboBox_moneda.SelectedIndex + 1) + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1)";
             db.insert_query(queri);
 
             this.Close();
+
+        }
+
+        private void comboBox_tipocuenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
         

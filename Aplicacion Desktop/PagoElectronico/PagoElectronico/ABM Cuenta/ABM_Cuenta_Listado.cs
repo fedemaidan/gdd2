@@ -73,9 +73,9 @@ namespace PagoElectronico.ABM_Cuenta
             Modificacion_Cuenta rml = new Modificacion_Cuenta(nro_cta);
             
             rml.textBox_pais.Text = this.dataGridView1.CurrentRow.Cells[9].Value.ToString();
-            rml.textBox_fecha.Text = this.dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            rml.comboBox_moneda.SelectedIndex = Convert.ToInt32(this.dataGridView1.CurrentRow.Cells[1].Value.ToString())-1;
-            rml.comboBox_tipocuenta.SelectedIndex = Convert.ToInt32(this.dataGridView1.CurrentRow.Cells[4].Value.ToString())-1;
+            rml.textBox_fecha.Text = this.dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            rml.comboBox_moneda.SelectedIndex = Convert.ToInt32(this.dataGridView1.CurrentRow.Cells[2].Value.ToString())-1;
+            rml.comboBox_tipocuenta.SelectedIndex = Convert.ToInt32(this.dataGridView1.CurrentRow.Cells[5].Value.ToString())-1;
 
             rml.Show();
         }
