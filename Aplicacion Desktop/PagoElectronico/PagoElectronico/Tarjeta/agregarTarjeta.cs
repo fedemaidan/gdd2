@@ -125,17 +125,21 @@ namespace PagoElectronico.Tarjeta
 
         private void txtNumeroTarjeta_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txtCodSeguridad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito ");
+                e.Handled = true;
+                return;
             }
         }
 

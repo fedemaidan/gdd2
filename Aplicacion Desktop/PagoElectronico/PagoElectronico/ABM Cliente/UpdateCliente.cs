@@ -14,11 +14,12 @@ namespace PagoElectronico.ABM_Cliente
     public partial class UpdateCliente : Form
     {
         string username;
-
+        string habilitado;
         public UpdateCliente(string username)
         {
             InitializeComponent();
             this.username = username;
+            
             this.cargarDatosDelCliente();
             this.cargarComboTipoDoc();
         }
@@ -41,6 +42,13 @@ namespace PagoElectronico.ABM_Cliente
             txt_localidad.Text = datosCliente["localidad"].ToString();
             txt_nacionalidad.Text = datosCliente["nacionalidad"].ToString();
             textBox_fecha.Text = datosCliente["fecha_nacimiento"].ToString();
+
+            this.habilitado = datosCliente["habilitado"].ToString();
+
+            if (this.habilitado != "S")
+                this.btnDarDeAlta.Visible = true;
+            else
+                this.btnDarDeAlta.Visible = false;
         }
 
         private void cargarComboTipoDoc()
@@ -91,6 +99,8 @@ namespace PagoElectronico.ABM_Cliente
             if ((e.KeyChar == '\'') || (e.KeyChar == '"') || (e.KeyChar == ' '))
             {
                 MessageBox.Show("Caracter debe ser distinto de \" , ' y espacio");
+                e.Handled = true;
+                return;
             }
         }
 
@@ -99,23 +109,29 @@ namespace PagoElectronico.ABM_Cliente
             if ((e.KeyChar == '\'') || (e.KeyChar == '"') || (e.KeyChar == ' '))
             {
                 MessageBox.Show("Caracter debe ser distinto de \" , ' y espacio");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_dni_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
 
         }
 
         private void txt_nacionalidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetter(e.KeyChar)))
+            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra");
+                e.Handled = true;
+                return;
             }
 
         }
@@ -128,65 +144,81 @@ namespace PagoElectronico.ABM_Cliente
 
         private void txt_mail_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar == '@') && (e.KeyChar == '.'))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != '@') && (e.KeyChar != '.') && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra, digito , @ o .");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_telefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_pais_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetter(e.KeyChar)))
+            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_calle_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra, digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_altura_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_piso_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_depto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra o digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_localidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra o digito");
+                e.Handled = true;
+                return;
             }
         }
 
@@ -199,8 +231,7 @@ namespace PagoElectronico.ABM_Cliente
         {
             Home2 home2 = new Home2();
 
-            
-
+ 
             int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text,textBox_fecha.Text , this.username);
 
             if (resultado == 1)
@@ -213,6 +244,13 @@ namespace PagoElectronico.ABM_Cliente
         private void textBox_fecha_TextChanged_1(object sender, EventArgs e)
         {
             textBox_fecha.Text = monthCalendar1.SelectionStart.ToString("yyyy-MM-dd");
+        }
+
+        private void btnDarDeAlta_Click(object sender, EventArgs e)
+        {
+                Home2 home2 = new Home2();
+                home2.altaCliente(this.username);
+                this.Close();
         }
 
 

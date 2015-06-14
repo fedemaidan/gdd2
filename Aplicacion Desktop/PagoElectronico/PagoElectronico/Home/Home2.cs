@@ -104,18 +104,15 @@ namespace PagoElectronico.Home
 
         public DataTable getTarjetasDelCliente(string username, string numeroTarjeta, string banco, string fechaEmision , string fechaVencimiento)
         {
-
-
-
             String query = "";
             if (fechaEmision != "" && fechaVencimiento != "")
-                query = "select t.numero_tarjeta , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id  join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" +username+"' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and t.fecha_emision = convert(date,'" + fechaEmision + "',121) and t.fecha_vencimiento = convert(date,'" + fechaVencimiento + "',121) and vinculada = 'S';";
+                query = "select RIGHT(t.numero_tarjeta,4) as ultimosCuatroNumeros , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id  join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and t.fecha_emision = convert(date,'" + fechaEmision + "',121) and t.fecha_vencimiento = convert(date,'" + fechaVencimiento + "',121) and vinculada = 'S';";
             else if (fechaEmision == "" && fechaVencimiento == "")
-                query = "select t.numero_tarjeta , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and vinculada = 'S';";
+                query = "select RIGHT(t.numero_tarjeta,4) as ultimosCuatroNumeros, b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and vinculada = 'S';";
             else if (fechaEmision != "" && fechaVencimiento == "")
-                query = "select t.numero_tarjeta , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and t.fecha_emision = convert(date,'" + fechaEmision + "',121) and vinculada = 'S';";
+                query = "select RIGHT(t.numero_tarjeta,4) as ultimosCuatroNumeros, b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and t.fecha_emision = convert(date,'" + fechaEmision + "',121) and vinculada = 'S';";
             else if (fechaEmision == "" && fechaVencimiento != "")
-                query = "select t.numero_tarjeta , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%'  and t.fecha_vencimiento = convert(date,'" + fechaVencimiento + "',121) and vinculada = 'S';";
+                query = "select RIGHT(t.numero_tarjeta,4) as ultimosCuatroNumeros, b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id join qwerty.cuentas c on t.numero_cuenta = c.numero_cuenta join qwerty.clientes cl on cl.cliente_id = c.cliente_id and cl.nombre_usuario = '" + username + "' where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%'  and t.fecha_vencimiento = convert(date,'" + fechaVencimiento + "',121) and vinculada = 'S';";
 
             DataTable dt = db.select_query(query);
             return dt;
@@ -124,9 +121,9 @@ namespace PagoElectronico.Home
         public DataTable  getClientList(string nombre, string apellido, string mail, string doc, string tipoDoc){
             String query ;
             if (!tipoDoc.Equals(""))
-                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and  d.tipo_doc = '" + tipoDoc + "' and habilitado = 'S';";
+                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento c.habilitado from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and  d.tipo_doc = '" + tipoDoc + " ';";
             else
-                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and habilitado = 'S' ;";
+                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento , c.habilitado from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%'  ;";
 
             DataTable dt = db.select_query(query);  
             return dt;
@@ -172,14 +169,22 @@ namespace PagoElectronico.Home
 
         public DataRow bajaCliente(string username)
         {
-            String queryClientes = "update qwerty.clientes set habilitado = 0 where nombre_usuario= '"+ username +"';";
+            String queryClientes = "update qwerty.clientes set habilitado = 'N' where nombre_usuario= '"+ username +"';";
             db.update_query(queryClientes);
-
-            String queryUsuarios = "update qwerty.usuarios set estado = 0 where nombre_usuario= '" + username + "';";
-            db.update_query(queryUsuarios);
 
             return null;
         }
+
+        public DataRow altaCliente(string username)
+        {
+            String queryClientes = "update qwerty.clientes set habilitado = 'S' where nombre_usuario= '" + username + "';";
+            db.update_query(queryClientes);
+
+            
+
+            return null;
+        }
+
 
         public int desasociarTarjeta(string numeroTarjeta)
         {
@@ -189,7 +194,7 @@ namespace PagoElectronico.Home
         }
         
 
-        public int insertarCliente(string nombre, string apellido, string mail, string documento , string tipoDoc, string pais, string calle, string altura , string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username, string password, string preguntaSecreta, string respuestaSecreta)
+        public string insertarCliente(string nombre, string apellido, string mail, string documento , string tipoDoc, string pais, string calle, string altura , string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username, string password, string preguntaSecreta, string respuestaSecreta)
         {
             DateTime fechaCreacionD = (new Dia()).Hoy();
             DateTime fechaModificacionD = (new Dia()).Hoy();
@@ -227,7 +232,7 @@ namespace PagoElectronico.Home
 
             String queryRoles = "INSERT INTO qwerty.roles_de_usuarios VALUES ('" + username + "', 2)";
             db.insert_query(queryRoles);
-            return 1;
+            return username;
         }
 
         public int updateCliente(string nombre, string apellido, string mail, string documento, string tipoDoc, string pais, string calle, string altura, string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username)

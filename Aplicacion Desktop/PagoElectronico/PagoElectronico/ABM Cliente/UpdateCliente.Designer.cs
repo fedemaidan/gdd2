@@ -60,6 +60,7 @@
             this.txt_pais = new System.Windows.Forms.TextBox();
             this.txt_nombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnDarDeAlta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label18
@@ -182,7 +183,7 @@
             // 
             // btn_close
             // 
-            this.btn_close.Location = new System.Drawing.Point(314, 236);
+            this.btn_close.Location = new System.Drawing.Point(314, 234);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(75, 23);
             this.btn_close.TabIndex = 128;
@@ -192,7 +193,7 @@
             // 
             // btn_accept
             // 
-            this.btn_accept.Location = new System.Drawing.Point(170, 236);
+            this.btn_accept.Location = new System.Drawing.Point(170, 234);
             this.btn_accept.Name = "btn_accept";
             this.btn_accept.Size = new System.Drawing.Size(75, 23);
             this.btn_accept.TabIndex = 127;
@@ -336,11 +337,22 @@
             this.label1.TabIndex = 111;
             this.label1.Text = "Nombre de cliente";
             // 
+            // btnDarDeAlta
+            // 
+            this.btnDarDeAlta.Location = new System.Drawing.Point(40, 234);
+            this.btnDarDeAlta.Name = "btnDarDeAlta";
+            this.btnDarDeAlta.Size = new System.Drawing.Size(75, 23);
+            this.btnDarDeAlta.TabIndex = 143;
+            this.btnDarDeAlta.Text = "Dar de alta";
+            this.btnDarDeAlta.UseVisualStyleBackColor = true;
+            this.btnDarDeAlta.Click += new System.EventHandler(this.btnDarDeAlta_Click);
+            // 
             // UpdateCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 358);
+            this.Controls.Add(this.btnDarDeAlta);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txt_localidad);
             this.Controls.Add(this.button2);
@@ -414,5 +426,6 @@
         private System.Windows.Forms.TextBox txt_pais;
         private System.Windows.Forms.TextBox txt_nombre;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnDarDeAlta;
     }
 }

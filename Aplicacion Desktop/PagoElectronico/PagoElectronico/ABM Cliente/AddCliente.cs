@@ -51,9 +51,12 @@ namespace PagoElectronico.ABM_Cliente
                 Home2 home2 = new Home2();
                 string nacimiento = textBox_fecha.Text;
 
-                int resultado = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
-                if (resultado == 1)
+                string username = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
+                if (username != "")
+                {
                     this.Close();
+    
+                }
                 else
                     MessageBox.Show("No se pudo agregar cliente");
             }
@@ -91,17 +94,21 @@ namespace PagoElectronico.ABM_Cliente
 
         private void txt_username_TextChanged(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != '.'))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != '.') && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra, digito o .");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_password_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra, digito");
+                e.Handled = true;
+                return;
             }
         }
 
@@ -110,6 +117,8 @@ namespace PagoElectronico.ABM_Cliente
             if ((e.KeyChar == '\'') || (e.KeyChar == '"') || (e.KeyChar == ' '))
             {
                 MessageBox.Show("Caracter debe ser distinto de \" , ' y espacio");
+                e.Handled = true;
+                return;
             }
         }
 
@@ -118,6 +127,8 @@ namespace PagoElectronico.ABM_Cliente
             if ((e.KeyChar == '\'') || (e.KeyChar == '"') || (e.KeyChar == ' '))
             {
                 MessageBox.Show("Caracter debe ser distinto de \" , ' y espacio");
+                e.Handled = true;
+                return;
             }
         }
 
@@ -126,6 +137,8 @@ namespace PagoElectronico.ABM_Cliente
             if ((e.KeyChar == '\'') || (e.KeyChar == '"') || (e.KeyChar == ' '))
             {
                 MessageBox.Show("Caracter debe ser distinto de \" , ' y espacio");
+                e.Handled = true;
+                return;
             }
         }
 
@@ -134,23 +147,30 @@ namespace PagoElectronico.ABM_Cliente
             if ((e.KeyChar == '\'') || (e.KeyChar == '"') || (e.KeyChar == ' '))
             {
                 MessageBox.Show("Caracter debe ser distinto de \" , ' y espacio");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_dni_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
+
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
             
         }
 
         private void txt_nacionalidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetter(e.KeyChar)))
+            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra");
+                e.Handled = true;
+                return;
             }
             
         }
@@ -163,66 +183,84 @@ namespace PagoElectronico.ABM_Cliente
 
         private void txt_mail_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar == '@') && (e.KeyChar == '.'))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != '@') && (e.KeyChar != '.') && (e.KeyChar != (char)Keys.Back))
             {
-                MessageBox.Show("Caracter debe ser letra, digito , @ o .");
+                MessageBox.Show("Caracter debe ser letra, digito , @ o .") ;
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_telefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_pais_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetter(e.KeyChar)))
+            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_calle_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra, digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_altura_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_piso_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsDigit(e.KeyChar)))
+            if (!(char.IsDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_depto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra o digito");
+                e.Handled = true;
+                return;
             }
         }
 
         private void txt_localidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetterOrDigit(e.KeyChar)))
+             
+            if (!(char.IsLetterOrDigit(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 MessageBox.Show("Caracter debe ser letra o digito");
+                e.Handled = true;
+                return;
             }
+            
         }
 
         private void AddCliente_Load(object sender, EventArgs e)
