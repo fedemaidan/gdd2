@@ -168,13 +168,7 @@ namespace PagoElectronico.ABM_de_Usuario
 
         }
 
-        public void update_user()
-        {
-            this.fillUserWithFilds();
-            homeDB home = new homeDB();
-            home.update_user(_user);
-        }
-
+        
         private void label9_Click(object sender, EventArgs e)
         {
 

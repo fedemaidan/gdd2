@@ -44,7 +44,7 @@ namespace PagoElectronico.Home
         
 
 
-        public int asociarTarjetaACliente(string username, string numeroTarjeta, string bancoNombre, string  fechaEmision , string fechaVencimiento ,  string codigo, string emisorNombre, string numeroCuenta )
+        public int asociarTarjetaACliente(string username, string numeroTarjeta, string bancoNombre, DateTime fechaEmision , DateTime fechaVencimiento ,  string codigo, string emisorNombre, string numeroCuenta )
         {
             string numeroTitular = "";
             string bancoId = "";
@@ -73,14 +73,14 @@ namespace PagoElectronico.Home
             }
 
 
-            string query = "INSERT INTO qwerty.tarjetas_de_credito VALUES(" + numeroTarjeta + "," + bancoId + ", " + emisorId  + ", '" + fechaEmision + "','" + fechaVencimiento + "','" + codigo + "', " + numeroCuenta + "," + numeroTitular + ",1);";
+            string query = "INSERT INTO qwerty.tarjetas_de_credito VALUES(" + numeroTarjeta + "," + bancoId + ", " + emisorId + ", convert(datetime,'" + fechaEmision + "',121),convert(datetime,'" + fechaVencimiento + "',121),'" + codigo + "', " + numeroCuenta + "," + numeroTitular + ",1);";
 
             db.insert_query(query);
 
             return 1;
         }
 
-        public int updateTarjeta(string username, string numeroTarjeta, string bancoNombre, string fechaEmision, string fechaVencimiento, string codigo)
+        public int updateTarjeta(string username, string numeroTarjeta, string bancoNombre, DateTime fechaEmision, DateTime fechaVencimiento, string codigo)
         {
             
             string bancoId = "";
@@ -93,7 +93,7 @@ namespace PagoElectronico.Home
                 bancoId = row["banco_id"].ToString();
             }
 
-            string query = "UPDATE qwerty.tarjetas_de_credito SET numero_tarjeta = " + numeroTarjeta + ",banco_id = " + bancoId + ",fecha_emision = '" + fechaEmision + "' ,fecha_vencimiento = '" + fechaVencimiento + "' ,cod_seguridad = '" + codigo + "' WHERE numero_tarjeta = " + numeroTarjeta + ";";
+            string query = "UPDATE qwerty.tarjetas_de_credito SET numero_tarjeta = " + numeroTarjeta + ",banco_id = " + bancoId + ",fecha_emision = convert(date,'" + fechaEmision + "',121) ,fecha_vencimiento = convert(datetime,'" + fechaVencimiento + "',121),cod_seguridad = '" + codigo + "' WHERE numero_tarjeta = " + numeroTarjeta + ";";
 
             db.update_query(query);
 
@@ -102,9 +102,9 @@ namespace PagoElectronico.Home
 
         
 
-        public DataTable getTarjetasDelCliente(string username, string numeroTarjeta, string banco, string fechaEmision , string fechaVencimiento)
+        public DataTable getTarjetasDelCliente(string username, string numeroTarjeta, string banco, DateTime fechaEmision , DateTime fechaVencimiento)
         {
-            String query = "select t.numero_tarjeta , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and t.fecha_emision like '%" + fechaEmision + "%' and t.fecha_vencimiento like '%" + fechaVencimiento + "%' and vinculada = 1;";
+            String query = "select t.numero_tarjeta , b.nombre , t.fecha_emision , t.fecha_vencimiento from qwerty.tarjetas_de_credito t join qwerty.bancos b on b.banco_id = t.banco_id where numero_tarjeta like '%" + numeroTarjeta + "%' and b.nombre like '%" + banco + "%' and t.fecha_emision = convert(date,'" + fechaEmision + "',121) and t.fecha_vencimiento = convert(date,'" + fechaVencimiento + "',121) and vinculada = 1;";
 
             DataTable dt = db.select_query(query);
             return dt;
@@ -178,13 +178,12 @@ namespace PagoElectronico.Home
         }
         
 
-        public int insertarCliente(string nombre, string apellido, string mail, string documento , string tipoDoc, string pais, string calle, string altura , string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username, string password, string preguntaSecreta, string respuestaSecreta)
+        public int insertarCliente(string nombre, string apellido, string mail, string documento , string tipoDoc, string pais, string calle, string altura , string piso, string depto, string localidad, string nacionalidad, DateTime fechaNacimieno, string username, string password, string preguntaSecreta, string respuestaSecreta)
         {
-            DateTime fechaCreacionDateTime = (new Dia()).Hoy();
-            DateTime fechaModificacionDateTime = (new Dia()).Hoy();
+            DateTime fechaCreacion = (new Dia()).Hoy();
+            DateTime fechaModificacion = (new Dia()).Hoy();
 
-            string fechaCreacion = fechaCreacionDateTime.ToString("yyyy-MM-dd");
-            string fechaModificacion = fechaModificacionDateTime.ToString("yyyy-MM-dd");
+            
 
             string passwordHash = new homeDB().encriptacionSHA256(password);
             string respuestaSecretaHash = new homeDB().encriptacionSHA256(respuestaSecreta);
@@ -219,7 +218,7 @@ namespace PagoElectronico.Home
             return 1;
         }
 
-        public int updateCliente(string nombre, string apellido, string mail, string documento, string tipoDoc, string pais, string calle, string altura, string piso, string depto, string localidad, string nacionalidad, string fechaNacimieno, string username)
+        public int updateCliente(string nombre, string apellido, string mail, string documento, string tipoDoc, string pais, string calle, string altura, string piso, string depto, string localidad, string nacionalidad, DateTime fechaNacimieno, string username)
         {
             String query = "select d.doc_id from qwerty.documentos d where d.tipo_doc = '" + tipoDoc + "' ;";
             DataTable dt = db.select_query(query);
@@ -290,7 +289,7 @@ namespace PagoElectronico.Home
             return dt;
         }
 
-        public DataTable getRepo1(string desde, string hasta)
+        public DataTable getRepo1(DateTime desde, DateTime hasta)
         {
             string query =
 @"select top 5
@@ -308,13 +307,13 @@ on
 	a.numero_cuenta = b.numero_cuenta
 where
 	inhabilitacion_id = 1
-    and a.fecha between '"+desde+"' and '"+hasta+"') tabla group by tabla.cliente_id order by cantidad desc;";
+    and a.fecha between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)) tabla group by tabla.cliente_id order by cantidad desc;";
 
             return this.getReporte(query);
         }
         
 
-        public DataTable getRepo2(string desde, string hasta)
+        public DataTable getRepo2(DateTime desde, DateTime hasta)
         {
             string query =
 @"
@@ -325,12 +324,12 @@ from
 	qwerty.transacciones
 where
 	factura_id is not null 
-and fecha_transaccion between '" + desde + "' and '" + hasta + "' group by cliente_id order by comisiones_cobradas desc ;";
+and fecha_transaccion between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121) group by cliente_id order by comisiones_cobradas desc ;";
 
             return this.getReporte(query);
         }
 
-        public DataTable getRepo3(string desde, string hasta)
+        public DataTable getRepo3(DateTime desde, DateTime hasta)
         {
             string query =
 @"
@@ -354,13 +353,14 @@ inner join
 	qwerty.transferencias b
 on
 	a.numero_cuenta = b.cuenta_origen
-    and b.fecha_transferencia between '" + desde + "' and '" + hasta + "') b on a.cliente_id = b.cliente_id where a.numero_cuenta = b.cuenta_destino		 group by a.cliente_id  order by 2 desc ;";
+    and b.fecha_transferencia between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)) b on a.cliente_id = b.cliente_id where a.numero_cuenta = b.cuenta_destino		 group by a.cliente_id  order by 2 desc ;";
 
             return this.getReporte(query);
         }
 
-        public DataTable getRepo4(string desde, string hasta)
+        public DataTable getRepo4(DateTime desde, DateTime hasta)
         {
+           
             string query =
 @"
     select top 5 p.desc_pais as pais,(isnull(retiro.cantidad,0) + isnull(depositos.cantidad,0) + isnull(transferencias.cantidad,0) ) as cantidadMovimientos 
@@ -376,7 +376,7 @@ on
 		qwerty.retiro_de_efectivo b
 	on
 		a.numero_cuenta = b.numero_cuenta
-        and b.fecha_retiro between '"+desde+"' and '"+hasta+"' "
+        and b.fecha_retiro between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121) "
 +
 	@"group by cod_pais) retiro
 	on retiro.cod_pais = p.cod_pais
@@ -391,7 +391,7 @@ on
 		qwerty.depositos b
 	on
 		a.numero_cuenta = b.numero_cuenta
-and b.fecha_deposito between '"+desde+"' and '"+hasta+"'"
+and b.fecha_deposito between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)"
 +            
 	@"group by cod_pais) depositos
 	on p.cod_pais = depositos.cod_pais
@@ -407,7 +407,7 @@ and b.fecha_deposito between '"+desde+"' and '"+hasta+"'"
 	on
 		(a.numero_cuenta = b.cuenta_origen or  -- egreso
 		 a.numero_cuenta = b.cuenta_destino)  -- ingreso
-    and b.fecha_transferencia between '" + desde + "' and '" + hasta + "'"
+    and b.fecha_transferencia between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)"
 +                                 
 	@"group by cod_pais) transferencias
 	on 
@@ -418,7 +418,7 @@ and b.fecha_deposito between '"+desde+"' and '"+hasta+"'"
             return this.getReporte(query);
         }
 
-        public DataTable getRepo5(string desde, string hasta)
+        public DataTable getRepo5(DateTime desde, DateTime hasta)
         {
             string query =
 @"
@@ -439,7 +439,7 @@ on
 	a.costo_id = b.costo_id
     where
 	b.tipo_costo = 'Transferencias'
-    and a.fecha_transaccion between '" + desde + "' and '" + hasta + "'"
+    and a.fecha_transaccion between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)"
 +
 @"group by a.numero_cuenta) comTransferencias
 
@@ -458,7 +458,7 @@ on
 	a.costo_id = b.costo_id
 where
 	b.tipo_costo = 'Apertura Cuenta'
-  and a.fecha_transaccion between '" + desde + "' and '" + hasta + "'"
+  and a.fecha_transaccion between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)"
 +
 @"group by a.numero_cuenta ) comAperturas
  on c.numero_cuenta = comAperturas.cuenta
@@ -480,7 +480,7 @@ on
 	a.tipo_cuenta = c.descripcion
 where
 	b.tipo_costo = 'Modificacion Cuenta'
-  and a.fecha_transaccion between '" + desde + "' and '" + hasta + "'"
+  and a.fecha_transaccion between convert(datetime,'" + desde + "',121) and convert(datetime,'" + hasta + "',121)"
 +
 @"group by a.numero_cuenta ) comCambioTipo
 

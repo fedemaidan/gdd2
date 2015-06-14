@@ -102,8 +102,8 @@ namespace PagoElectronico.Tarjeta
             //DateTime fechaEmision = Convert.ToDateTime(txtFechaEmision.Text);
             //DateTime fechaVen = Convert.ToDateTime(txtFechaVen.Text);
             
-            string fechaEmision = txtFechaEmision.Text;
-            string fechaVen = txtFechaVen.Text;
+            DateTime fechaEmision = Convert.ToDateTime( txtFechaEmision.Text);
+            DateTime fechaVen = Convert.ToDateTime( txtFechaVen.Text);
             int resultado = new Home2().asociarTarjetaACliente(this.username, txtNumeroTarjeta.Text, cbBanco.Text,fechaEmision, fechaVen, txtCodSeguridad.Text, cbEmisor.Text, cbCuentas.Text);
             if (resultado == 1)
             {

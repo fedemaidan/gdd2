@@ -97,8 +97,8 @@ namespace PagoElectronico.Tarjeta
         private void editar_Click(object sender, EventArgs e)
         {
 
-            string fechaEmision = txtFechaEmision.Text;
-            string fechaVen = txtFechaVen.Text;
+            DateTime fechaEmision = Convert.ToDateTime( txtFechaEmision.Text);
+            DateTime fechaVen = Convert.ToDateTime( txtFechaVen.Text);
             int resultado = new Home2().updateTarjeta(this.username, txtNumeroTarjeta.Text, cbEmisor.Text, fechaEmision, fechaVen, txtCodSeguridad.Text);
             if (resultado == 1)
             {

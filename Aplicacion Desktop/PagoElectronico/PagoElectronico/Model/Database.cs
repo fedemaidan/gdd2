@@ -16,16 +16,18 @@ namespace PagoElectronico.Model
     {
         public Database()
         {
+            
             InitializeComponent();
+            this.conexion = new SqlConnection(ConfigurationSettings.AppSettings["ConexionPago"]);
         }
 
         private void Database_Load(object sender, EventArgs e)
         {
 
         }
-            
-       private SqlConnection conexion = new SqlConnection("Data Source=localhost\\SQLSERVER2008;Initial Catalog=GD1C2015;Persist Security Info=True;User ID=gd;Password=gd2015");
-        //private SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["conexionHotel"].ConnectionString);
+
+        
+        private SqlConnection conexion;
         
        
 

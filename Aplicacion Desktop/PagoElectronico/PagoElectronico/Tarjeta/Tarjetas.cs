@@ -34,7 +34,7 @@ namespace PagoElectronico.Tarjeta
         private void buscarTarjetas()
         {
 
-            DataTable dt = new Home2().getTarjetasDelCliente(this.username, textDigitBuscar.Text, cbEmisores.Text, txtFechaEmision.Text, txtFechaVen.Text);
+            DataTable dt = new Home2().getTarjetasDelCliente(this.username, textDigitBuscar.Text, cbEmisores.Text, Convert.ToDateTime( txtFechaEmision.Text ), Convert.ToDateTime( txtFechaVen.Text));
 
             BindingSource bsource = new BindingSource();
             bsource.DataSource = dt;
