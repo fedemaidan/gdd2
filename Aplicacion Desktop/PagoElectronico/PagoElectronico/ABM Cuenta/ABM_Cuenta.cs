@@ -86,7 +86,23 @@ namespace PagoElectronico.ABM_Cuenta
             // agregando al campo numero_cuenta la propiedad para que sea autoincrementable
             Random r = new Random();
             int aleatorio = r.Next(1,10000000);
-            string queri = "insert into qwerty.cuentas (numero_cuenta,cod_pais, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id) values ("+aleatorio+","+(comboBox_pais.SelectedIndex +1) +"," + (comboBox_moneda.SelectedIndex + 1) + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1)";
+
+            // busco codigo del pais
+            string qeri_cod_pais = "select p.cod_pais from qwerty.paises p where p.desc_pais='"+comboBox_pais.SelectedItem.ToString()+"'";
+            dt = db.select_query(qeri_cod_pais);
+            int cod_pais = 0;
+            foreach (DataRow row in dt.Rows) {
+                cod_pais = Convert.ToInt32(row["cod_pais"]);
+            }
+            //termino de buscar codigo del pais
+            string qeri_duracion = "select cc.duracion from qwerty.categorias_de_cuentas cc where cc.descripcion='"+comboBox_tipocuenta.SelectedItem.ToString()+"'";
+            dt=db.select_query(qeri_duracion);
+            int duracion = 0;
+            foreach(DataRow row in dt.Rows){
+                duracion = Convert.ToInt32(row["duracion"]);
+            }
+            Dia dia = new Dia();
+            string queri = "insert into qwerty.cuentas (numero_cuenta,cod_pais, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id,fecha_cierre,pendiente_facturacion) values ("+aleatorio+","+ cod_pais +"," + (comboBox_moneda.SelectedIndex + 1) + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,"+"( dateadd(day,"+duracion+",'"+dia.Hoy()+"')),'S')";
             db.insert_query(queri);
 
             this.Close();

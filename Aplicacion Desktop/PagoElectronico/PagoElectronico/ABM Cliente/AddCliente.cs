@@ -49,9 +49,9 @@ namespace PagoElectronico.ABM_Cliente
             if (this.validar(this))
             {
                 Home2 home2 = new Home2();
-                DateTime nacimiento = Convert.ToDateTime(textBox_fecha.Text);
+                string nacimiento = textBox_fecha.Text;
 
-                int resultado = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, textBox_fecha.Text, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
+                int resultado = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
                 if (resultado == 1)
                     this.Close();
                 else

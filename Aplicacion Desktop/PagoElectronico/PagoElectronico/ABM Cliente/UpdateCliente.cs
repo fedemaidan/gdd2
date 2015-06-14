@@ -201,7 +201,7 @@ namespace PagoElectronico.ABM_Cliente
 
             
 
-            int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, textBox_fecha.Text , this.username);
+            int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text,textBox_fecha.Text , this.username);
 
             if (resultado == 1)
                 this.Close();

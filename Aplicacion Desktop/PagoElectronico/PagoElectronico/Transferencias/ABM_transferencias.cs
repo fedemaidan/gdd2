@@ -110,6 +110,19 @@ namespace PagoElectronico.Transferencias
                 db.update_query(qeri_transf2);
 
                 // termino de actualizar saldo cuenta origen
+                //busco tipo de cuenta origen
+                string tipo_cta_origen = "select c.categoria_id from qwerty.cuentas c where c.numero_cuenta="+Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString());
+                dt2 = db.select_query(tipo_cta_origen);
+                int categoria = 0;
+                foreach(DataRow row in dt2.Rows){
+                    categoria = Convert.ToInt32(row["categoria_id"].ToString());
+                }
+                //termino de buscar tipo de cuenta origen
+                //actualizo tabla de transferencias
+                Dia dia = new Dia();
+                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,cuenta_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values ("+Convert.ToDouble(textBox_importe.Text)+","+Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString())+","+Convert.ToInt64(comboBox_ctadestino.SelectedItem.ToString())+","+categoria+",1,'"+dia.Hoy()+"',1)";
+                db.insert_query(transf);
+                //termino de actualizar tabla de transferencias
 
                 this.Close();
 

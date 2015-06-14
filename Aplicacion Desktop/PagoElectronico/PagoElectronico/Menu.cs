@@ -17,6 +17,8 @@ using PagoElectronico.Retiros;
 using PagoElectronico.ABM_Cliente;
 using PagoElectronico.Consulta_Saldos;
 using PagoElectronico.Tarjeta;
+using PagoElectronico.Facturacion;
+
 
 namespace PagoElectronico
 {
@@ -51,6 +53,8 @@ namespace PagoElectronico
             this.button_facturacion.Visible = false;
             this.button_consulta_saldo.Visible = false;
             this.button_listado.Visible = false;
+            this.button_tarjeta.Visible = false;
+            this.button_cliente.Visible = false;
 
             if (this.logged_user.funcionalidades.Contains(1))  //funcionalidad 1 
             { this.ABM_de_Rol.Visible = true; }
@@ -59,8 +63,10 @@ namespace PagoElectronico
             //if (this.logged_user.funcionalidades.Contains(3))  //funcionalidad 3 es la de cliente q la tiene q agregar fede this.button_ABMReserva.Visible = true;
             if (this.logged_user.funcionalidades.Contains(4))  //funcionalidad 4 
             { this.ABM_de_cuenta.Visible = true; }
-            //if (this.logged_user.funcionalidades.Contains(5))  //funcionalidad 5,6 ASOCIAR y desasociar TARJETA DE CREDITO this.btn_user_abm.Visible = true;
-            
+            if (this.logged_user.funcionalidades.Contains(5))  //funcionalidad 5 abm cliente
+            { this.button_cliente.Visible = true; }
+            if (this.logged_user.funcionalidades.Contains(6))  //funcionalidad 6 ASOCIAR y desasociar TARJETA DE CREDITO 
+            { this.button_tarjeta.Visible = true; }
             if (this.logged_user.funcionalidades.Contains(7))  //funcionalidad 7
             {this.Deposito.Visible = true;}
             if (this.logged_user.funcionalidades.Contains(8))  //funcionalidad 8
@@ -74,7 +80,7 @@ namespace PagoElectronico
             if (this.logged_user.funcionalidades.Contains(12))  //funcionalidad 12
             { this.button_listado.Visible = true; }
 
-            this.button_listado.Visible = true;
+            
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -114,7 +120,8 @@ namespace PagoElectronico
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ABM_de_Usuario.altaUsuario abm = new ABM_de_Usuario.altaUsuario(this.logged_user);
+            ABM_Cliente.AddCliente abm = new AddCliente();
+            
                 abm.Show();
             
         }
@@ -158,6 +165,12 @@ namespace PagoElectronico
         private void button_listado_Click(object sender, EventArgs e)
         {
             new Listados.ListadosEstadisticos().Show();
+        }
+
+        private void button_facturacion_Click(object sender, EventArgs e)
+        {
+            Facturacion.Facturacion abm = new Facturacion.Facturacion();
+            abm.Show();
         }
     }
 }

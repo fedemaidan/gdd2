@@ -33,7 +33,14 @@ namespace PagoElectronico.Tarjeta
 
         private void buscarTarjetas()
         {
-
+            DateTime emision = new DateTime();
+            DateTime vencimiento = new DateTime();
+            if (txtFechaEmision.Text != "")
+                emision = Convert.ToDateTime(txtFechaEmision.Text);
+            if (txtFechaEmision.Text != "")
+                vencimiento = Convert.ToDateTime(txtFechaVen.Text);
+            
+            
             DataTable dt = new Home2().getTarjetasDelCliente(this.username, textDigitBuscar.Text, cbEmisores.Text, txtFechaEmision.Text, txtFechaVen.Text);
 
             BindingSource bsource = new BindingSource();

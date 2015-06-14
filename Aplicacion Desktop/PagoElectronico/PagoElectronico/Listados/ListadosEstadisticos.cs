@@ -48,8 +48,43 @@ namespace PagoElectronico.Listados
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string desde = "2010-01-01";   
-            string hasta = "2016-01-01";   
+            string mesDesde = "01";
+            string mesHasta = "01";
+            string diaDesde = "01";
+            string diaHasta = "01";
+            string anio = cbAnio.ToString();
+
+            switch (cbTrimestre.Text) {
+                case "1":
+                    mesDesde = "01";
+                    mesHasta = "03";
+                    diaHasta = "31";
+                    break;
+                case "2":
+                    mesDesde = "04";
+                    mesHasta = "06";
+                    diaHasta = "30";
+                    break;
+                case "3":
+                    mesDesde = "07";
+                    mesHasta = "09";
+                    diaHasta = "30";
+                    break;
+                case "4":
+                    mesDesde = "10";
+                    mesHasta = "12";
+                    diaHasta = "31";
+                    break;
+                default:
+                    break;
+            }
+
+            //string desde = new DateTime(anio,mesDesde, diaDesde).ToString();
+           // string hasta = new DateTime(anio, mesHasta, diaHasta).ToString();
+
+            string desde = anio+"-"+mesDesde+"-"+ diaDesde;
+            string hasta = anio+"-"+ mesHasta+"-"+ diaHasta;
+
             Home.Home2 home2 = new Home.Home2();
             DataTable dt = new DataTable();
 

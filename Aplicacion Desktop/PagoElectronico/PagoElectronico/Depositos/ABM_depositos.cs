@@ -49,13 +49,13 @@ namespace PagoElectronico.Depositos
             //  termino de agregar monedas  al combobox
 
             
-
-            //agrego tarjetas al combobox
-            Dia dia = new Dia();
+                        
             // agrego fecha al textbox
+            Dia dia = new Dia();
             textBox_fecha.Text = dia.Hoy().ToString();
-
-            string qeri_tarjeta = "select tc.numero_tarjeta from qwerty.tarjetas_de_credito tc, qwerty.clientes c where tc.titular=c.cliente_id and tc.fecha_vencimiento > '" +dia.Hoy().ToString()+"'";
+            
+            //agrego tarjetas al combobox
+            string qeri_tarjeta = "select tc.numero_tarjeta from qwerty.tarjetas_de_credito tc, qwerty.clientes c where tc.titular=c.cliente_id and c.cliente_id="+this.id_cliente+" and tc.fecha_vencimiento > '" +dia.Hoy().ToString()+"'";
             dt = db.select_query(qeri_tarjeta);
             foreach (DataRow row in dt.Rows)
             {
@@ -75,20 +75,25 @@ namespace PagoElectronico.Depositos
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Database db = new Database();
+            DataTable dt2 = new DataTable();
+            string busco_ExisteAsociacion = "select * from qwerty.tarjetas_de_credito tc where tc.numero_tarjeta="+Convert.ToInt32(comboBox_tc.SelectedItem.ToString())+" and tc.numero_cuenta="+Convert.ToInt32(comboBox_nrocuenta.SelectedItem.ToString());
+            dt2 = db.select_query(busco_ExisteAsociacion);
+
+            if (dt2.Rows.Count==0) { MessageBox.Show("Tarjeta no asociada a la cuenta"); return; }
+
             Random random = new Random(); //IMPORTANTE QITAR ESTO DESPUES PORQE LO USO PARA GENERAR EL ID DEL DEPOSITO
             int aleatorio = random.Next(1, 10000000);
-            MessageBox.Show(aleatorio.ToString());
-            MessageBox.Show(comboBox_nrocuenta.SelectedItem.ToString());
-            MessageBox.Show((Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1).ToString());
+            
 
-            string qeri_insert = "insert into qwerty.depositos values (" + aleatorio + "," + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
-            Database db = new Database();
+            string qeri_insert = "insert into qwerty.depositos (deposito_id,numero_cuenta,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + aleatorio + "," + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
+            
             db.insert_query(qeri_insert);
             
             //actualizar cuenta
 
             string saldo_cuenta = "select c.saldo from qwerty.cuentas c where c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
-            DataTable dt2 = new DataTable();
+            
             dt2 = db.select_query(saldo_cuenta);
             double saldo_anterior = 0;
             foreach (DataRow row in dt2.Rows)

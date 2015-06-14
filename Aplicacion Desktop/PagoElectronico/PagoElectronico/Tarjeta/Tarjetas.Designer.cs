@@ -52,21 +52,21 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 112);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 119);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(530, 115);
             this.dataGridView1.TabIndex = 14;
             // 
             // textDigitBuscar
             // 
-            this.textDigitBuscar.Location = new System.Drawing.Point(98, 6);
+            this.textDigitBuscar.Location = new System.Drawing.Point(101, 13);
             this.textDigitBuscar.Name = "textDigitBuscar";
             this.textDigitBuscar.Size = new System.Drawing.Size(138, 20);
             this.textDigitBuscar.TabIndex = 13;
             // 
             // btn_seleccionar
             // 
-            this.btn_seleccionar.Location = new System.Drawing.Point(115, 233);
+            this.btn_seleccionar.Location = new System.Drawing.Point(118, 240);
             this.btn_seleccionar.Name = "btn_seleccionar";
             this.btn_seleccionar.Size = new System.Drawing.Size(75, 23);
             this.btn_seleccionar.TabIndex = 12;
@@ -76,7 +76,7 @@
             // 
             // btn_limpiar
             // 
-            this.btn_limpiar.Location = new System.Drawing.Point(161, 79);
+            this.btn_limpiar.Location = new System.Drawing.Point(164, 86);
             this.btn_limpiar.Name = "btn_limpiar";
             this.btn_limpiar.Size = new System.Drawing.Size(75, 23);
             this.btn_limpiar.TabIndex = 11;
@@ -86,7 +86,7 @@
             // 
             // btn_agregar
             // 
-            this.btn_agregar.Location = new System.Drawing.Point(12, 233);
+            this.btn_agregar.Location = new System.Drawing.Point(15, 240);
             this.btn_agregar.Name = "btn_agregar";
             this.btn_agregar.Size = new System.Drawing.Size(75, 23);
             this.btn_agregar.TabIndex = 10;
@@ -96,7 +96,7 @@
             // 
             // btn_buscar
             // 
-            this.btn_buscar.Location = new System.Drawing.Point(40, 79);
+            this.btn_buscar.Location = new System.Drawing.Point(43, 86);
             this.btn_buscar.Name = "btn_buscar";
             this.btn_buscar.Size = new System.Drawing.Size(75, 23);
             this.btn_buscar.TabIndex = 9;
@@ -107,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(15, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 8;
@@ -115,7 +115,7 @@
             // 
             // btn_desasociar
             // 
-            this.btn_desasociar.Location = new System.Drawing.Point(212, 233);
+            this.btn_desasociar.Location = new System.Drawing.Point(215, 240);
             this.btn_desasociar.Name = "btn_desasociar";
             this.btn_desasociar.Size = new System.Drawing.Size(75, 23);
             this.btn_desasociar.TabIndex = 15;
@@ -126,7 +126,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 42);
+            this.label1.Location = new System.Drawing.Point(18, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 16;
@@ -135,7 +135,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(258, 37);
+            this.label3.Location = new System.Drawing.Point(261, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 17;
@@ -144,7 +144,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(280, 11);
+            this.label4.Location = new System.Drawing.Point(283, 18);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 18;
@@ -153,14 +153,14 @@
             // cbEmisores
             // 
             this.cbEmisores.FormattingEnabled = true;
-            this.cbEmisores.Location = new System.Drawing.Point(98, 34);
+            this.cbEmisores.Location = new System.Drawing.Point(101, 41);
             this.cbEmisores.Name = "cbEmisores";
             this.cbEmisores.Size = new System.Drawing.Size(138, 21);
             this.cbEmisores.TabIndex = 19;
             // 
             // BtnFechaVencimiento
             // 
-            this.BtnFechaVencimiento.Location = new System.Drawing.Point(481, 34);
+            this.BtnFechaVencimiento.Location = new System.Drawing.Point(484, 41);
             this.BtnFechaVencimiento.Name = "BtnFechaVencimiento";
             this.BtnFechaVencimiento.Size = new System.Drawing.Size(84, 23);
             this.BtnFechaVencimiento.TabIndex = 136;
@@ -170,14 +170,14 @@
             // 
             // monthCalendar2Em
             // 
-            this.monthCalendar2Em.Location = new System.Drawing.Point(342, 69);
+            this.monthCalendar2Em.Location = new System.Drawing.Point(345, 76);
             this.monthCalendar2Em.Name = "monthCalendar2Em";
             this.monthCalendar2Em.TabIndex = 135;
             this.monthCalendar2Em.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar2Em_DateChanged);
             // 
             // txtFechaVen
             // 
-            this.txtFechaVen.Location = new System.Drawing.Point(342, 34);
+            this.txtFechaVen.Location = new System.Drawing.Point(345, 41);
             this.txtFechaVen.Name = "txtFechaVen";
             this.txtFechaVen.ReadOnly = true;
             this.txtFechaVen.Size = new System.Drawing.Size(121, 20);
@@ -186,7 +186,7 @@
             // 
             // BtnFechaEmision
             // 
-            this.BtnFechaEmision.Location = new System.Drawing.Point(481, 8);
+            this.BtnFechaEmision.Location = new System.Drawing.Point(484, 15);
             this.BtnFechaEmision.Name = "BtnFechaEmision";
             this.BtnFechaEmision.Size = new System.Drawing.Size(84, 23);
             this.BtnFechaEmision.TabIndex = 133;
@@ -196,14 +196,14 @@
             // 
             // monthCalendar1Ven
             // 
-            this.monthCalendar1Ven.Location = new System.Drawing.Point(315, 69);
+            this.monthCalendar1Ven.Location = new System.Drawing.Point(318, 76);
             this.monthCalendar1Ven.Name = "monthCalendar1Ven";
             this.monthCalendar1Ven.TabIndex = 132;
             this.monthCalendar1Ven.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1Ven_DateChanged);
             // 
             // txtFechaEmision
             // 
-            this.txtFechaEmision.Location = new System.Drawing.Point(342, 8);
+            this.txtFechaEmision.Location = new System.Drawing.Point(345, 15);
             this.txtFechaEmision.Name = "txtFechaEmision";
             this.txtFechaEmision.ReadOnly = true;
             this.txtFechaEmision.Size = new System.Drawing.Size(121, 20);

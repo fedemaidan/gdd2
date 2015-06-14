@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox_pais = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_cuenta = new System.Windows.Forms.TextBox();
+            this.comboBox_pais = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,13 +47,6 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(497, 131);
             this.dataGridView1.TabIndex = 14;
-            // 
-            // textBox_pais
-            // 
-            this.textBox_pais.Location = new System.Drawing.Point(183, 33);
-            this.textBox_pais.Name = "textBox_pais";
-            this.textBox_pais.Size = new System.Drawing.Size(100, 20);
-            this.textBox_pais.TabIndex = 13;
             // 
             // button4
             // 
@@ -110,15 +103,23 @@
             this.textBox_cuenta.Size = new System.Drawing.Size(100, 20);
             this.textBox_cuenta.TabIndex = 16;
             // 
+            // comboBox_pais
+            // 
+            this.comboBox_pais.FormattingEnabled = true;
+            this.comboBox_pais.Location = new System.Drawing.Point(183, 32);
+            this.comboBox_pais.Name = "comboBox_pais";
+            this.comboBox_pais.Size = new System.Drawing.Size(100, 21);
+            this.comboBox_pais.TabIndex = 17;
+            // 
             // ABM_Cuenta_Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 316);
+            this.Controls.Add(this.comboBox_pais);
             this.Controls.Add(this.textBox_cuenta);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBox_pais);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
@@ -135,12 +136,12 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox_pais;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox_cuenta;
+        private System.Windows.Forms.ComboBox comboBox_pais;
     }
 }

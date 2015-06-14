@@ -31,19 +31,17 @@
             this.comboBox_moneda = new System.Windows.Forms.ComboBox();
             this.comboBox_tipocuenta = new System.Windows.Forms.ComboBox();
             this.textBox_fecha = new System.Windows.Forms.TextBox();
-            this.textBox_pais = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.comboBox_pais = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // comboBox_moneda
             // 
             this.comboBox_moneda.FormattingEnabled = true;
-            this.comboBox_moneda.Items.AddRange(new object[] {
-            "Dólar"});
             this.comboBox_moneda.Location = new System.Drawing.Point(334, 75);
             this.comboBox_moneda.Name = "comboBox_moneda";
             this.comboBox_moneda.Size = new System.Drawing.Size(100, 21);
@@ -52,11 +50,6 @@
             // comboBox_tipocuenta
             // 
             this.comboBox_tipocuenta.FormattingEnabled = true;
-            this.comboBox_tipocuenta.Items.AddRange(new object[] {
-            "Oro",
-            "Plata",
-            "Bronce",
-            "Gratuita"});
             this.comboBox_tipocuenta.Location = new System.Drawing.Point(334, 142);
             this.comboBox_tipocuenta.Name = "comboBox_tipocuenta";
             this.comboBox_tipocuenta.Size = new System.Drawing.Size(100, 21);
@@ -69,13 +62,6 @@
             this.textBox_fecha.ReadOnly = true;
             this.textBox_fecha.Size = new System.Drawing.Size(100, 20);
             this.textBox_fecha.TabIndex = 16;
-            // 
-            // textBox_pais
-            // 
-            this.textBox_pais.Location = new System.Drawing.Point(120, 77);
-            this.textBox_pais.Name = "textBox_pais";
-            this.textBox_pais.Size = new System.Drawing.Size(100, 20);
-            this.textBox_pais.TabIndex = 15;
             // 
             // label4
             // 
@@ -123,15 +109,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // comboBox_pais
+            // 
+            this.comboBox_pais.FormattingEnabled = true;
+            this.comboBox_pais.Location = new System.Drawing.Point(119, 75);
+            this.comboBox_pais.Name = "comboBox_pais";
+            this.comboBox_pais.Size = new System.Drawing.Size(101, 21);
+            this.comboBox_pais.TabIndex = 19;
+            // 
             // Modificacion_Cuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 301);
+            this.Controls.Add(this.comboBox_pais);
             this.Controls.Add(this.comboBox_moneda);
             this.Controls.Add(this.comboBox_tipocuenta);
             this.Controls.Add(this.textBox_fecha);
-            this.Controls.Add(this.textBox_pais);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -155,6 +149,6 @@
         public System.Windows.Forms.ComboBox comboBox_moneda;
         public System.Windows.Forms.ComboBox comboBox_tipocuenta;
         public System.Windows.Forms.TextBox textBox_fecha;
-        public System.Windows.Forms.TextBox textBox_pais;
+        public System.Windows.Forms.ComboBox comboBox_pais;
     }
 }

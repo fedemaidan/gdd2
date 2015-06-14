@@ -40,8 +40,8 @@
             this.button_facturacion = new System.Windows.Forms.Button();
             this.button_consulta_saldo = new System.Windows.Forms.Button();
             this.button_listado = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button_cliente = new System.Windows.Forms.Button();
+            this.button_tarjeta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ABM_de_Rol
@@ -149,6 +149,7 @@
             this.button_facturacion.Text = "Facturar";
             this.button_facturacion.UseVisualStyleBackColor = true;
             this.button_facturacion.Visible = false;
+            this.button_facturacion.Click += new System.EventHandler(this.button_facturacion_Click);
             // 
             // button_consulta_saldo
             // 
@@ -172,33 +173,35 @@
             this.button_listado.Visible = false;
             this.button_listado.Click += new System.EventHandler(this.button_listado_Click);
             // 
-            // button4
+            // button_cliente
             // 
-            this.button4.Location = new System.Drawing.Point(62, 268);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(150, 27);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "ABM Cliente";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            this.button_cliente.Location = new System.Drawing.Point(62, 268);
+            this.button_cliente.Name = "button_cliente";
+            this.button_cliente.Size = new System.Drawing.Size(150, 27);
+            this.button_cliente.TabIndex = 12;
+            this.button_cliente.Text = "ABM Cliente";
+            this.button_cliente.UseVisualStyleBackColor = true;
+            this.button_cliente.Visible = false;
+            this.button_cliente.Click += new System.EventHandler(this.button4_Click_1);
             // 
-            // button5
+            // button_tarjeta
             // 
-            this.button5.Location = new System.Drawing.Point(47, 312);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(181, 23);
-            this.button5.TabIndex = 13;
-            this.button5.Text = "Asociar o Desaciociar tarjetas";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click_1);
+            this.button_tarjeta.Location = new System.Drawing.Point(47, 312);
+            this.button_tarjeta.Name = "button_tarjeta";
+            this.button_tarjeta.Size = new System.Drawing.Size(181, 23);
+            this.button_tarjeta.TabIndex = 13;
+            this.button_tarjeta.Text = "Asociar o Desaciociar tarjetas";
+            this.button_tarjeta.UseVisualStyleBackColor = true;
+            this.button_tarjeta.Visible = false;
+            this.button_tarjeta.Click += new System.EventHandler(this.button5_Click_1);
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 357);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button_tarjeta);
+            this.Controls.Add(this.button_cliente);
             this.Controls.Add(this.button_listado);
             this.Controls.Add(this.button_consulta_saldo);
             this.Controls.Add(this.button_facturacion);
@@ -233,8 +236,8 @@
         private System.Windows.Forms.Button button_facturacion;
         private System.Windows.Forms.Button button_consulta_saldo;
         private System.Windows.Forms.Button button_listado;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_cliente;
+        private System.Windows.Forms.Button button_tarjeta;
     }
 }
 

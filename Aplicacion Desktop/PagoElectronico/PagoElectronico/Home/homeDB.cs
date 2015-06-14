@@ -58,7 +58,7 @@ namespace PagoElectronico.Home
             if (dt.Rows.Count != 0)
             {
                 estado=(string)dt.Rows[0]["estado"];
-                if ( estado == "0")
+                if ( estado == "N")
                 {
                     throw new Exception("Usuario inhabilitado");
                 }
@@ -84,11 +84,11 @@ namespace PagoElectronico.Home
         {
             String query = "select u.estado from qwerty.usuarios u where u.nombre_usuario='"+username+"'";
             DataTable dt = db.select_query(query);
-            char estado = '0';
+            char estado = 'N';
             foreach(DataRow row in dt.Rows){
                 estado = Convert.ToChar(row["estado"].ToString());             
             }
-            if (estado == '0')
+            if (estado == 'N')
             {
                 throw new Exception("Usuario Inhabilitado");
             }

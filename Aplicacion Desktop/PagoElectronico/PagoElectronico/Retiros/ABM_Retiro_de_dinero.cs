@@ -67,7 +67,8 @@ namespace PagoElectronico.Retiros
             check.ShowDialog();
             
             if (tieneDNI) {
-                string tieneSaldo = "select c.saldo from qwerty.cuentas c where c.cliente_id="+id_cliente;
+                
+                string tieneSaldo = "select c.saldo from qwerty.cuentas c where c.numero_cuenta="+comboBox_nrocuenta.SelectedItem.ToString()+" and c.cliente_id=" + id_cliente;
                 Database db = new Database();
                 DataTable dt = new DataTable();
                 int saldo=0;
@@ -76,10 +77,50 @@ namespace PagoElectronico.Retiros
                 {
                     saldo = Convert.ToInt32(row["saldo"].ToString());
                 }
-                if (saldo > Convert.ToInt32(textBox_importe.Text)) {
-                    string retiro_dinero = "update qwerty.cuentas set saldo=" + (saldo - Convert.ToInt32(textBox_importe.Text)) + " where cliente_id="+id_cliente;
+                if (saldo >= Convert.ToInt32(textBox_importe.Text))
+                {
+                    string retiro_dinero = "update qwerty.cuentas set saldo=" + (saldo - Convert.ToInt32(textBox_importe.Text)) + " where numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString() + " and cliente_id=" + id_cliente;
                     db.update_query(retiro_dinero);
+                    //busco banco_id
+                    string busco_bancoID = "select tc.banco_id, b.nombre  from qwerty.tarjetas_de_credito tc, qwerty.bancos b  where tc.banco_id=b.banco_id and tc.numero_cuenta="+comboBox_nrocuenta.SelectedItem.ToString();
+                    
+                    dt = db.select_query(busco_bancoID);
+                    int banco_id = 0;
+                    string banco_nombre = "";
+                    foreach (DataRow row in dt.Rows) {
+                        banco_id = Convert.ToInt32(row["banco_id"].ToString());
+                        banco_nombre = row["nombre"].ToString();
+                    }
+                    //termino de buscar banco_id
+
+                    //busco nombre y ap del cliente
+                    string busc_nombre_ap= "select nombre,apellido from qwerty.clientes where cliente_id="+this.id_cliente;
+                    dt = db.select_query(busc_nombre_ap);
+                    string nombre = "";
+                    string apellido = "";
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        nombre = row["nombre"].ToString();
+                        apellido = row["apellido"].ToString();
+                    }
+                    //busco nombre y ap del cliente FINN
+                    
+                    //genero el retiro
+                    Random nro = new Random();
+                    int aleatorio = nro.Next(1, 10000000);
+                    Dia dia = new Dia();
+                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo (retiro_id,numero_cuenta,importe,fecha_retiro,nombre,apellido,nombre_banco) values ("+aleatorio+","+Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString())+","+Convert.ToInt64(textBox_importe.Text)+",'"+dia.Hoy()+"','"+nombre+"','"+apellido+"','"+banco_nombre+"')";
+                    db.insert_query(qeri_retiro);
+                    string inserto_cheque = "insert into qwerty.cheques (cliente_id,banco_id,importe,fecha) values ("+this.id_cliente+","+banco_id+","+Convert.ToDouble(textBox_importe.Text)+",'"+dia.Hoy()+"')";
+                    db.insert_query(inserto_cheque);
+
+
                     MessageBox.Show("Retiro realizado!");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No tiene saldo!");
                     this.Close();
                 }
             } 
