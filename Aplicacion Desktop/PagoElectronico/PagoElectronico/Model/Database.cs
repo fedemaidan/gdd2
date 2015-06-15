@@ -70,6 +70,7 @@ namespace PagoElectronico.Model
             }
             catch (Exception ex) {
                 MessageBox.Show("Fallo al ejectuar la query : " + query);
+                MessageBox.Show(ex.Message + " Query: " + query);
             }
         }
 

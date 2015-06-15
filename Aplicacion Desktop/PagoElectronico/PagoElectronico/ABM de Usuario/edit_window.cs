@@ -49,7 +49,7 @@ namespace PagoElectronico.ABM_de_Usuario
 
         }
 
-        private bool vacio;
+       // private bool vacio;
         private void validar(Form form)
         {
 

@@ -169,7 +169,7 @@ namespace PagoElectronico
 
         private void button_facturacion_Click(object sender, EventArgs e)
         {
-            Facturacion.Facturacion abm = new Facturacion.Facturacion();
+            Facturacion.Facturacion abm = new Facturacion.Facturacion(this.logged_user);
             abm.Show();
         }
     }

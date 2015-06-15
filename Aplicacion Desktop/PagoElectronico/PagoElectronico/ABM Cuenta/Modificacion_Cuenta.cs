@@ -114,8 +114,30 @@ namespace PagoElectronico.ABM_Cuenta
                 decimal costo_transac = 0;
                 foreach (DataRow row in dt.Rows) { costo_transac = Convert.ToDecimal(row["costo"]); }
                 //busco costo de transaccion FIN
-                string insert_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values("+this.nro_cta+","+(comboBox_tipocuenta.SelectedIndex+1)+","+this.id_cliente+",'Modificacion Cuenta','"+dia.Hoy()+"',"+costo_transac+",3)";
+                
+                
+                System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+                customCulture.NumberFormat.NumberDecimalSeparator = ".";
+                System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+                
+                //inserto transaccion
+                string insert_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values("+this.nro_cta+",'"+comboBox_tipocuenta.SelectedItem.ToString()+"',"+this.id_cliente+",'Modificacion Cuenta','"+dia.Hoy()+"',"+costo_transac+",3)";
                 db.insert_query(insert_transac);
+                //inserto transaccion FINN
+                
+                //busco id de categoria seleccionada
+                string busco_Cat="select cc.categoria_id from qwerty.categorias_de_cuentas cc where cc.descripcion='"+comboBox_tipocuenta.SelectedItem.ToString()+"'";
+                dt=db.select_query(busco_Cat);
+                int categoria_nueva=0;
+                foreach(DataRow row in dt.Rows){
+                    categoria_nueva=Convert.ToInt32(row["categoria_id"]);
+                }
+                //busco id de categoria seleccionada FINN
+                
+                // inserto en cambio de cuenta
+                string insert_cambiocta = "insert into qwerty.cambios_de_cuentas (numero_cuenta,categoria,costo_id,fecha_cambio) values ("+this.nro_cta+","+categoria_nueva+",2,'"+new Dia().Hoy()+"')";
+                db.insert_query(insert_cambiocta);
+                // inserto en cambio de cuenta FIN
             }
             
             this.Close();

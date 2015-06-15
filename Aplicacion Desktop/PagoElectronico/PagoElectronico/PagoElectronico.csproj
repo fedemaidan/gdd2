@@ -144,6 +144,12 @@
     <Compile Include="Facturacion\Facturacion.Designer.cs">
       <DependentUpon>Facturacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Facturacion\suscripciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturacion\suscripciones.Designer.cs">
+      <DependentUpon>suscripciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home\Home2.cs" />
     <Compile Include="Home\homeDB.cs" />
     <Compile Include="Listados\ListadosEstadisticos.cs">
@@ -226,6 +232,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Depositos\ABM_depositos.resx">
       <DependentUpon>ABM_depositos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\Facturacion.resx">
+      <DependentUpon>Facturacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\suscripciones.resx">
+      <DependentUpon>suscripciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listados\ListadosEstadisticos.resx">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>

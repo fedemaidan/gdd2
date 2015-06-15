@@ -16,8 +16,9 @@ namespace PagoElectronico.ABM_Cuenta
         public ABM_Cuenta_Listado(User user)
         {
             InitializeComponent();
-            //agrego paises  al combobox
             this.user = user;
+            //agrego paises  al combobox
+            
             string qeri_paises = "select p.desc_pais from qwerty.paises p";
             Database db = new Database();
             DataTable dt = new DataTable();
@@ -44,7 +45,7 @@ namespace PagoElectronico.ABM_Cuenta
             string qeri;
             // el if es para que si entro como administrador puedo ver y modificar todas las   IMPORTANTEE
             //cuentas entonces cuando haga una modficacion tengo que avisar a qe usuario afecto IMPORTANTEEEE
-            if (user.getRol() == "Administrador") { qeri = "select c.numero_cuenta as Cuenta,cli.nombre_usuario as Usuario,c.saldo as Saldo,c.fecha_apertura,c.fecha_cierre,m.descripcion as Moneda,p.desc_pais as País,cc.descripcion as Categoría, c.estado_id as Estado from qwerty.cuentas c, qwerty.paises p, qwerty.monedas m, qwerty.categorias_de_cuentas cc,qwerty.clientes cli  where  m.moneda_id=c.moneda_id and cc.categoria_id=c.categoria_id and c.cliente_id=cli.cliente_id"; }
+            if (user.getRol() == "Administrador") { qeri = "select c.numero_cuenta as Cuenta,cli.nombre_usuario as Usuario,c.saldo as Saldo,c.fecha_apertura,c.fecha_cierre,m.descripcion as Moneda,p.desc_pais as País,cc.descripcion as Categoría, c.estado_id as Estado from qwerty.cuentas c, qwerty.paises p, qwerty.monedas m, qwerty.categorias_de_cuentas cc,qwerty.clientes cli  where  m.moneda_id=c.moneda_id and cc.categoria_id=c.categoria_id and c.cod_pais=p.cod_pais  and c.cliente_id=cli.cliente_id"; }
             else { qeri = "select c.numero_cuenta as Cuenta,c.saldo as Saldo,c.estado_id as Estado,c.fecha_apertura,c.fecha_cierre,m.descripcion as Moneda,p.desc_pais as País,cc.descripcion as categoría from qwerty.cuentas c, qwerty.paises p, qwerty.monedas m, qwerty.categorias_de_cuentas cc  where c.cliente_id=" + id_cliente + " and m.moneda_id=c.moneda_id and  p.cod_pais=c.cod_pais and cc.categoria_id=c.categoria_id"; }
             
             
@@ -59,6 +60,7 @@ namespace PagoElectronico.ABM_Cuenta
         }
         private int id_cliente;
         private User user;
+        
 
         private void ABM_Cuenta_Listado_Load(object sender, EventArgs e)
         {
@@ -79,7 +81,7 @@ namespace PagoElectronico.ABM_Cuenta
             DataTable dt = new DataTable();
             BindingSource bsource = new BindingSource();
             string qeri = "";
-            if (user.getRol() == "Administrador") { qeri = "select c.numero_cuenta as Cuenta,cli.nombre_usuario as Usuario,c.saldo as Saldo,c.fecha_apertura,c.fecha_cierre,m.descripcion as Moneda,p.desc_pais as País,cc.descripcion as Categoría, c.estado_id as Estado from qwerty.cuentas c, qwerty.paises p, qwerty.monedas m, qwerty.categorias_de_cuentas cc,qwerty.clientes cli  where  c.numero_cuenta like '%" + textBox_cuenta.Text + "%' and p.desc_pais like '%" + comboBox_pais.SelectedItem.ToString() + "%' and p.cod_pais=c.cod_pais and m.moneda_id=c.moneda_id and cc.categoria_id=c.categoria_id and c.cliente_id=cli.cliente_id"; }
+            if (user.getRol() == "Administrador") { qeri = "select c.numero_cuenta as Cuenta,cli.nombre_usuario as Usuario,c.saldo as Saldo,c.fecha_apertura,c.fecha_cierre,m.descripcion as Moneda,p.desc_pais as País,cc.descripcion as Categoría, c.estado_id as Estado from qwerty.cuentas c, qwerty.paises p, qwerty.monedas m, qwerty.categorias_de_cuentas cc,qwerty.clientes cli  where  c.numero_cuenta like '%" + textBox_cuenta.Text + "%' and p.desc_pais like '%" + comboBox_pais.SelectedItem.ToString() + "%' and p.cod_pais=c.cod_pais and m.moneda_id=c.moneda_id and cc.categoria_id=c.categoria_id  and c.cliente_id=cli.cliente_id"; }
             else { qeri = "select c.numero_cuenta as Cuenta,c.saldo as Saldo,c.estado_id as Estado,c.fecha_apertura,c.fecha_cierre,m.descripcion as Moneda,p.desc_pais as País,cc.descripcion as categoría from qwerty.cuentas c, qwerty.paises p, qwerty.monedas m, qwerty.categorias_de_cuentas cc  where c.numero_cuenta like '%" + textBox_cuenta.Text + "%' and p.desc_pais like '%" + comboBox_pais.SelectedItem.ToString() + "%' and c.cliente_id=" + id_cliente + " and m.moneda_id=c.moneda_id and cc.categoria_id=c.categoria_id and p.cod_pais=c.cod_pais "; }
             
             dt = db.select_query(qeri);
