@@ -52,7 +52,7 @@ namespace PagoElectronico.Listados
             string mesHasta = "01";
             string diaDesde = "01";
             string diaHasta = "01";
-            string anio = cbAnio.ToString();
+            string anio = cbAnio.SelectedItem.ToString();
 
             switch (cbTrimestre.Text) {
                 case "1":

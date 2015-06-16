@@ -85,7 +85,8 @@ namespace PagoElectronico.Login
                 
                 Database db = new Database();
                 DateTime ahora = DateTime.Now;
-                string qeri_log = "insert into qwerty.log (nombre_usuario,tipo_loggin,fecha) values ('" + user.ToString() + "','Logueo correcto','" + ahora + "')";
+                
+                string qeri_log = "insert into qwerty.log (nombre_usuario,tipo_loggin,fecha) values ('" + user.ToString() + "','Logueo correcto',convert(datetime,'" + ahora.ToString("yyyy-MM-dd") + "',121))";
                 string borro_intentos_loggin = "delete from qwerty.intentos_loggin where nombre_usuario='" + user.ToString() + "'";
                 db.select_query(qeri_log);
                 db.delete_query(borro_intentos_loggin);
@@ -175,14 +176,14 @@ namespace PagoElectronico.Login
 
                     //Dia dia = new Dia();
 
-                    string qeri_ingreso_fallido = "insert into qwerty.intentos_loggin (nombre_usuario,fecha,intentos) values ('" + user.ToString() + "','" + ahora + "'," + fails + ")";
+                    string qeri_ingreso_fallido = "insert into qwerty.intentos_loggin (nombre_usuario,fecha,intentos) values ('" + user.ToString() + "',convert(datetime,'" + ahora.ToString("yyyy-MM-dd") + "',121)," + fails + ")";
 
 
                     db.insert_query(qeri_ingreso_fallido);
                     //termino de ingresar el intento en intentos_loggin
 
                     //ingreso registro en log
-                    string qeri_log = "insert into qwerty.log (nombre_usuario,tipo_loggin,fecha) values ('" + user.ToString() + "','Contraseña incorrecta','" + ahora + "')";
+                    string qeri_log = "insert into qwerty.log (nombre_usuario,tipo_loggin,fecha) values ('" + user.ToString() + "','Contraseña incorrecta',convert(datetime,'" + ahora.ToString("yyyy-MM-dd") + "',121))";
                     db.insert_query(qeri_log);
                     //termino de ingresar registro en log
 

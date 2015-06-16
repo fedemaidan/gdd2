@@ -80,6 +80,7 @@ namespace PagoElectronico
             if (this.logged_user.funcionalidades.Contains(12))  //funcionalidad 12
             { this.button_listado.Visible = true; }
 
+
             
         }
 
