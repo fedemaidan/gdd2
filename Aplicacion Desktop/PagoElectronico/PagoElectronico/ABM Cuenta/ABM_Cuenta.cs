@@ -18,9 +18,9 @@ namespace PagoElectronico.ABM_Cuenta
         {
             InitializeComponent();
             Dia dia = new Dia();
-            textBox_fecha.Text = dia.Hoy().ToString();
+            textBox_fecha.Text = dia.Hoy().ToString("yyyy-MM-dd");
             this.user=user;
-
+            
             //agrego paises  al combobox
             string qeri_paises = "select p.desc_pais from qwerty.paises p";
             Database db = new Database();
@@ -102,7 +102,8 @@ namespace PagoElectronico.ABM_Cuenta
                 duracion = Convert.ToInt32(row["duracion"]);
             }
             Dia dia = new Dia();
-            string queri = "insert into qwerty.cuentas (cod_pais, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id,fecha_cierre,pendiente_facturacion) values ("+ cod_pais +"," + (comboBox_moneda.SelectedIndex + 1) + ",'" + textBox_fecha.Text + "'," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,"+"( dateadd(day,"+duracion+",'"+dia.Hoy()+"')),'S')";
+
+            string queri = "insert into qwerty.cuentas (cod_pais, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id,fecha_cierre,pendiente_facturacion) values (" + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121)," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1," + "( dateadd(day," + duracion + ",convert(datetime,'" + dia.Hoy().ToString("yyyy-MM-dd") + "',121))),'S')";
             db.insert_query(queri);
 
             this.Close();
