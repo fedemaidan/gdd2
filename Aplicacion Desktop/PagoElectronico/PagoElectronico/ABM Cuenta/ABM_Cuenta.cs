@@ -17,14 +17,37 @@ namespace PagoElectronico.ABM_Cuenta
         public ABM_Cuenta(User user)
         {
             InitializeComponent();
+
+            Database db = new Database();
+            DataTable dt = new DataTable();
+
+            if (user.rol != "Administrador")
+            {
+                this.cb_clientes.Visible = false;
+                this.label5.Visible = false;
+            }
+            else
+            {
+                string query_user = "select u.nombre_usuario from qwerty.clientes c  join qwerty.usuarios u  on u.nombre_usuario = c.nombre_usuario;";
+                db = new Database();
+                dt = new DataTable();
+                dt = db.select_query(query_user);
+                foreach (DataRow row in dt.Rows)
+                {
+                    cb_clientes.Items.Add(row["nombre_usuario"].ToString());
+
+                }
+            }
+
+
             Dia dia = new Dia();
             textBox_fecha.Text = dia.Hoy().ToString("yyyy-MM-dd");
             this.user=user;
             
             //agrego paises  al combobox
             string qeri_paises = "select p.desc_pais from qwerty.paises p";
-            Database db = new Database();
-            DataTable dt = new DataTable();
+            db = new Database();
+            dt = new DataTable();
             dt = db.select_query(qeri_paises);
             foreach (DataRow row in dt.Rows)
             {
@@ -67,13 +90,22 @@ namespace PagoElectronico.ABM_Cuenta
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string qeri_buscoIDcliente;
+            if (user.rol != "Administrador")
+            {
+                qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + user.getUserName() + "'";
+            }
+            else
+            {
+                qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + cb_clientes.SelectedItem.ToString()  + "'";
+            }
+
+            
             Database db = new Database();
             
 
             // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
             
-            string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + user.getUserName() + "'";
-
             DataTable dt = db.select_query(qeri_buscoIDcliente);
             foreach (DataRow row in dt.Rows)
             {

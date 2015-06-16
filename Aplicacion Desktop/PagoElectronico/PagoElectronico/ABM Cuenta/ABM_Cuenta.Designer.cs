@@ -37,6 +37,8 @@
             this.comboBox_tipocuenta = new System.Windows.Forms.ComboBox();
             this.comboBox_moneda = new System.Windows.Forms.ComboBox();
             this.comboBox_pais = new System.Windows.Forms.ComboBox();
+            this.cb_clientes = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -52,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(87, 42);
+            this.label1.Location = new System.Drawing.Point(87, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 1;
@@ -61,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(285, 41);
+            this.label2.Location = new System.Drawing.Point(285, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 2;
@@ -105,7 +107,7 @@
             // comboBox_moneda
             // 
             this.comboBox_moneda.FormattingEnabled = true;
-            this.comboBox_moneda.Location = new System.Drawing.Point(340, 33);
+            this.comboBox_moneda.Location = new System.Drawing.Point(340, 52);
             this.comboBox_moneda.Name = "comboBox_moneda";
             this.comboBox_moneda.Size = new System.Drawing.Size(100, 21);
             this.comboBox_moneda.TabIndex = 9;
@@ -113,16 +115,35 @@
             // comboBox_pais
             // 
             this.comboBox_pais.FormattingEnabled = true;
-            this.comboBox_pais.Location = new System.Drawing.Point(126, 38);
+            this.comboBox_pais.Location = new System.Drawing.Point(126, 57);
             this.comboBox_pais.Name = "comboBox_pais";
             this.comboBox_pais.Size = new System.Drawing.Size(100, 21);
             this.comboBox_pais.TabIndex = 10;
+            // 
+            // cb_clientes
+            // 
+            this.cb_clientes.FormattingEnabled = true;
+            this.cb_clientes.Location = new System.Drawing.Point(126, 12);
+            this.cb_clientes.Name = "cb_clientes";
+            this.cb_clientes.Size = new System.Drawing.Size(100, 21);
+            this.cb_clientes.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(91, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Cliente username:";
             // 
             // ABM_Cuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 214);
+            this.Controls.Add(this.cb_clientes);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBox_pais);
             this.Controls.Add(this.comboBox_moneda);
             this.Controls.Add(this.comboBox_tipocuenta);
@@ -151,5 +172,7 @@
         private System.Windows.Forms.ComboBox comboBox_tipocuenta;
         private System.Windows.Forms.ComboBox comboBox_moneda;
         private System.Windows.Forms.ComboBox comboBox_pais;
+        private System.Windows.Forms.ComboBox cb_clientes;
+        private System.Windows.Forms.Label label5;
     }
 }

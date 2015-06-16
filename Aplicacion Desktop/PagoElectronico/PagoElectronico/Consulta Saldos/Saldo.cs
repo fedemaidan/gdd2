@@ -7,23 +7,47 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using PagoElectronico.Home;
+using PagoElectronico.Model;
+
 namespace PagoElectronico.Consulta_Saldos
 {
     public partial class Saldo : Form
     {
-        string idCliente;
-        public Saldo(string idCliente)
+        string username ;
+        public Saldo(string username)
         {
             InitializeComponent();
-            this.idCliente = idCliente;
-            this.cargarCuentas();
+            this.username = username;
+
+            if (PagoElectronico.Menu.sharedInstance().getUserLogged().rol != "Administrador")
+            {
+                this.cb_clientes.Visible = false;
+                this.label6.Visible = false;
+                this.cargarCuentas();
+            }
+            else
+            {
+                this.cargarClientes();
+            }
+
+            
+        }
+
+        public void cargarClientes()
+        {
+            string query_user = "select u.nombre_usuario from qwerty.clientes c  join qwerty.usuarios u  on u.nombre_usuario = c.nombre_usuario;";
+            Database db = new Database();
+            DataTable dt = db.select_query(query_user);
+            foreach (DataRow row in dt.Rows)
+            {
+                cb_clientes.Items.Add(row["nombre_usuario"].ToString());
+
+            }
         }
 
         public void cargarCuentas()
         {
-            
-
-            DataTable cuentas  = new Home2().getCuentas(this.idCliente);
+            DataTable cuentas  = new Home2().getCuentas(this.username);
 
             int rows = cuentas.Rows.Count;
             for (int i = 0; i < rows; i++)
@@ -53,6 +77,14 @@ namespace PagoElectronico.Consulta_Saldos
             dataGridDepositos.DataSource = bsource3;
 
             saldo1.Text = home2.getSaldo(numeroCuenta);
+        }
+
+        private void cb_clientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            this.username = this.cb_clientes.SelectedItem.ToString();
+
+            this.cargarCuentas();
         }
     }
 }

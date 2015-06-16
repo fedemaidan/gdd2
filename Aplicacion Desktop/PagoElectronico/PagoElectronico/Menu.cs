@@ -81,8 +81,12 @@ namespace PagoElectronico
             if (this.logged_user.funcionalidades.Contains(12))  //funcionalidad 12
             { this.button_listado.Visible = true; }
 
+        }
 
-            
+
+        public User getUserLogged()
+        {
+            return this.logged_user;
         }
 
         private void Menu_Load(object sender, EventArgs e)
