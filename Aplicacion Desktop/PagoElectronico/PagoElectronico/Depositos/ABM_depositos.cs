@@ -77,16 +77,16 @@ namespace PagoElectronico.Depositos
         {
             Database db = new Database();
             DataTable dt2 = new DataTable();
-            string busco_ExisteAsociacion = "select * from qwerty.tarjetas_de_credito tc where tc.numero_tarjeta="+Convert.ToInt32(comboBox_tc.SelectedItem.ToString())+" and tc.numero_cuenta="+Convert.ToInt32(comboBox_nrocuenta.SelectedItem.ToString());
+            string busco_ExisteAsociacion = "select * from qwerty.tarjetas_de_credito tc where tc.numero_tarjeta="+Convert.ToInt64(comboBox_tc.SelectedItem.ToString())+" and tc.numero_cuenta="+Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString());
             dt2 = db.select_query(busco_ExisteAsociacion);
 
             if (dt2.Rows.Count==0) { MessageBox.Show("Tarjeta no asociada a la cuenta"); return; }
 
-            Random random = new Random(); //IMPORTANTE QITAR ESTO DESPUES PORQE LO USO PARA GENERAR EL ID DEL DEPOSITO
-            int aleatorio = random.Next(1, 10000000);
+            //Random random = new Random(); //IMPORTANTE QITAR ESTO DESPUES PORQE LO USO PARA GENERAR EL ID DEL DEPOSITO
+            //int aleatorio = random.Next(1, 10000000);
             
 
-            string qeri_insert = "insert into qwerty.depositos (deposito_id,numero_cuenta,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + aleatorio + "," + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
+            string qeri_insert = "insert into qwerty.depositos (numero_cuenta,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
             
             db.insert_query(qeri_insert);
             
@@ -104,9 +104,9 @@ namespace PagoElectronico.Depositos
             string qeri_actualizocuenta = "update qwerty.cuentas set saldo=" + saldo_final + " where numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
             db.update_query(qeri_actualizocuenta);
 
-
-
             //termino de actualizar cuenta
+
+            
             this.Close();
             
         }

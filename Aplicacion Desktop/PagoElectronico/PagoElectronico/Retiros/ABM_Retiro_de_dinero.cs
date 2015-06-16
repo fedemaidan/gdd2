@@ -106,10 +106,10 @@ namespace PagoElectronico.Retiros
                     //busco nombre y ap del cliente FINN
                     
                     //genero el retiro
-                    Random nro = new Random();
-                    int aleatorio = nro.Next(1, 10000000);
+                    //Random nro = new Random();
+                    //int aleatorio = nro.Next(1, 10000000);
                     Dia dia = new Dia();
-                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo (retiro_id,numero_cuenta,importe,fecha_retiro,nombre,apellido,nombre_banco) values ("+aleatorio+","+Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString())+","+Convert.ToInt64(textBox_importe.Text)+",'"+dia.Hoy()+"','"+nombre+"','"+apellido+"','"+banco_nombre+"')";
+                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo (numero_cuenta,importe,fecha_retiro,nombre,apellido,nombre_banco) values ("+Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString())+","+Convert.ToInt64(textBox_importe.Text)+",'"+dia.Hoy()+"','"+nombre+"','"+apellido+"','"+banco_nombre+"')";
                     db.insert_query(qeri_retiro);
                     //string inserto_cheque = "insert into qwerty.cheques (cliente_id,banco_id,importe,fecha) values ("+this.id_cliente+","+banco_id+","+Convert.ToDouble(textBox_importe.Text)+",'"+dia.Hoy()+"')";
                     //db.insert_query(inserto_cheque);
@@ -124,7 +124,7 @@ namespace PagoElectronico.Retiros
                     this.Close();
                 }
             } 
-            else { MessageBox.Show("no tiene dni"); }
+            else {; }
         }
     }
 }

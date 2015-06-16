@@ -51,7 +51,7 @@ namespace PagoElectronico.Home
 
             String rol = "";
             String db_password = "";
-            string estado="1";
+            string estado="S";
             String query = "select r.descripcion, u.pass_usuario,u.estado from qwerty.usuarios u, qwerty.roles_de_usuarios ur,qwerty.roles r where ur.rol_id = r.rol_id and u.nombre_usuario= ur.nombre_usuario and	ur.nombre_usuario = '"+user+"'";
             DataTable dt = db.select_query(query);
 
@@ -196,7 +196,7 @@ namespace PagoElectronico.Home
         public void setUnavaibleUser(String user)
         {
             Database db = new Database();
-            string qeri = "update qwerty.usuarios set estado=0 where nombre_usuario='"+user.ToString()+"'";
+            string qeri = "update qwerty.usuarios set estado='N' where nombre_usuario='"+user.ToString()+"'";
             //String query = "insert into qwerty.usuarios_inhabilitados values('" + user.ToString() + "',Intento loguearse 3 veces sin exito);";
             db.insert_query(qeri);
         }

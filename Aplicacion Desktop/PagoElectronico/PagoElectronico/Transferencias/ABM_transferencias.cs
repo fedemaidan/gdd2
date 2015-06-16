@@ -124,6 +124,22 @@ namespace PagoElectronico.Transferencias
                 db.insert_query(transf);
                 //termino de actualizar tabla de transferencias
 
+                // inserto en transacciones
+                //busco el tipo de cuenta
+                string busco_tipoCta = "select cc.descripcion from qwerty.cuentas c, qwerty.categorias_de_cuentas cc where c.categoria_id=cc.categoria_id and c.numero_cuenta=" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString());
+                string descripcion = "";
+                dt2 = db.select_query(busco_tipoCta);
+                foreach (DataRow row in dt2.Rows) { descripcion = row["descripcion"].ToString(); }
+                //busco el tipo de cuenta FINN
+
+                // agrego la transaccion
+                
+                string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','"+dia.Hoy()+"',0.2,1)";
+                db.insert_query(qeri_transac);
+                // agrego la transaccion FINN
+                
+                // inserto en transacciones FINN
+
                 this.Close();
 
             }
