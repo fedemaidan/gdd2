@@ -60,7 +60,8 @@ namespace PagoElectronico
             { this.ABM_de_Rol.Visible = true; }
             if (this.logged_user.funcionalidades.Contains(2))  //funcionalidad 2
             { this.ABM_de_Usuario.Visible = true; }
-            //if (this.logged_user.funcionalidades.Contains(3))  //funcionalidad 3 es la de cliente q la tiene q agregar fede this.button_ABMReserva.Visible = true;
+            if (this.logged_user.funcionalidades.Contains(3))  //funcionalidad 3
+            { this.button_cliente.Visible = true; }
             if (this.logged_user.funcionalidades.Contains(4))  //funcionalidad 4 
             { this.ABM_de_cuenta.Visible = true; }
             if (this.logged_user.funcionalidades.Contains(5))  //funcionalidad 5 abm cliente
