@@ -176,7 +176,7 @@ namespace PagoElectronico.Login
 
                     //Dia dia = new Dia();
 
-                    string qeri_ingreso_fallido = "insert into qwerty.intentos_loggin (nombre_usuario,fecha,intentos) values ('" + user.ToString() + "',convert(datetime,'" + ahora.ToString("yyyy-MM-dd") + "',121)," + fails + ")";
+                    string qeri_ingreso_fallido = "insert into qwerty.intentos_loggin (nombre_usuario,fecha,intentos) values ('" + user.ToString() + "',convert(datetime,'" + ahora.ToString("yyyy-MM-dd HH:mm:ss") + "',121)," + fails + ")";
 
 
                     db.insert_query(qeri_ingreso_fallido);

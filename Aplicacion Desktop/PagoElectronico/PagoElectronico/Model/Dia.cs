@@ -18,5 +18,22 @@ namespace PagoElectronico.Model
             /*return FechaDeHoy;*/
 
         }
+
+        public DateTime tiempoHoy()
+        {
+
+            var value = ConfigurationSettings.AppSettings["DateKey"];
+            DateTime appDate = DateTime.Parse(value);
+            DateTime now = DateTime.Now;
+            appDate = appDate.AddHours(now.Hour);
+            appDate = appDate.AddMinutes(now.Minute);
+            appDate = appDate.AddSeconds(now.Second);
+
+            return appDate;
+            /*return FechaDeHoy;*/
+
+        }
+
+
     }
 }
