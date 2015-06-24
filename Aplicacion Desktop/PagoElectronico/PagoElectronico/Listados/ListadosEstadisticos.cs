@@ -20,7 +20,7 @@ namespace PagoElectronico.Listados
         private void cargarCombos()
         {
 
-            for (int i = 2015; 1950 < i; i--)
+            for (int i = 2020; 1980 < i; i--)
             {
                 cbAnio.Items.Add(i.ToString());
             }

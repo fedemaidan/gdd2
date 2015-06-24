@@ -40,6 +40,7 @@ namespace PagoElectronico.ABM_Cliente
             int rows = paises.Rows.Count;
             for (int i = 0; i < rows; i++)
             {
+                cb_nac.Items.Add(paises.Rows[i]["desc_pais"]);
                 cb_pais.Items.Add(paises.Rows[i]["desc_pais"]);
             }
         }
@@ -51,7 +52,7 @@ namespace PagoElectronico.ABM_Cliente
                 Home2 home2 = new Home2();
                 string nacimiento = textBox_fecha.Text;
 
-                string username = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
+                string username = home2.insertarCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, cb_nac.Text, nacimiento, txt_username.Text, txt_password.Text, txt_pregunta.Text, txt_respuesta.Text);
                 if (username != "")
                 {
                     this.Close();

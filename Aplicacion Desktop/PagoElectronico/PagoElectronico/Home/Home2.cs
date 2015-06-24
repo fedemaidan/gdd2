@@ -121,9 +121,9 @@ namespace PagoElectronico.Home
         public DataTable  getClientList(string nombre, string apellido, string mail, string doc, string tipoDoc){
             String query ;
             if (!tipoDoc.Equals(""))
-                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento c.habilitado from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and  d.tipo_doc = '" + tipoDoc + " ';";
+                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento c.habilitado from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%' and  d.tipo_doc = '" + tipoDoc + "' and c.baja = 'N';";
             else
-                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento , c.habilitado from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%'  ;";
+                query = "select c.nombre_usuario, c.nombre, c.apellido, p.desc_pais as pais, c.mail, c.nro_documento, d.tipo_doc, c.calle, c.altura, c.piso, c.depto, c.localidad, c.nacionalidad, c.fecha_nacimiento , c.habilitado from qwerty.clientes c join qwerty.paises p on p.cod_pais = c.pais_id left join qwerty.documentos d on d.doc_id = c.documento_id where apellido like '%" + apellido + "%' and nombre like '%" + nombre + "%' and mail like '%" + mail + "%' and nro_documento like '%" + doc + "%'  and c.baja = 'N';";
 
             DataTable dt = db.select_query(query);  
             return dt;
@@ -169,22 +169,27 @@ namespace PagoElectronico.Home
 
         public DataRow bajaCliente(string username)
         {
-            String queryClientes = "update qwerty.clientes set habilitado = 'N' where nombre_usuario= '"+ username +"';";
+            String queryClientes = "update qwerty.clientes set baja = 'S' where nombre_usuario= '"+ username +"';";
             db.update_query(queryClientes);
 
             return null;
         }
 
-        public DataRow altaCliente(string username)
+        public DataRow habilitarCliente(string username)
         {
             String queryClientes = "update qwerty.clientes set habilitado = 'S' where nombre_usuario= '" + username + "';";
             db.update_query(queryClientes);
 
-            
-
             return null;
         }
 
+        public DataRow inhabilitarCliente(string username)
+        {
+            String queryClientes = "update qwerty.clientes set habilitado = 'N' where nombre_usuario= '" + username + "';";
+            db.update_query(queryClientes);
+
+            return null;
+        }
 
         public int desasociarTarjeta(string numeroTarjeta)
         {
@@ -226,7 +231,7 @@ namespace PagoElectronico.Home
                 paiss = row["cod_pais"].ToString();
             }
 
-            String queryInsertaCliente = "INSERT INTO qwerty.clientes VALUES ('" + username + "' ,'" + nombre + "','" + apellido + "','" + paiss + "','" + mail + "'," + documento + "," + doc_id + ",'" + calle + "'," + altura + "," + piso + ",'" + depto + "','" + localidad + "','" + nacionalidad + "','" + fechaNacimieno + "','S');";
+            String queryInsertaCliente = "INSERT INTO qwerty.clientes VALUES ('" + username + "' ,'" + nombre + "','" + apellido + "','" + paiss + "','" + mail + "'," + documento + "," + doc_id + ",'" + calle + "'," + altura + "," + piso + ",'" + depto + "','" + localidad + "','" + nacionalidad + "','" + fechaNacimieno + "','S','N');";
             db.insert_query(queryInsertaCliente);
 
 

@@ -22,7 +22,24 @@ namespace PagoElectronico.ABM_Cliente
             
             this.cargarDatosDelCliente();
             this.cargarComboTipoDoc();
+            this.cargarComboPaises();
         }
+
+
+        private void cargarComboPaises()
+        {
+            Home2 home2 = new Home2();
+            DataTable paises = home2.getPaisesList();
+
+            int rows = paises.Rows.Count;
+            for (int i = 0; i < rows; i++)
+            {
+                cb_nac.Items.Add(paises.Rows[i]["desc_pais"]);
+                cb_pais.Items.Add(paises.Rows[i]["desc_pais"]);
+            }
+        }
+
+
 
         private void cargarDatosDelCliente()
         {
@@ -31,7 +48,7 @@ namespace PagoElectronico.ABM_Cliente
 
             txt_nombre.Text = datosCliente["nombre"].ToString();
             txt_apellido.Text = datosCliente["apellido"].ToString();
-            txt_pais.Text = datosCliente["pais"].ToString();
+            cb_pais.Text = datosCliente["pais"].ToString();
             txt_mail.Text = datosCliente["mail"].ToString();
             txt_dni.Text = datosCliente["nro_documento"].ToString();
             cb_docs.Text = datosCliente["tipo_doc"].ToString();
@@ -40,15 +57,21 @@ namespace PagoElectronico.ABM_Cliente
             txt_piso.Text = datosCliente["piso"].ToString();
             txt_depto.Text = datosCliente["depto"].ToString();
             txt_localidad.Text = datosCliente["localidad"].ToString();
-            txt_nacionalidad.Text = datosCliente["nacionalidad"].ToString();
+            cb_nac.Text = datosCliente["nacionalidad"].ToString();
             textBox_fecha.Text = datosCliente["fecha_nacimiento"].ToString();
 
             this.habilitado = datosCliente["habilitado"].ToString();
 
             if (this.habilitado != "S")
-                this.btnDarDeAlta.Visible = true;
+            {
+                this.btnHabilitar.Visible = true;
+                this.btnInhabilitar.Visible = false;
+            }
             else
-                this.btnDarDeAlta.Visible = false;
+            {
+                this.btnHabilitar.Visible = false;
+                this.btnInhabilitar.Visible = true;
+            }
         }
 
         private void cargarComboTipoDoc()
@@ -232,7 +255,7 @@ namespace PagoElectronico.ABM_Cliente
             Home2 home2 = new Home2();
 
  
-            int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, txt_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, txt_nacionalidad.Text,textBox_fecha.Text , this.username);
+            int resultado = home2.updateCliente(txt_nombre.Text, txt_apellido.Text, txt_mail.Text, txt_dni.Text, cb_docs.Text, cb_pais.Text, txt_calle.Text, txt_altura.Text, txt_piso.Text, txt_depto.Text, txt_localidad.Text, cb_nac.Text,textBox_fecha.Text , this.username);
 
             if (resultado == 1)
                 this.Close();
@@ -249,8 +272,15 @@ namespace PagoElectronico.ABM_Cliente
         private void btnDarDeAlta_Click(object sender, EventArgs e)
         {
                 Home2 home2 = new Home2();
-                home2.altaCliente(this.username);
+                home2.habilitarCliente(this.username);
                 this.Close();
+        }
+
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            Home2 home2 = new Home2();
+            home2.inhabilitarCliente(this.username);
+            this.Close();
         }
 
 

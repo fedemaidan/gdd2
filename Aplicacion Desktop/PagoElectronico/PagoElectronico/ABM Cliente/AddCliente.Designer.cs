@@ -35,11 +35,9 @@
             this.txt_apellido = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txt_calle = new System.Windows.Forms.TextBox();
-            this.txt_telefono = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.cb_docs = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_mail = new System.Windows.Forms.TextBox();
             this.txt_dni = new System.Windows.Forms.TextBox();
@@ -61,7 +59,6 @@
             this.txt_depto = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.txt_nacionalidad = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.label17 = new System.Windows.Forms.Label();
@@ -69,6 +66,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.txt_localidad = new System.Windows.Forms.TextBox();
             this.cb_pais = new System.Windows.Forms.ComboBox();
+            this.cb_nac = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(306, 168);
+            this.label2.Location = new System.Drawing.Point(192, 168);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 93;
@@ -135,14 +133,6 @@
             this.txt_calle.TabIndex = 89;
             this.txt_calle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_calle_KeyPress);
             // 
-            // txt_telefono
-            // 
-            this.txt_telefono.Location = new System.Drawing.Point(186, 184);
-            this.txt_telefono.Name = "txt_telefono";
-            this.txt_telefono.Size = new System.Drawing.Size(100, 20);
-            this.txt_telefono.TabIndex = 88;
-            this.txt_telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_telefono_KeyPress);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -169,15 +159,6 @@
             this.cb_docs.Size = new System.Drawing.Size(121, 21);
             this.cb_docs.TabIndex = 85;
             this.cb_docs.SelectedIndexChanged += new System.EventHandler(this.cb_docs_SelectedIndexChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(193, 168);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 13);
-            this.label7.TabIndex = 84;
-            this.label7.Text = "Telefono";
             // 
             // label6
             // 
@@ -366,14 +347,6 @@
             this.label16.TabIndex = 104;
             this.label16.Text = "Nacionalidad";
             // 
-            // txt_nacionalidad
-            // 
-            this.txt_nacionalidad.Location = new System.Drawing.Point(563, 134);
-            this.txt_nacionalidad.Name = "txt_nacionalidad";
-            this.txt_nacionalidad.Size = new System.Drawing.Size(100, 20);
-            this.txt_nacionalidad.TabIndex = 103;
-            this.txt_nacionalidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_nacionalidad_KeyPress);
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(579, 220);
@@ -413,7 +386,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(306, 208);
+            this.label18.Location = new System.Drawing.Point(318, 168);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(53, 13);
             this.label18.TabIndex = 110;
@@ -421,7 +394,7 @@
             // 
             // txt_localidad
             // 
-            this.txt_localidad.Location = new System.Drawing.Point(309, 224);
+            this.txt_localidad.Location = new System.Drawing.Point(321, 184);
             this.txt_localidad.Name = "txt_localidad";
             this.txt_localidad.Size = new System.Drawing.Size(100, 20);
             this.txt_localidad.TabIndex = 109;
@@ -430,16 +403,25 @@
             // cb_pais
             // 
             this.cb_pais.FormattingEnabled = true;
-            this.cb_pais.Location = new System.Drawing.Point(300, 183);
+            this.cb_pais.Location = new System.Drawing.Point(186, 183);
             this.cb_pais.Name = "cb_pais";
             this.cb_pais.Size = new System.Drawing.Size(121, 21);
             this.cb_pais.TabIndex = 111;
+            // 
+            // cb_nac
+            // 
+            this.cb_nac.FormattingEnabled = true;
+            this.cb_nac.Location = new System.Drawing.Point(563, 133);
+            this.cb_nac.Name = "cb_nac";
+            this.cb_nac.Size = new System.Drawing.Size(100, 21);
+            this.cb_nac.TabIndex = 112;
             // 
             // AddCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(908, 317);
+            this.Controls.Add(this.cb_nac);
             this.Controls.Add(this.cb_pais);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txt_localidad);
@@ -448,7 +430,6 @@
             this.Controls.Add(this.label17);
             this.Controls.Add(this.textBox_fecha);
             this.Controls.Add(this.label16);
-            this.Controls.Add(this.txt_nacionalidad);
             this.Controls.Add(this.txt_depto);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.txt_piso);
@@ -463,11 +444,9 @@
             this.Controls.Add(this.txt_apellido);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txt_calle);
-            this.Controls.Add(this.txt_telefono);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cb_docs);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txt_mail);
             this.Controls.Add(this.txt_dni);
@@ -492,11 +471,9 @@
         private System.Windows.Forms.TextBox txt_apellido;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txt_calle;
-        private System.Windows.Forms.TextBox txt_telefono;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cb_docs;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_mail;
         private System.Windows.Forms.TextBox txt_dni;
@@ -518,7 +495,6 @@
         private System.Windows.Forms.TextBox txt_depto;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox txt_nacionalidad;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Label label17;
@@ -526,5 +502,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt_localidad;
         private System.Windows.Forms.ComboBox cb_pais;
+        private System.Windows.Forms.ComboBox cb_nac;
     }
 }
