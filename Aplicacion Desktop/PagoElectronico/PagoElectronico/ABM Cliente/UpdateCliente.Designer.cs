@@ -260,6 +260,7 @@
             this.cb_docs.Name = "cb_docs";
             this.cb_docs.Size = new System.Drawing.Size(121, 21);
             this.cb_docs.TabIndex = 118;
+            this.cb_docs.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_docs_KeyPress);
             // 
             // label6
             // 
@@ -320,6 +321,7 @@
             this.cb_nac.Name = "cb_nac";
             this.cb_nac.Size = new System.Drawing.Size(100, 21);
             this.cb_nac.TabIndex = 145;
+            this.cb_nac.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_nac_KeyPress);
             // 
             // cb_pais
             // 
@@ -328,6 +330,7 @@
             this.cb_pais.Name = "cb_pais";
             this.cb_pais.Size = new System.Drawing.Size(121, 21);
             this.cb_pais.TabIndex = 144;
+            this.cb_pais.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_pais_KeyPress);
             // 
             // btnInhabilitar
             // 

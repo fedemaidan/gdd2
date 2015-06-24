@@ -141,6 +141,7 @@
             this.cbEmisor.Name = "cbEmisor";
             this.cbEmisor.Size = new System.Drawing.Size(121, 21);
             this.cbEmisor.TabIndex = 123;
+            this.cbEmisor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbEmisor_KeyPress);
             // 
             // label5
             // 

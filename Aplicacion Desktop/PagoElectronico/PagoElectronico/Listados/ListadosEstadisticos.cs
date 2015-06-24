@@ -105,5 +105,19 @@ namespace PagoElectronico.Listados
 
 
         }
+
+        private void cbAnio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("No se puede escribir en el combo");
+            e.Handled = true;
+            return;
+        }
+
+        private void cbTrimestre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("No se puede escribir en el combo");
+            e.Handled = true;
+            return;
+        }
     }
 }

@@ -285,5 +285,26 @@ namespace PagoElectronico.ABM_Cliente
             monthCalendar1.Visible = false;
         }
 
+        private void cb_docs_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("No se puede escribir en el combo");
+            e.Handled = true;
+            return;
+        }
+
+        private void cb_pais_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("No se puede escribir en el combo");
+            e.Handled = true;
+            return;
+        }
+
+        private void cb_nac_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("No se puede escribir en el combo");
+            e.Handled = true;
+            return;
+        }
+
     }
 }

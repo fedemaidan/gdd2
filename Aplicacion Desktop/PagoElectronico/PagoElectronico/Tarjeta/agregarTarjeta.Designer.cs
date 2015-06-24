@@ -103,6 +103,7 @@
             this.cbEmisor.Size = new System.Drawing.Size(121, 21);
             this.cbEmisor.TabIndex = 5;
             this.cbEmisor.SelectedIndexChanged += new System.EventHandler(this.cbEmisor_SelectedIndexChanged);
+            this.cbEmisor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbEmisor_KeyPress);
             // 
             // txtNumeroTarjeta
             // 
@@ -208,6 +209,7 @@
             this.cbBanco.Name = "cbBanco";
             this.cbBanco.Size = new System.Drawing.Size(121, 21);
             this.cbBanco.TabIndex = 119;
+            this.cbBanco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbBanco_KeyPress);
             // 
             // cbCuentas
             // 
@@ -216,6 +218,7 @@
             this.cbCuentas.Name = "cbCuentas";
             this.cbCuentas.Size = new System.Drawing.Size(121, 21);
             this.cbCuentas.TabIndex = 121;
+            this.cbCuentas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbCuentas_KeyPress);
             // 
             // label7
             // 

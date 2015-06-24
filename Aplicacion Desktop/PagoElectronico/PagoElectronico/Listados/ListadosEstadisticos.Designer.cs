@@ -118,6 +118,7 @@
             this.cbAnio.Name = "cbAnio";
             this.cbAnio.Size = new System.Drawing.Size(98, 21);
             this.cbAnio.TabIndex = 6;
+            this.cbAnio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbAnio_KeyPress);
             // 
             // label2
             // 
@@ -143,6 +144,7 @@
             this.cbTrimestre.Name = "cbTrimestre";
             this.cbTrimestre.Size = new System.Drawing.Size(98, 21);
             this.cbTrimestre.TabIndex = 13;
+            this.cbTrimestre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbTrimestre_KeyPress);
             // 
             // label3
             // 

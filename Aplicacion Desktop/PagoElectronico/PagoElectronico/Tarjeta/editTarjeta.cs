@@ -129,5 +129,12 @@ namespace PagoElectronico.Tarjeta
             }
         }
 
+        private void cbEmisor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("No se puede escribir en el combo");
+            e.Handled = true;
+            return;
+        }
+
     }
 }
