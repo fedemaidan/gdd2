@@ -52,10 +52,10 @@ namespace PagoElectronico.Depositos
                         
             // agrego fecha al textbox
             Dia dia = new Dia();
-            textBox_fecha.Text = dia.Hoy().ToString();
+            textBox_fecha.Text = dia.Hoy().ToString("yyyy-MM-dd");
             
             //agrego tarjetas al combobox
-            string qeri_tarjeta = "select tc.numero_tarjeta from qwerty.tarjetas_de_credito tc, qwerty.clientes c where tc.titular=c.cliente_id and c.cliente_id="+this.id_cliente+" and tc.fecha_vencimiento > '" +dia.Hoy().ToString()+"'";
+            string qeri_tarjeta = "select tc.numero_tarjeta from qwerty.tarjetas_de_credito tc, qwerty.clientes c where tc.titular=c.cliente_id and c.cliente_id="+this.id_cliente+" and tc.fecha_vencimiento > '" +dia.Hoy().ToString("yyyy-MM-dd")+"'";
             dt = db.select_query(qeri_tarjeta);
             foreach (DataRow row in dt.Rows)
             {
@@ -87,9 +87,17 @@ namespace PagoElectronico.Depositos
             
 
             string qeri_insert = "insert into qwerty.depositos (numero_cuenta,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
-            
             db.insert_query(qeri_insert);
-            
+
+            string query_codOperacion = "select max(deposito_id) as codigo_operacion from qwerty.depositos;";
+            DataTable dt_codOp = new DataTable();
+            dt_codOp = db.select_query(query_codOperacion);
+            string codOp = dt_codOp.Rows[0].ItemArray[0].ToString();
+            Int64 codigo_operacion = Int64.Parse(codOp);
+           
+
+            string update_query = "update qwerty.depositos set codigo_operacion = 'D-" + codigo_operacion.ToString() + "' where deposito_id = " +codigo_operacion; 
+            db.update_query(update_query);
             //actualizar cuenta
 
             string saldo_cuenta = "select c.saldo from qwerty.cuentas c where c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
@@ -101,8 +109,9 @@ namespace PagoElectronico.Depositos
                 saldo_anterior = Convert.ToDouble(row["saldo"].ToString());
             }
             double saldo_final = saldo_anterior + Convert.ToDouble(textBox_importe.Text);
-            string qeri_actualizocuenta = "update qwerty.cuentas set saldo=" + saldo_final + " where numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
-            db.update_query(qeri_actualizocuenta);
+            string query_actualizocuenta = "update qwerty.cuentas set saldo=" + saldo_final + " where numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
+            query_actualizocuenta = query_actualizocuenta.Replace(',', '.');
+            db.update_query(query_actualizocuenta);
 
             //termino de actualizar cuenta
 

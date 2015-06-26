@@ -29,7 +29,7 @@ namespace PagoElectronico.Transferencias
             //termino de buscar el cliente_id
 
             //agrego cuentas del cliente origen al combobox
-            string qeri_cuenta = "select c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + "and c.estado_id=3"; //estado_id=3 es la cuenta habilitada
+            string qeri_cuenta = "select c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + " and c.estado_id=3"; //estado_id=3 es la cuenta habilitada
             dt = db.select_query(qeri_cuenta);
             foreach (DataRow row in dt.Rows)
             {
