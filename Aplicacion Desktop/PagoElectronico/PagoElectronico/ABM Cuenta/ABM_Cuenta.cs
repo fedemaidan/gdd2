@@ -23,13 +23,25 @@ namespace PagoElectronico.ABM_Cuenta
             textBox_fecha.Text = dia.Hoy().ToString("yyyy-MM-dd");
             this.user=user;
             Database db = new Database();
-            
-            string query_cliente = "select cliente_id from qwerty.clientes where nombre_usuario='"+this.user.username+"';";
+            String query = "";
             DataTable dtc = new DataTable();
-            dtc = db.select_query(query_cliente);
-            this.id_cliente = int.Parse(dtc.Rows[0].ItemArray[0].ToString());
-            cb_clientes.Items.Add(this.id_cliente);
-            cb_clientes.SelectedItem = this.id_cliente;
+            /* SI ES CLIENTE*/
+            if (this.user.getRol() == "Cliente")
+            {
+                query = "select cliente_id from qwerty.clientes where nombre_usuario='" + this.user.username + "';";         
+                dtc = db.select_query(query);
+                this.id_cliente = int.Parse(dtc.Rows[0].ItemArray[0].ToString());
+                cb_clientes.Items.Add(this.id_cliente);
+                cb_clientes.SelectedItem = this.id_cliente;
+            }
+            else 
+            {
+                query = "select cliente_id from qwerty.clientes where habilitado = 'S' and baja = 'N'";
+                dtc = db.select_query(query);
+                foreach(DataRow row in dtc.Rows){
+                    cb_clientes.Items.Add(row["cliente_id"]);
+                }
+            }
             //agrego paises  al combobox
             string qeri_paises = "select p.desc_pais from qwerty.paises p";
             
@@ -81,15 +93,8 @@ namespace PagoElectronico.ABM_Cuenta
 
             // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
             
-            /*string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + user.getUserName() + "'";
-
-            DataTable dt = db.select_query(qeri_buscoIDcliente);
-            foreach (DataRow row in dt.Rows)
-            {
-                this.id_cliente = Convert.ToInt32(row["cliente_id"]);
-            }*/
             //termino de buscar el cliente_id
-            
+        
             
             // busco codigo del pais
             string qeri_cod_pais = "select p.cod_pais from qwerty.paises p where p.desc_pais='"+comboBox_pais.SelectedItem.ToString()+"'";
@@ -106,7 +111,7 @@ namespace PagoElectronico.ABM_Cuenta
                 duracion = Convert.ToInt32(row["duracion"]);
             }
             Dia dia = new Dia();
-
+            this.id_cliente = int.Parse(cb_clientes.SelectedItem.ToString());
             string queri = "insert into qwerty.cuentas (cod_pais, moneda_id,fecha_apertura,fecha_cierre,categoria_id,cliente_id,estado_id,pendiente_facturacion) values (" + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121),null," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,'S')";
             db.insert_query(queri);
 
