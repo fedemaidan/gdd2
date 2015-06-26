@@ -90,8 +90,9 @@ namespace PagoElectronico.Transferencias
                     saldo_anterior = Convert.ToDouble(row["saldo"].ToString());
                 }
                 double saldo_final = saldo_anterior + Convert.ToDouble(textBox_importe.Text);
-                string qeri_transf = "update qwerty.cuentas set saldo=" + saldo_final + " where numero_cuenta=" + comboBox_ctadestino.SelectedItem.ToString();
-                db.update_query(qeri_transf);
+                string query_transf = "update qwerty.cuentas set saldo=" + saldo_final + " where numero_cuenta=" + comboBox_ctadestino.SelectedItem.ToString();
+                query_transf = query_transf.Replace(',', '.');
+                db.update_query(query_transf);
 
                 // termino de actualizar saldo cuenta destino
 
@@ -107,6 +108,7 @@ namespace PagoElectronico.Transferencias
                 }
                 double saldo_final2 = saldo_anterior - Convert.ToDouble(textBox_importe.Text);
                 string qeri_transf2 = "update qwerty.cuentas set saldo=" + saldo_final2 + " where numero_cuenta=" + comboBox_ctaorigen.SelectedItem.ToString();
+                qeri_transf2 = qeri_transf2.Replace(',', '.');
                 db.update_query(qeri_transf2);
 
                 // termino de actualizar saldo cuenta origen
@@ -120,9 +122,20 @@ namespace PagoElectronico.Transferencias
                 //termino de buscar tipo de cuenta origen
                 //actualizo tabla de transferencias
                 Dia dia = new Dia();
-                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,cuenta_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values ("+Convert.ToDouble(textBox_importe.Text)+","+Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString())+","+Convert.ToInt64(comboBox_ctadestino.SelectedItem.ToString())+","+categoria+",1,'"+dia.Hoy()+"',1)";
+                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,cuenta_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values (" + Convert.ToDouble(textBox_importe.Text) + "," + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + Convert.ToInt64(comboBox_ctadestino.SelectedItem.ToString()) + "," + categoria + ",1,'" + dia.Hoy().ToString("yyyy-MM-dd") + "',1)";
                 db.insert_query(transf);
                 //termino de actualizar tabla de transferencias
+
+                string query_codOperacion = "select max(transferencia_id) as codigo_operacion from qwerty.transferencias;";
+                DataTable dt_codOp = new DataTable();
+                dt_codOp = db.select_query(query_codOperacion);
+                string codOp = dt_codOp.Rows[0].ItemArray[0].ToString();
+                Int64 codigo_operacion = Int64.Parse(codOp);
+
+
+                string update_query = "update qwerty.transferencias set codigo_operacion = 'T-" + codigo_operacion.ToString() + "' where transferencia_id = " + codigo_operacion;
+                db.update_query(update_query);
+
 
                 // inserto en transacciones
                 //busco el tipo de cuenta
@@ -133,8 +146,8 @@ namespace PagoElectronico.Transferencias
                 //busco el tipo de cuenta FINN
 
                 // agrego la transaccion
-                
-                string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','"+dia.Hoy()+"',0.2,1)";
+
+                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',0.2,1,null,"+ codigo_operacion +")";
                 db.insert_query(qeri_transac);
                 // agrego la transaccion FINN
                 
