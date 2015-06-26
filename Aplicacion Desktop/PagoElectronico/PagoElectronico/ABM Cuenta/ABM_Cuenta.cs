@@ -18,14 +18,21 @@ namespace PagoElectronico.ABM_Cuenta
         public ABM_Cuenta(User user)
         {
             InitializeComponent();
-
+            
             Dia dia = new Dia();
             textBox_fecha.Text = dia.Hoy().ToString("yyyy-MM-dd");
             this.user=user;
+            Database db = new Database();
             
+            string query_cliente = "select cliente_id from qwerty.clientes where nombre_usuario='"+this.user.username+"';";
+            DataTable dtc = new DataTable();
+            dtc = db.select_query(query_cliente);
+            this.id_cliente = int.Parse(dtc.Rows[0].ItemArray[0].ToString());
+            cb_clientes.Items.Add(this.id_cliente);
+            cb_clientes.SelectedItem = this.id_cliente;
             //agrego paises  al combobox
             string qeri_paises = "select p.desc_pais from qwerty.paises p";
-            Database db = new Database();
+            
             DataTable dt = new DataTable();
             dt = db.select_query(qeri_paises);
             foreach (DataRow row in dt.Rows)
@@ -70,17 +77,17 @@ namespace PagoElectronico.ABM_Cuenta
         private void button1_Click(object sender, EventArgs e)
         {
             Database db = new Database();
-            
+            DataTable dt = new DataTable();
 
             // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
             
-            string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + user.getUserName() + "'";
+            /*string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + user.getUserName() + "'";
 
             DataTable dt = db.select_query(qeri_buscoIDcliente);
             foreach (DataRow row in dt.Rows)
             {
                 this.id_cliente = Convert.ToInt32(row["cliente_id"]);
-            }
+            }*/
             //termino de buscar el cliente_id
             
             
@@ -100,7 +107,7 @@ namespace PagoElectronico.ABM_Cuenta
             }
             Dia dia = new Dia();
 
-            string queri = "insert into qwerty.cuentas (cod_pais, moneda_id,fecha_apertura,categoria_id,cliente_id,estado_id,fecha_cierre,pendiente_facturacion) values (" + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121)," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1," + "( dateadd(day," + duracion + ",convert(datetime,'" + dia.Hoy().ToString("yyyy-MM-dd") + "',121))),'S')";
+            string queri = "insert into qwerty.cuentas (cod_pais, moneda_id,fecha_apertura,fecha_cierre,categoria_id,cliente_id,estado_id,pendiente_facturacion) values (" + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121),null," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,'S')";
             db.insert_query(queri);
 
             //obtengo el numero de cuenta q se ingreso
@@ -111,7 +118,7 @@ namespace PagoElectronico.ABM_Cuenta
                 nrocta = Convert.ToInt64(row["numero_cuenta"]);
             }
             //obtengo el numero de cuenta q se ingreso FINN
-            string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values ("+nrocta+",'"+comboBox_tipocuenta.SelectedItem.ToString()+"',"+this.id_cliente+",'Apertura Cuenta','"+dia.Hoy()+"',3.99,2)";
+            string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values ("+nrocta+",'"+comboBox_tipocuenta.SelectedItem.ToString()+"',"+this.id_cliente+",'Apertura Cuenta','"+dia.Hoy().ToString("yyyy-MM-dd ")+"',3.99,2)";
             db.insert_query(qeri_transac);
 
             this.Close();

@@ -119,11 +119,6 @@ namespace PagoElectronico
             abm2.Show();
         }
 
-        private void label_logged_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button5_Click(object sender, EventArgs e)
         {
             ABM_Cliente.AddCliente abm = new AddCliente();
@@ -177,6 +172,11 @@ namespace PagoElectronico
         {
             Facturacion.Facturacion abm = new Facturacion.Facturacion(this.logged_user);
             abm.Show();
+        }
+
+        private void label_logged_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
