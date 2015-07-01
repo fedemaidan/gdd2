@@ -39,6 +39,8 @@
             this.comboBox_pais = new System.Windows.Forms.ComboBox();
             this.cb_clientes = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.cb_bancos = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -137,11 +139,30 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "Cliente username:";
             // 
+            // cb_bancos
+            // 
+            this.cb_bancos.FormattingEnabled = true;
+            this.cb_bancos.Location = new System.Drawing.Point(340, 12);
+            this.cb_bancos.Name = "cb_bancos";
+            this.cb_bancos.Size = new System.Drawing.Size(100, 21);
+            this.cb_bancos.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(285, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Banco:";
+            // 
             // ABM_Cuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 214);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cb_bancos);
             this.Controls.Add(this.cb_clientes);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBox_pais);
@@ -174,5 +195,7 @@
         private System.Windows.Forms.ComboBox comboBox_pais;
         private System.Windows.Forms.ComboBox cb_clientes;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cb_bancos;
+        private System.Windows.Forms.Label label6;
     }
 }

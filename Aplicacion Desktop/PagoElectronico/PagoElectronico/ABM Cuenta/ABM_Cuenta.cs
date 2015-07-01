@@ -15,6 +15,8 @@ namespace PagoElectronico.ABM_Cuenta
 {
     public partial class ABM_Cuenta : Form
     {
+        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
+ 
         public ABM_Cuenta(User user)
         {
             InitializeComponent();
@@ -63,8 +65,14 @@ namespace PagoElectronico.ABM_Cuenta
                 comboBox_tipocuenta.Items.Add(row["descripcion"].ToString());
 
             }
-            //  termino de agregar tipos de cuentas al combobox
 
+            string query_bancos = "select banco_id,nombre from qwerty.bancos where banco_id <> 10004";
+            dt = db.select_query(query_bancos);
+            foreach (DataRow row in dt.Rows)
+            {
+                cb_bancos.Items.Add(row["nombre"].ToString());
+                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
+            }
             //agrego monedas  al combobox
             string qeri_monedas = "select m.descripcion from qwerty.monedas m";
 
@@ -110,9 +118,12 @@ namespace PagoElectronico.ABM_Cuenta
             foreach(DataRow row in dt.Rows){
                 duracion = Convert.ToInt32(row["duracion"]);
             }
+
+            //Obtengo el banco elegido
+            Int64 banco_id = dicBancos[cb_bancos.SelectedItem.ToString()];
             Dia dia = new Dia();
             this.id_cliente = int.Parse(cb_clientes.SelectedItem.ToString());
-            string queri = "insert into qwerty.cuentas (cod_pais, moneda_id,fecha_apertura,fecha_cierre,categoria_id,cliente_id,estado_id,pendiente_facturacion) values (" + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121),null," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,'S')";
+            string queri = "insert into qwerty.cuentas (banco_id,cod_pais, moneda_id,fecha_apertura,fecha_cierre,categoria_id,cliente_id,estado_id,pendiente_facturacion) values (" + banco_id + "," + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121),null," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,'S')";
             db.insert_query(queri);
 
             //obtengo el numero de cuenta q se ingreso
@@ -123,7 +134,7 @@ namespace PagoElectronico.ABM_Cuenta
                 nrocta = Convert.ToInt64(row["numero_cuenta"]);
             }
             //obtengo el numero de cuenta q se ingreso FINN
-            string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values ("+nrocta+",'"+comboBox_tipocuenta.SelectedItem.ToString()+"',"+this.id_cliente+",'Apertura Cuenta','"+dia.Hoy().ToString("yyyy-MM-dd ")+"',3.99,2)";
+            string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,banco_id,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values ("+nrocta+"," + banco_id +",'"+comboBox_tipocuenta.SelectedItem.ToString()+"',"+this.id_cliente+",'Apertura Cuenta','"+dia.Hoy().ToString("yyyy-MM-dd ")+"',3.99,2)";
             db.insert_query(qeri_transac);
 
             this.Close();
