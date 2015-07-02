@@ -12,6 +12,8 @@ namespace PagoElectronico.Transferencias
 {
     public partial class ABM_transferencias : Form
     {
+        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
+
         public ABM_transferencias(User user)
         {
             InitializeComponent();
@@ -29,18 +31,25 @@ namespace PagoElectronico.Transferencias
             //termino de buscar el cliente_id
 
             //agrego cuentas del cliente origen al combobox
-            string qeri_cuenta = "select c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + " and c.estado_id=3"; //estado_id=3 es la cuenta habilitada
+            string qeri_cuenta = "select distinct c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + " and c.estado_id=3"; //estado_id=3 es la cuenta habilitada
             dt = db.select_query(qeri_cuenta);
             foreach (DataRow row in dt.Rows)
             {
-                comboBox_ctaorigen.Items.Add(row["numero_cuenta"].ToString());
-                
-
+                comboBox_ctaorigen.Items.Add(row["numero_cuenta"].ToString());          
             }
-            //  termino de agregar cuentas del cliente origen  al combobox
+
+            //agrego bancos a combo_box bancos
+            string query_bancos = "select banco_id,nombre from qwerty.bancos where banco_id <> 10004";
+            dt = db.select_query(query_bancos);
+            foreach (DataRow row in dt.Rows)
+            {
+                cb_b_origen.Items.Add(row["nombre"].ToString());
+                cb_b_dest.Items.Add(row["nombre"].ToString());
+                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
+            }
 
             //agrego cuentas del cliente destino al combobox
-            string qeri_cuentadest = "select c.numero_cuenta from qwerty.cuentas c where c.estado_id=3 or c.estado_id=4"; //estado_id=3 es la cuenta habilitada y 4 es la cuenta inhabilitada a la cual le puedo mandar plata
+            string qeri_cuentadest = "select distinct c.numero_cuenta from qwerty.cuentas c where c.estado_id=3 or c.estado_id=4"; //estado_id=3 es la cuenta habilitada y 4 es la cuenta inhabilitada a la cual le puedo mandar plata
             dt = db.select_query(qeri_cuentadest);
             foreach (DataRow row in dt.Rows)
             {
@@ -123,7 +132,36 @@ namespace PagoElectronico.Transferencias
                 //termino de buscar tipo de cuenta origen
                 //actualizo tabla de transferencias
                 Dia dia = new Dia();
-                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,cuenta_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values (" + Convert.ToDouble(textBox_importe.Text) + "," + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + Convert.ToInt64(comboBox_ctadestino.SelectedItem.ToString()) + "," + categoria + ",1,'" + dia.Hoy().ToString("yyyy-MM-dd") + "',1)";
+                Int64 banco_origen = dicBancos[cb_b_origen.SelectedItem.ToString()];
+                Int64 banco_destino = dicBancos[cb_b_dest.SelectedItem.ToString()];
+                Int64 cuenta_origen = Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString());
+                Int64 cuenta_destino = Convert.ToInt64(comboBox_ctadestino.SelectedItem.ToString());
+
+                //obtengo el costo de transaccion
+                string query_cliente_origen = "select cliente_id from qwerty.cuentas where numero_cuenta=" + cuenta_origen + " and banco_id=" + banco_origen + ";";
+                string query_cliente_destino = "select cliente_id from qwerty.cuentas where numero_cuenta=" + cuenta_destino + " and banco_id=" + banco_destino + ";";
+                dt = db.select_query(query_cliente_origen);
+                dt2 = db.select_query(query_cliente_destino);
+                int cliente_orig =0;
+                int cliente_dest = 0;
+                foreach(DataRow row in dt.Rows)
+                {
+                    cliente_orig = int.Parse(row["cliente_id"].ToString());
+                }
+
+                foreach (DataRow row in dt2.Rows)
+                {
+                    cliente_dest = int.Parse(row["cliente_id"].ToString());
+                }
+                int costo_id = 1;
+                if (cliente_orig == cliente_dest && banco_origen == banco_destino) 
+                {
+                    string query_costo = "select costo_id from qwerty.costos_de_transacciones where tipo_costo='Nulo'";
+                    dt2 = db.select_query(query_costo);
+                    foreach(DataRow row in dt2.Rows)
+                        costo_id = int.Parse(row["costo_id"].ToString()); //costo nulo
+                }
+                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,banco_origen,cuenta_destino,banco_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values (" + Convert.ToDouble(textBox_importe.Text)  + "," + cuenta_origen + "," + banco_origen +"," + cuenta_destino + "," + banco_destino + "," + categoria + ",1,'" + dia.Hoy().ToString("yyyy-MM-dd") + "',1)";
                 db.insert_query(transf);
                 //termino de actualizar tabla de transferencias
 
@@ -148,7 +186,7 @@ namespace PagoElectronico.Transferencias
 
                 // agrego la transaccion
 
-                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',0.2,1,null,"+ codigo_operacion +")";
+                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',0.2,"+costo_id+",null,"+ codigo_operacion +")";
                 db.insert_query(qeri_transac);
                 // agrego la transaccion FINN
                 
