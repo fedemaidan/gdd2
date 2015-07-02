@@ -12,6 +12,8 @@ namespace PagoElectronico.Retiros
 {
     public partial class ABM_Retiro_de_dinero : Form
     {
+        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
+
         public ABM_Retiro_de_dinero(User user) 
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace PagoElectronico.Retiros
             //termino de buscar el cliente_id
 
             //agrego cuentas del cliente al combobox
-            string qeri_cuenta = "select c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + "and c.estado_id=3 and c.saldo > 0"; //estado_id=3 es la cuenta habilitada
+            string qeri_cuenta = "select distinct c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + "and c.estado_id=3 and c.saldo > 0"; //estado_id=3 es la cuenta habilitada
             dt = db.select_query(qeri_cuenta);
             foreach (DataRow row in dt.Rows)
             {
@@ -38,6 +40,14 @@ namespace PagoElectronico.Retiros
 
             }
             //  termino de agregar cuentas del cliente  al combobox
+
+            string query_bancos = "select banco_id,nombre from qwerty.bancos where banco_id <> 10004";
+            dt = db.select_query(query_bancos);
+            foreach (DataRow row in dt.Rows)
+            {
+                cb_bancos.Items.Add(row["nombre"].ToString());
+                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
+            }
 
             //agrego monedas al combobox
             string qeri_monedas = "select m.descripcion from qwerty.monedas m";
@@ -104,11 +114,17 @@ namespace PagoElectronico.Retiros
                         nombre = row["nombre"].ToString();
                         apellido = row["apellido"].ToString();
                     }
-                    //busco nombre y ap del cliente FIN
-                    
+                     
+                    //genero cheque_id
+                    string query_cheque = "select max(codigo_operacion) as codigo from qwerty.retiro_de_efectivo;";
+                    dt = db.select_query(query_cheque);
+                    Int64 cheque_id = 0;
+                    foreach (DataRow row in dt.Rows)
+                        cheque_id = Int64.Parse(row["codigo"].ToString()) + 1;
+
                     //genero el retiro
                     Dia dia = new Dia();
-                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo values (" + Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString()) + "," + banco_id + "," + textBox_importe.Text + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "','" + nombre + "','" + apellido + "','" + banco_nombre + "',null)";
+                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo values (" + Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString()) + "," + banco_id + "," + textBox_importe.Text + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "','" + nombre + "','" + apellido + "','" + banco_nombre + "'," + cheque_id +")";
                     db.insert_query(qeri_retiro);
          
 
