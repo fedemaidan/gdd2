@@ -82,6 +82,8 @@ namespace PagoElectronico
             { this.button_listado.Visible = true; }
             
             this.btn_login.Visible = false; // Oculto el login
+            if(this.logged_user.getRol() == "Cliente")
+                button_cliente.Visible = false;
         }
 
 
