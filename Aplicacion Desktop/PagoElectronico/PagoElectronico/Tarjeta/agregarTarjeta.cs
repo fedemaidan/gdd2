@@ -28,17 +28,14 @@ namespace PagoElectronico.Tarjeta
         private void cargarComboBancos()
         {
             Home2 home2 = new Home2();
-            DataTable bancos = home2.getBancosList();
+            
 
-            int rows = bancos.Rows.Count;
-            for (int i = 0; i < rows; i++)
-            {
-               cbBanco.Items.Add(bancos.Rows[i]["nombre"]);
-            }
+            
+            
 
             DataTable emisores = home2.getEmisoresList();
 
-            rows = emisores.Rows.Count;
+            int rows = emisores.Rows.Count;
 
             for (int i = 0; i < rows; i++)
             {
@@ -104,7 +101,9 @@ namespace PagoElectronico.Tarjeta
             
             DateTime fechaEmision = Convert.ToDateTime( txtFechaEmision.Text);
             DateTime fechaVen = Convert.ToDateTime( txtFechaVen.Text);
-            int resultado = new Home2().asociarTarjetaACliente(this.username, txtNumeroTarjeta.Text, cbBanco.Text,txtFechaVen.Text, txtFechaVen.Text, txtCodSeguridad.Text, cbEmisor.Text, cbCuentas.Text);
+            
+
+            int resultado = new Home2().asociarTarjetaACliente(this.username, txtNumeroTarjeta.Text, txtFechaVen.Text, txtFechaVen.Text, txtCodSeguridad.Text, cbEmisor.Text, cbCuentas.Text);
             if (resultado == 1)
             {
                 this.Close();
@@ -162,6 +161,11 @@ namespace PagoElectronico.Tarjeta
             MessageBox.Show("No se puede escribir en el combo");
             e.Handled = true;
             return;
+        }
+
+        private void cbBanco_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

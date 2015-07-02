@@ -108,7 +108,7 @@ namespace PagoElectronico.Retiros
                     
                     //genero el retiro
                     Dia dia = new Dia();
-                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo  values (" + Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString()) + "," + textBox_importe.Text  + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "','" + nombre + "','" + apellido + "','" + banco_nombre + "',null)";
+                    string qeri_retiro = "insert into qwerty.retiro_de_efectivo values (" + Convert.ToInt64(comboBox_nrocuenta.SelectedItem.ToString()) + "," + banco_id + "," + textBox_importe.Text + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "','" + nombre + "','" + apellido + "','" + banco_nombre + "',null)";
                     db.insert_query(qeri_retiro);
          
 

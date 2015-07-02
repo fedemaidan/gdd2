@@ -52,7 +52,7 @@ namespace PagoElectronico.Model
             catch (Exception ex) {
 
                 MessageBox.Show( ex.Message + " Query: " + query );
-                
+                conexion.Close();
             }
 
             return new DataTable();  

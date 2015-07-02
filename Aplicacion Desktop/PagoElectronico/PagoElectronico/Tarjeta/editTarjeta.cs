@@ -47,7 +47,7 @@ namespace PagoElectronico.Tarjeta
         private void cargarComboBancos()
         {
             Home2 home2 = new Home2();
-            DataTable tipoDoc = home2.getBancosList();
+            DataTable tipoDoc = home2.getEmisoresList();
 
             int rows = tipoDoc.Rows.Count;
             for (int i = 0; i < rows; i++)

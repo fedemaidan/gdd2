@@ -137,6 +137,8 @@ namespace PagoElectronico.ABM_Cuenta
             string qeri_transac = "insert into qwerty.transacciones (numero_cuenta,banco_id,tipo_cuenta,cliente_id,tipo_transaccion,fecha_transaccion,importe,costo_id) values ("+nrocta+"," + banco_id +",'"+comboBox_tipocuenta.SelectedItem.ToString()+"',"+this.id_cliente+",'Apertura Cuenta','"+dia.Hoy().ToString("yyyy-MM-dd ")+"',3.99,2)";
             db.insert_query(qeri_transac);
 
+
+            MessageBox.Show("Recuerde activar la cuenta. Para ello debe facturarla.");
             this.Close();
 
         }

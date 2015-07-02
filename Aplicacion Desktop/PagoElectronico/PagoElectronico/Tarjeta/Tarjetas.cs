@@ -46,6 +46,7 @@ namespace PagoElectronico.Tarjeta
             BindingSource bsource = new BindingSource();
             bsource.DataSource = dt;
             dataGridView1.DataSource = bsource;
+            dataGridView1.Columns[0].Visible = false;
         }
 
         private void btn_agregar_Click(object sender, EventArgs e)
@@ -60,8 +61,16 @@ namespace PagoElectronico.Tarjeta
 
         private void btn_seleccionar_Click(object sender, EventArgs e)
         {
-            string numeroTarjeta = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            new editTarjeta(this.username, numeroTarjeta).Show();
+
+            if (this.dataGridView1.CurrentRow != null)
+            {
+                string numeroTarjeta = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                new editTarjeta(this.username, numeroTarjeta).Show();
+            }
+            else {
+                MessageBox.Show("Seleccione tarjeta");
+            }
+
         }
 
         private void btn_desasociar_Click(object sender, EventArgs e)

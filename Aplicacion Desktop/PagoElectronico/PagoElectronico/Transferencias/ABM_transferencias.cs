@@ -65,13 +65,14 @@ namespace PagoElectronico.Transferencias
             DataTable dt2 = new DataTable();
             double saldo_anterior = 0;
             double saldo_origen = 0;
-
+            string bancoId = "";
             // validar saldo de cuenta origen
-            string saldo_ctaorigen = "select c.saldo from qwerty.cuentas c where c.numero_cuenta=" + comboBox_ctaorigen.SelectedItem.ToString();
+            string saldo_ctaorigen = "select c.saldo, c.banco_id from qwerty.cuentas c where c.numero_cuenta=" + comboBox_ctaorigen.SelectedItem.ToString();
             dt = db.select_query(saldo_ctaorigen);
             foreach (DataRow row in dt.Rows)
             {
                 saldo_origen = Convert.ToDouble(row["saldo"].ToString());
+                bancoId = row["banco_id"].ToString();
             }
 
             if (Convert.ToDouble(textBox_importe.Text) > saldo_origen) { MessageBox.Show("No tiene fondos suficientes para realizar la transferencia"); }
@@ -147,7 +148,7 @@ namespace PagoElectronico.Transferencias
 
                 // agrego la transaccion
 
-                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',0.2,1,null,"+ codigo_operacion +")";
+                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',0.2,1,null,"+ codigo_operacion +")";
                 db.insert_query(qeri_transac);
                 // agrego la transaccion FINN
                 

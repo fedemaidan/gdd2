@@ -44,8 +44,6 @@
             this.txtCodSeguridad = new System.Windows.Forms.TextBox();
             this.asociar = new System.Windows.Forms.Button();
             this.cancelar = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cbBanco = new System.Windows.Forms.ComboBox();
             this.cbCuentas = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -53,7 +51,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(95, 47);
+            this.label1.Location = new System.Drawing.Point(95, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 0;
@@ -107,7 +105,7 @@
             // 
             // txtNumeroTarjeta
             // 
-            this.txtNumeroTarjeta.Location = new System.Drawing.Point(192, 44);
+            this.txtNumeroTarjeta.Location = new System.Drawing.Point(192, 67);
             this.txtNumeroTarjeta.Name = "txtNumeroTarjeta";
             this.txtNumeroTarjeta.Size = new System.Drawing.Size(121, 20);
             this.txtNumeroTarjeta.TabIndex = 6;
@@ -193,24 +191,6 @@
             this.cancelar.UseVisualStyleBackColor = true;
             this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(147, 70);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
-            this.label6.TabIndex = 118;
-            this.label6.Text = "Banco";
-            // 
-            // cbBanco
-            // 
-            this.cbBanco.FormattingEnabled = true;
-            this.cbBanco.Location = new System.Drawing.Point(192, 66);
-            this.cbBanco.Name = "cbBanco";
-            this.cbBanco.Size = new System.Drawing.Size(121, 21);
-            this.cbBanco.TabIndex = 119;
-            this.cbBanco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbBanco_KeyPress);
-            // 
             // cbCuentas
             // 
             this.cbCuentas.FormattingEnabled = true;
@@ -236,8 +216,6 @@
             this.ClientSize = new System.Drawing.Size(740, 295);
             this.Controls.Add(this.cbCuentas);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.cbBanco);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.cancelar);
             this.Controls.Add(this.asociar);
             this.Controls.Add(this.txtCodSeguridad);
@@ -280,8 +258,6 @@
         private System.Windows.Forms.TextBox txtCodSeguridad;
         private System.Windows.Forms.Button asociar;
         private System.Windows.Forms.Button cancelar;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbBanco;
         private System.Windows.Forms.ComboBox cbCuentas;
         private System.Windows.Forms.Label label7;
     }
