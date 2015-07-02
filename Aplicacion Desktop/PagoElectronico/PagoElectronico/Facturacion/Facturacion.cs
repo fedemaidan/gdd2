@@ -12,6 +12,8 @@ namespace PagoElectronico.Facturacion
 {
     public partial class Facturacion : Form
     {
+        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
+
         public Facturacion(User user)
         {
             InitializeComponent();
@@ -28,7 +30,14 @@ namespace PagoElectronico.Facturacion
                 comboBox_pais.Items.Add(row["desc_pais"].ToString());
 
             }
-            //  termino de agregar paises al combobox
+
+            string query_bancos = "select banco_id,nombre from qwerty.bancos where banco_id <> 10004";
+            dt = db.select_query(query_bancos);
+            foreach (DataRow row in dt.Rows)
+            {
+                cb_f_bancos.Items.Add(row["nombre"].ToString());
+                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
+            }
 
             // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
 
@@ -107,10 +116,13 @@ namespace PagoElectronico.Facturacion
 
                     // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
 
-                    string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + this.dataGridView_cuentas.CurrentRow.Cells[1].Value.ToString() +"'";
+//                    string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + this.dataGridView_cuentas.CurrentRow.Cells[1].Value.ToString() +"'";
+                    Int64 cuenta_id = Int64.Parse(textBox_cuenta.Text);
+                    Int64 banco_id = dicBancos[cb_f_bancos.SelectedItem.ToString()];
+                    string query_clie = "select cliente_id from qwerty.cuentas where numero_cuenta= "+ cuenta_id + "and banco_id= " +banco_id+";";
                     Database db = new Database();
                     DataTable dt = new DataTable();
-                    dt = db.select_query(qeri_buscoIDcliente);
+                    dt = db.select_query(query_clie);
                     int idUser=0;
                     foreach (DataRow row in dt.Rows)
                     {

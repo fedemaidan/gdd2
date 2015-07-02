@@ -37,6 +37,8 @@
             this.button_buscar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button_suscripciones = new System.Windows.Forms.Button();
+            this.cb_f_bancos = new System.Windows.Forms.ComboBox();
+            this.labelb = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cuentas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +52,7 @@
             // 
             // textBox_cuenta
             // 
-            this.textBox_cuenta.Location = new System.Drawing.Point(231, 86);
+            this.textBox_cuenta.Location = new System.Drawing.Point(231, 71);
             this.textBox_cuenta.Name = "textBox_cuenta";
             this.textBox_cuenta.Size = new System.Drawing.Size(100, 20);
             this.textBox_cuenta.TabIndex = 24;
@@ -58,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 94);
+            this.label1.Location = new System.Drawing.Point(144, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 23;
@@ -122,11 +124,30 @@
             this.button_suscripciones.UseVisualStyleBackColor = true;
             this.button_suscripciones.Click += new System.EventHandler(this.button_suscripciones_Click);
             // 
+            // cb_f_bancos
+            // 
+            this.cb_f_bancos.FormattingEnabled = true;
+            this.cb_f_bancos.Location = new System.Drawing.Point(231, 108);
+            this.cb_f_bancos.Name = "cb_f_bancos";
+            this.cb_f_bancos.Size = new System.Drawing.Size(100, 21);
+            this.cb_f_bancos.TabIndex = 27;
+            // 
+            // labelb
+            // 
+            this.labelb.AutoSize = true;
+            this.labelb.Location = new System.Drawing.Point(184, 116);
+            this.labelb.Name = "labelb";
+            this.labelb.Size = new System.Drawing.Size(41, 13);
+            this.labelb.TabIndex = 28;
+            this.labelb.Text = "Banco:";
+            // 
             // Facturacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 309);
+            this.Controls.Add(this.labelb);
+            this.Controls.Add(this.cb_f_bancos);
             this.Controls.Add(this.button_suscripciones);
             this.Controls.Add(this.comboBox_pais);
             this.Controls.Add(this.textBox_cuenta);
@@ -156,5 +177,7 @@
         private System.Windows.Forms.Button button_buscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_suscripciones;
+        private System.Windows.Forms.ComboBox cb_f_bancos;
+        private System.Windows.Forms.Label labelb;
     }
 }
