@@ -12,6 +12,8 @@ namespace PagoElectronico.Depositos
 {
     public partial class ABM_depositos : Form
     {
+        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
+
         public ABM_depositos(User user)
         {
             InitializeComponent();
@@ -29,14 +31,21 @@ namespace PagoElectronico.Depositos
             //termino de buscar el cliente_id
 
             //agrego cuentas del cliente al combobox
-            string qeri_cuenta = "select c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + "and c.estado_id=3"; //estado_id=3 es la cuenta habilitada
+            string qeri_cuenta = "select distinct c.numero_cuenta from qwerty.cuentas c where c.cliente_id=" + this.id_cliente + "and c.estado_id=3"; //estado_id=3 es la cuenta habilitada
             dt = db.select_query(qeri_cuenta);
             foreach (DataRow row in dt.Rows)
             {
                 comboBox_nrocuenta.Items.Add(row["numero_cuenta"].ToString());
                 
             }
-            //  termino de agregar cuentas del cliente  al combobox
+
+            string query_bancos = "select banco_id,nombre from qwerty.bancos where banco_id <> 10004";
+            dt = db.select_query(query_bancos);
+            foreach (DataRow row in dt.Rows)
+            {
+                cb_d_bancos.Items.Add(row["nombre"].ToString());
+                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
+            }
 
             //agrego monedas al combobox
             string qeri_monedas = "select m.descripcion from qwerty.monedas m";
@@ -44,7 +53,6 @@ namespace PagoElectronico.Depositos
             foreach (DataRow row in dt.Rows)
             {
                 comboBox_tipomoneda.Items.Add(row["descripcion"].ToString());
-
             }
             //  termino de agregar monedas  al combobox
 
@@ -81,12 +89,8 @@ namespace PagoElectronico.Depositos
             dt2 = db.select_query(busco_ExisteAsociacion);
 
             if (dt2.Rows.Count==0) { MessageBox.Show("Tarjeta no asociada a la cuenta"); return; }
-
-            //Random random = new Random(); //IMPORTANTE QITAR ESTO DESPUES PORQE LO USO PARA GENERAR EL ID DEL DEPOSITO
-            //int aleatorio = random.Next(1, 10000000);
             
-
-            string qeri_insert = "insert into qwerty.depositos (numero_cuenta,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
+            string qeri_insert = "insert into qwerty.depositos (numero_cuenta,banco_id,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + dicBancos[cb_d_bancos.SelectedItem.ToString()] + ","+ textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
             db.insert_query(qeri_insert);
 
             string query_codOperacion = "select max(deposito_id) as codigo_operacion from qwerty.depositos;";

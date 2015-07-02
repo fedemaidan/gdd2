@@ -39,6 +39,8 @@
             this.textBox_importe = new System.Windows.Forms.TextBox();
             this.textBox_fecha = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.cb_d_bancos = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -63,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(116, 111);
+            this.label2.Location = new System.Drawing.Point(116, 161);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 2;
@@ -113,14 +115,14 @@
             // 
             // textBox_importe
             // 
-            this.textBox_importe.Location = new System.Drawing.Point(167, 104);
+            this.textBox_importe.Location = new System.Drawing.Point(167, 158);
             this.textBox_importe.Name = "textBox_importe";
             this.textBox_importe.Size = new System.Drawing.Size(121, 20);
             this.textBox_importe.TabIndex = 8;
             // 
             // textBox_fecha
             // 
-            this.textBox_fecha.Location = new System.Drawing.Point(167, 151);
+            this.textBox_fecha.Location = new System.Drawing.Point(501, 158);
             this.textBox_fecha.Name = "textBox_fecha";
             this.textBox_fecha.ReadOnly = true;
             this.textBox_fecha.Size = new System.Drawing.Size(121, 20);
@@ -129,17 +131,36 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(121, 158);
+            this.label5.Location = new System.Drawing.Point(455, 165);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Fecha:";
+            // 
+            // cb_d_bancos
+            // 
+            this.cb_d_bancos.FormattingEnabled = true;
+            this.cb_d_bancos.Location = new System.Drawing.Point(167, 93);
+            this.cb_d_bancos.Name = "cb_d_bancos";
+            this.cb_d_bancos.Size = new System.Drawing.Size(121, 21);
+            this.cb_d_bancos.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(116, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Banco:";
             // 
             // ABM_depositos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 288);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cb_d_bancos);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox_fecha);
             this.Controls.Add(this.textBox_importe);
@@ -172,5 +193,7 @@
         private System.Windows.Forms.TextBox textBox_importe;
         private System.Windows.Forms.TextBox textBox_fecha;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cb_d_bancos;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -30,7 +30,7 @@
         {
             this.ABM_de_Rol = new System.Windows.Forms.Button();
             this.ABM_de_Usuario = new System.Windows.Forms.Button();
-            this.iniciar_sesion = new System.Windows.Forms.Button();
+            this.btn_login = new System.Windows.Forms.Button();
             this.label_logged = new System.Windows.Forms.Label();
             this.ABM_de_cuenta = new System.Windows.Forms.Button();
             this.registrarse = new System.Windows.Forms.Button();
@@ -66,15 +66,15 @@
             this.ABM_de_Usuario.Visible = false;
             this.ABM_de_Usuario.Click += new System.EventHandler(this.button2_Click);
             // 
-            // iniciar_sesion
+            // btn_login
             // 
-            this.iniciar_sesion.Location = new System.Drawing.Point(62, 144);
-            this.iniciar_sesion.Name = "iniciar_sesion";
-            this.iniciar_sesion.Size = new System.Drawing.Size(150, 23);
-            this.iniciar_sesion.TabIndex = 2;
-            this.iniciar_sesion.Text = "Iniciar sesión";
-            this.iniciar_sesion.UseVisualStyleBackColor = true;
-            this.iniciar_sesion.Click += new System.EventHandler(this.button3_Click);
+            this.btn_login.Location = new System.Drawing.Point(62, 144);
+            this.btn_login.Name = "btn_login";
+            this.btn_login.Size = new System.Drawing.Size(150, 23);
+            this.btn_login.TabIndex = 2;
+            this.btn_login.Text = "Iniciar sesión";
+            this.btn_login.UseVisualStyleBackColor = true;
+            this.btn_login.Click += new System.EventHandler(this.button3_Click);
             // 
             // label_logged
             // 
@@ -211,7 +211,7 @@
             this.Controls.Add(this.registrarse);
             this.Controls.Add(this.ABM_de_cuenta);
             this.Controls.Add(this.label_logged);
-            this.Controls.Add(this.iniciar_sesion);
+            this.Controls.Add(this.btn_login);
             this.Controls.Add(this.ABM_de_Usuario);
             this.Controls.Add(this.ABM_de_Rol);
             this.Name = "Menu";
@@ -226,7 +226,7 @@
 
         private System.Windows.Forms.Button ABM_de_Rol;
         private System.Windows.Forms.Button ABM_de_Usuario;
-        private System.Windows.Forms.Button iniciar_sesion;
+        private System.Windows.Forms.Button btn_login;
         private System.Windows.Forms.Label label_logged;
         private System.Windows.Forms.Button ABM_de_cuenta;
         private System.Windows.Forms.Button registrarse;
