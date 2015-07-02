@@ -87,7 +87,7 @@ namespace PagoElectronico.Transferencias
             if (Convert.ToDouble(textBox_importe.Text) > saldo_origen) { MessageBox.Show("No tiene fondos suficientes para realizar la transferencia"); }
             else
             {
-
+                double importe= Convert.ToDouble(textBox_importe.Text);
                 // termino la validacion
 
                 //actualizo saldo cuenta destino
@@ -161,7 +161,7 @@ namespace PagoElectronico.Transferencias
                     foreach(DataRow row in dt2.Rows)
                         costo_id = int.Parse(row["costo_id"].ToString()); //costo nulo
                 }
-                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,banco_origen,cuenta_destino,banco_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values (" + Convert.ToDouble(textBox_importe.Text)  + "," + cuenta_origen + "," + banco_origen +"," + cuenta_destino + "," + banco_destino + "," + categoria + ",1,'" + dia.Hoy().ToString("yyyy-MM-dd") + "',1)";
+                string transf = "insert into qwerty.transferencias (importe,cuenta_origen,banco_origen,cuenta_destino,banco_destino,tipo_de_cuenta,costo_id,fecha_transferencia,pendiente_facturacion) values (" + Convert.ToDouble(textBox_importe.Text)  + "," + cuenta_origen + "," + banco_origen +"," + cuenta_destino + "," + banco_destino + "," + categoria + ","+ costo_id +",'" + dia.Hoy().ToString("yyyy-MM-dd") + "',1)";
                 db.insert_query(transf);
                 //termino de actualizar tabla de transferencias
 
@@ -186,7 +186,7 @@ namespace PagoElectronico.Transferencias
 
                 // agrego la transaccion
 
-                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',0.2,"+costo_id+",null,"+ codigo_operacion +")";
+                string qeri_transac = "insert into qwerty.transacciones values (" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + descripcion + "'," + id_cliente + ",'Transferencia','" + dia.Hoy().ToString("yyyy-MM-dd") + "',"+importe+","+costo_id+",null,"+ codigo_operacion +")";
                 db.insert_query(qeri_transac);
                 // agrego la transaccion FINN
                 
