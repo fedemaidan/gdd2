@@ -302,32 +302,36 @@ namespace PagoElectronico.Home
         }
 
 
-        public DataTable getTransferencias10(string numeroCuenta)
+        public DataTable getTransferencias10(string numeroCuenta, string bancoN)
         {
-            String query = "select top 10 fecha_transferencia , cuenta_origen, cuenta_destino, importe, tipo_de_cuenta from qwerty.transferencias where cuenta_origen = '" + numeroCuenta + "' order by fecha_transferencia desc;";
+            DataRow bancoR = this.getBanco(bancoN);
+            String query = "select top 10 fecha_transferencia , cuenta_origen, cuenta_destino, importe, tipo_de_cuenta from qwerty.transferencias where cuenta_origen = '" + numeroCuenta + "' and banco_origen = '" + bancoR["banco_id"].ToString() + "' order by fecha_transferencia desc;";
             DataTable dt = db.select_query(query);
             return dt;
         }
 
-        public DataTable getDepositos5(string numeroCuenta)
+        public DataTable getDepositos5(string numeroCuenta, string bancoN)
         {
+            DataRow bancoR = this.getBanco(bancoN);
             String query = 
                 @"select top 5 fecha_deposito, importe, 
-                numero_trajeta from qwerty.depositos where numero_cuenta = '" + numeroCuenta + "' order by fecha_deposito desc;";
+                numero_trajeta from qwerty.depositos where numero_cuenta = '" + numeroCuenta + "' and banco_id = "+ bancoR["banco_id"] +" order by fecha_deposito desc;";
             DataTable dt = db.select_query(query);
             return dt;
         }
 
-        public DataTable getRetiros5(string numeroCuenta)
-        {   
-            String query = "select top 5 fecha_retiro, importe, numero_cuenta, nombre, apellido  from qwerty.retiro_de_efectivo where numero_cuenta = '" + numeroCuenta + "' order by fecha_retiro desc;";
-            DataTable dt = db.select_query(query);
-            return dt;
-        }
-
-        public string getSaldo(string numeroCuenta)
+        public DataTable getRetiros5(string numeroCuenta, string bancoN)
         {
-            String query = "select saldo from qwerty.cuentas  where numero_cuenta = " + numeroCuenta+ ";";
+            DataRow bancoR = this.getBanco(bancoN);
+            String query = "select top 5 fecha_retiro, importe, numero_cuenta, nombre, apellido  from qwerty.retiro_de_efectivo where numero_cuenta = '" + numeroCuenta + "' and banco_id = "+ bancoR["banco_id"] +" order by fecha_retiro desc;";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+        public string getSaldo(string numeroCuenta, string bancoN)
+        {
+            DataRow bancoR = this.getBanco(bancoN);
+            String query = "select saldo from qwerty.cuentas  where numero_cuenta = " + numeroCuenta+ " and banco_id = "+ bancoR["banco_id"] +";";
 
             DataTable dt = db.select_query(query);
             foreach (DataRow row in dt.Rows)

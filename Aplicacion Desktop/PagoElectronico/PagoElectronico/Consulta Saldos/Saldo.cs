@@ -74,22 +74,22 @@ namespace PagoElectronico.Consulta_Saldos
             string numeroCuenta = cbCuentas.Text;
             Home2 home2 = new Home2();
 
-            DataTable transferencias = home2.getTransferencias10(numeroCuenta);
+            DataTable transferencias = home2.getTransferencias10(numeroCuenta,this.banco);
             BindingSource bsource = new BindingSource();
             bsource.DataSource = transferencias;
             dataGridTransferencias.DataSource = bsource;
 
-            DataTable retiros = home2.getRetiros5(numeroCuenta);
+            DataTable retiros = home2.getRetiros5(numeroCuenta,this.banco);
             BindingSource bsource2 = new BindingSource();
             bsource2.DataSource = retiros;
             dataGridRetiros.DataSource = bsource2;
 
-            DataTable depositos = home2.getDepositos5(numeroCuenta);
+            DataTable depositos = home2.getDepositos5(numeroCuenta,this.banco);
             BindingSource bsource3 = new BindingSource();
             bsource3.DataSource = depositos;
             dataGridDepositos.DataSource = bsource3;
 
-            saldo1.Text = home2.getSaldo(numeroCuenta);
+            saldo1.Text = home2.getSaldo(numeroCuenta,this.banco);
         }
 
         private void cb_clientes_SelectedIndexChanged(object sender, EventArgs e)
