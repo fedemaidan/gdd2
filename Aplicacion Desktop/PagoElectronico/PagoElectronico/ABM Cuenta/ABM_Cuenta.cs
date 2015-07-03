@@ -39,7 +39,7 @@ namespace PagoElectronico.ABM_Cuenta
             }
             else 
             {
-                query = "select nombre_usuario from qwerty.usuarios where estado = 'S' ";
+                query = "select nombre_usuario from qwerty.clientes where habilitado = 'S' and baja = 'N' ";
                 dtc = db.select_query(query);
                 foreach(DataRow row in dtc.Rows){
                     cb_clientes.Items.Add(row["nombre_usuario"]);
