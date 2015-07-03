@@ -139,6 +139,31 @@ namespace PagoElectronico.Home
             return dt;
         }
 
+        public DataTable getCuentasByBanco(string username,string banco)
+        {
+            DataRow cliente = this.getClient(username);
+            string idCliente = cliente["cliente_id"].ToString();
+            DataRow bancoR = this.getBanco(banco);
+            string idBanco = bancoR["banco_id"].ToString();
+            
+            String query = "select distinct numero_cuenta from qwerty.cuentas where cliente_id = '"+idCliente+"' and banco_id = '"+idBanco +"';";
+            DataTable dt = db.select_query(query);
+            return dt;
+        }
+
+        public DataRow getBanco(string banco)
+        {
+   
+            String query = "select distinct banco_id from qwerty.bancos where nombre = '" + banco + "';";
+            DataTable dt = db.select_query(query);
+            foreach (DataRow row in dt.Rows)
+            {
+                return row;
+            }
+            return null;
+        }
+
+
         public DataTable getBancos(string username)
         {
             DataRow cliente = this.getClient(username);

@@ -14,6 +14,7 @@ namespace PagoElectronico.Consulta_Saldos
     public partial class Saldo : Form
     {
         string username ;
+        string banco;
         public Saldo(string username)
         {
             InitializeComponent();
@@ -23,12 +24,12 @@ namespace PagoElectronico.Consulta_Saldos
             {
                 this.cb_clientes.Visible = false;
                 this.label6.Visible = false;
-                this.cargarCuentas();
+                
                 this.cargarBancos();
             }
             else
             {
-                this.cargarClientes();
+                this.cargarClientes();                
             }
 
             
@@ -36,30 +37,30 @@ namespace PagoElectronico.Consulta_Saldos
 
         public void cargarClientes()
         {
-            string query_user = "select u.nombre_usuario from qwerty.clientes c  join qwerty.usuarios u  on u.nombre_usuario = c.nombre_usuario;";
+            string query_user = "select u.nombre_usuario from qwerty.clientes c  join qwerty.usuarios u  on u.nombre_usuario = c.nombre_usuario where baja = 'N';";
             Database db = new Database();
             DataTable dt = db.select_query(query_user);
             foreach (DataRow row in dt.Rows)
             {
                 cb_clientes.Items.Add(row["nombre_usuario"].ToString());
-
             }
         }
 
         public void cargarBancos() 
         {
-            DataTable bancos = new Home2().getBancos(this.username);
+            DataTable bancos = new Home2().getBancosList();
 
             int rows = bancos.Rows.Count;
             for (int i = 0; i < rows; i++)
             {
-                cb_cs_bancos.Items.Add(bancos.Rows[i]["banco_id"]);
+                cb_cs_bancos.Items.Add(bancos.Rows[i]["nombre"]);
             }        
         }
 
         public void cargarCuentas()
         {
-            DataTable cuentas  = new Home2().getCuentas(this.username);
+            
+            DataTable cuentas = new Home2().getCuentasByBanco(this.username, this.banco);
 
             int rows = cuentas.Rows.Count;
             for (int i = 0; i < rows; i++)
@@ -95,13 +96,19 @@ namespace PagoElectronico.Consulta_Saldos
         {
             
             this.username = this.cb_clientes.SelectedItem.ToString();
-
-            this.cargarCuentas();
+            this.cargarBancos();
+            
         }
 
         private void Saldo_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void cb_cs_bancos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.banco = cb_cs_bancos.SelectedItem.ToString();
+            this.cargarCuentas();
         }
     }
 }
