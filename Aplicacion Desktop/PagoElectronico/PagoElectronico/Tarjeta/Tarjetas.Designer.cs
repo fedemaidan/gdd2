@@ -36,16 +36,16 @@
             this.btn_buscar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_desasociar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbEmisores = new System.Windows.Forms.ComboBox();
             this.BtnFechaVencimiento = new System.Windows.Forms.Button();
             this.monthCalendar2Em = new System.Windows.Forms.MonthCalendar();
             this.txtFechaVen = new System.Windows.Forms.TextBox();
             this.BtnFechaEmision = new System.Windows.Forms.Button();
             this.monthCalendar1Ven = new System.Windows.Forms.MonthCalendar();
             this.txtFechaEmision = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbEmisores = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -123,15 +123,6 @@
             this.btn_desasociar.UseVisualStyleBackColor = true;
             this.btn_desasociar.Click += new System.EventHandler(this.btn_desasociar_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Banco";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -149,14 +140,6 @@
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 18;
             this.label4.Text = "Emision";
-            // 
-            // cbEmisores
-            // 
-            this.cbEmisores.FormattingEnabled = true;
-            this.cbEmisores.Location = new System.Drawing.Point(101, 41);
-            this.cbEmisores.Name = "cbEmisores";
-            this.cbEmisores.Size = new System.Drawing.Size(138, 21);
-            this.cbEmisores.TabIndex = 19;
             // 
             // BtnFechaVencimiento
             // 
@@ -210,6 +193,23 @@
             this.txtFechaEmision.TabIndex = 131;
             this.txtFechaEmision.TextChanged += new System.EventHandler(this.txtFechaEmision_TextChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Banco";
+            // 
+            // cbEmisores
+            // 
+            this.cbEmisores.FormattingEnabled = true;
+            this.cbEmisores.Location = new System.Drawing.Point(101, 41);
+            this.cbEmisores.Name = "cbEmisores";
+            this.cbEmisores.Size = new System.Drawing.Size(138, 21);
+            this.cbEmisores.TabIndex = 19;
+            // 
             // Tarjetas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,15 +251,15 @@
         private System.Windows.Forms.Button btn_buscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_desasociar;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbEmisores;
         private System.Windows.Forms.Button BtnFechaVencimiento;
         private System.Windows.Forms.MonthCalendar monthCalendar2Em;
         private System.Windows.Forms.TextBox txtFechaVen;
         private System.Windows.Forms.Button BtnFechaEmision;
         private System.Windows.Forms.MonthCalendar monthCalendar1Ven;
         private System.Windows.Forms.TextBox txtFechaEmision;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbEmisores;
     }
 }

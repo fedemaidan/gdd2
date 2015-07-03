@@ -22,9 +22,20 @@ namespace PagoElectronico.Tarjeta
             this.buscarTarjetas();
             monthCalendar1Ven.Visible = false;
             monthCalendar2Em.Visible = false;
+            this.agregarBancos();
         }
 
+        private void agregarBancos() 
+        {
+            Home2 home = new Home2();
 
+            DataTable bancos = home.getBancosList();
+            foreach (DataRow row in bancos.Rows) 
+            {
+                cbEmisores.Items.Add(row["nombre"].ToString());
+            }
+
+        }
 
         private void btn_buscar_Click(object sender, EventArgs e)
         {

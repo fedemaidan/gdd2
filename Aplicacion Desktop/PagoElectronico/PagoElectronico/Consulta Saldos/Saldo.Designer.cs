@@ -40,6 +40,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cb_clientes = new System.Windows.Forms.ComboBox();
+            this.cb_cs_bancos = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTransferencias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDepositos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRetiros)).BeginInit();
@@ -66,9 +68,9 @@
             // saldo1
             // 
             this.saldo1.Enabled = false;
-            this.saldo1.Location = new System.Drawing.Point(196, 108);
+            this.saldo1.Location = new System.Drawing.Point(24, 100);
             this.saldo1.Name = "saldo1";
-            this.saldo1.Size = new System.Drawing.Size(100, 20);
+            this.saldo1.Size = new System.Drawing.Size(121, 20);
             this.saldo1.TabIndex = 2;
             // 
             // dataGridTransferencias
@@ -125,7 +127,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(193, 83);
+            this.label5.Location = new System.Drawing.Point(24, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 15;
@@ -149,11 +151,30 @@
             this.cb_clientes.TabIndex = 16;
             this.cb_clientes.SelectedIndexChanged += new System.EventHandler(this.cb_clientes_SelectedIndexChanged);
             // 
+            // cb_cs_bancos
+            // 
+            this.cb_cs_bancos.FormattingEnabled = true;
+            this.cb_cs_bancos.Location = new System.Drawing.Point(196, 99);
+            this.cb_cs_bancos.Name = "cb_cs_bancos";
+            this.cb_cs_bancos.Size = new System.Drawing.Size(121, 21);
+            this.cb_cs_bancos.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(196, 84);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Bancos";
+            // 
             // Saldo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 733);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.cb_cs_bancos);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cb_clientes);
             this.Controls.Add(this.label5);
@@ -168,6 +189,7 @@
             this.Controls.Add(this.cbCuentas);
             this.Name = "Saldo";
             this.Text = "Saldo";
+            this.Load += new System.EventHandler(this.Saldo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTransferencias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDepositos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRetiros)).EndInit();
@@ -190,5 +212,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cb_clientes;
+        private System.Windows.Forms.ComboBox cb_cs_bancos;
+        private System.Windows.Forms.Label label7;
     }
 }

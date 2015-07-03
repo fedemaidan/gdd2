@@ -24,6 +24,7 @@ namespace PagoElectronico.Consulta_Saldos
                 this.cb_clientes.Visible = false;
                 this.label6.Visible = false;
                 this.cargarCuentas();
+                this.cargarBancos();
             }
             else
             {
@@ -43,6 +44,17 @@ namespace PagoElectronico.Consulta_Saldos
                 cb_clientes.Items.Add(row["nombre_usuario"].ToString());
 
             }
+        }
+
+        public void cargarBancos() 
+        {
+            DataTable bancos = new Home2().getBancos(this.username);
+
+            int rows = bancos.Rows.Count;
+            for (int i = 0; i < rows; i++)
+            {
+                cb_cs_bancos.Items.Add(bancos.Rows[i]["banco_id"]);
+            }        
         }
 
         public void cargarCuentas()
@@ -85,6 +97,11 @@ namespace PagoElectronico.Consulta_Saldos
             this.username = this.cb_clientes.SelectedItem.ToString();
 
             this.cargarCuentas();
+        }
+
+        private void Saldo_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
