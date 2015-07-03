@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using PagoElectronico.Model;
 using PagoElectronico.ABM_de_Usuario;
+using PagoElectronico.Home;
 using System;
 
 
@@ -33,15 +34,15 @@ namespace PagoElectronico.ABM_Cuenta
                 query = "select cliente_id from qwerty.clientes where nombre_usuario='" + this.user.username + "';";         
                 dtc = db.select_query(query);
                 this.id_cliente = int.Parse(dtc.Rows[0].ItemArray[0].ToString());
-                cb_clientes.Items.Add(this.id_cliente);
-                cb_clientes.SelectedItem = this.id_cliente;
+                cb_clientes.Items.Add(this.user.username);
+                cb_clientes.SelectedItem = this.user.username;
             }
             else 
             {
-                query = "select cliente_id from qwerty.clientes where habilitado = 'S' and baja = 'N'";
+                query = "select nombre_usuario from qwerty.usuarios where estado = 'S' ";
                 dtc = db.select_query(query);
                 foreach(DataRow row in dtc.Rows){
-                    cb_clientes.Items.Add(row["cliente_id"]);
+                    cb_clientes.Items.Add(row["nombre_usuario"]);
                 }
             }
             //agrego paises  al combobox
@@ -100,6 +101,8 @@ namespace PagoElectronico.ABM_Cuenta
             DataTable dt = new DataTable();
 
             // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
+            DataRow row2 = new Home2().getClient(cb_clientes.SelectedItem.ToString());
+            this.id_cliente = Convert.ToInt32(new Home2().getClient(cb_clientes.SelectedItem.ToString())["cliente_id"].ToString());
             
             //termino de buscar el cliente_id
         
@@ -122,7 +125,8 @@ namespace PagoElectronico.ABM_Cuenta
             //Obtengo el banco elegido
             Int64 banco_id = dicBancos[cb_bancos.SelectedItem.ToString()];
             Dia dia = new Dia();
-            this.id_cliente = int.Parse(cb_clientes.SelectedItem.ToString());
+            //this.id_cliente = int.Parse(cb_clientes.SelectedItem.ToString());
+
             string queri = "insert into qwerty.cuentas (banco_id,cod_pais, moneda_id,fecha_apertura,fecha_cierre,categoria_id,cliente_id,estado_id,pendiente_facturacion) values (" + banco_id + "," + cod_pais + "," + (comboBox_moneda.SelectedIndex + 1) + ",convert(datetime,'" + textBox_fecha.Text + "',121),null," + (comboBox_tipocuenta.SelectedIndex + 1) + "," + this.id_cliente + ", 1,'S')";
             db.insert_query(queri);
 

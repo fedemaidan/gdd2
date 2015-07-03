@@ -107,6 +107,7 @@ namespace PagoElectronico.Facturacion
                 string facturo_cliente = "exec qwerty.facturar_cliente " + id_cliente;
                 Database db = new Database();
                 db.select_query(facturo_cliente);
+                MessageBox.Show("Facturacion realizada correctamente");
                 this.Close();
             }
             else {
@@ -116,13 +117,13 @@ namespace PagoElectronico.Facturacion
 
                     // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
 
-//                    string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + this.dataGridView_cuentas.CurrentRow.Cells[1].Value.ToString() +"'";
-                    Int64 cuenta_id = Int64.Parse(textBox_cuenta.Text);
-                    Int64 banco_id = dicBancos[cb_f_bancos.SelectedItem.ToString()];
-                    string query_clie = "select cliente_id from qwerty.cuentas where numero_cuenta= "+ cuenta_id + "and banco_id= " +banco_id+";";
+                    string qeri_buscoIDcliente = "select c.cliente_id from qwerty.clientes c where c.nombre_usuario='" + this.dataGridView_cuentas.CurrentRow.Cells[1].Value.ToString() +"'";
+                    //Int64 cuenta_id = Int64.Parse(textBox_cuenta.Text);
+                    //Int64 banco_id = dicBancos[cb_f_bancos.SelectedItem.ToString()];
+                    //string query_clie = "select cliente_id from qwerty.cuentas where numero_cuenta= "+ cuenta_id + "and banco_id= " +banco_id+";";
                     Database db = new Database();
                     DataTable dt = new DataTable();
-                    dt = db.select_query(query_clie);
+                    dt = db.select_query(qeri_buscoIDcliente);
                     int idUser=0;
                     foreach (DataRow row in dt.Rows)
                     {
@@ -132,6 +133,7 @@ namespace PagoElectronico.Facturacion
                     string facturo_cliente = "exec qwerty.facturar_cliente " + idUser;
                     
                     db.select_query(facturo_cliente);
+                    MessageBox.Show("Cliente con username " + this.dataGridView_cuentas.CurrentRow.Cells[1].Value.ToString() + " facturado correctamente");
                     this.Close();
                     
                 } 
