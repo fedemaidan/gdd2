@@ -12,8 +12,8 @@ namespace PagoElectronico.Depositos
 {
     public partial class ABM_depositos : Form
     {
-        
 
+        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
         public ABM_depositos(User user)
         {
             InitializeComponent();
@@ -35,8 +35,15 @@ namespace PagoElectronico.Depositos
             dt = db.select_query(qeri_cuenta);
             foreach (DataRow row in dt.Rows)
             {
-                comboBox_nrocuenta.Items.Add(row["numero_cuenta"].ToString());
-                
+                comboBox_nrocuenta.Items.Add(row["numero_cuenta"].ToString());    
+            }
+
+            string query_banco = "select distinct b.banco_id,b.nombre from qwerty.cuentas a inner join qwerty.bancos b on a.banco_id = b.banco_id where a.cliente_id =" + this.id_cliente+ ";";
+            dt = db.select_query(query_banco);
+            foreach (DataRow row in dt.Rows)
+            {
+                comboBox_banco.Items.Add(row["nombre"].ToString());
+                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
             }
 
             
@@ -83,8 +90,8 @@ namespace PagoElectronico.Depositos
 
             if (dt2.Rows.Count==0) { MessageBox.Show("Tarjeta no asociada a la cuenta"); return; }
             //busco id de banco
-            string qeri = "select c.banco_id from qwerty.cuentas c where c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
-            
+/*            string qeri = "select c.banco_id from qwerty.cuentas c where c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
+   
             DataTable dt = new DataTable();
             dt = db.select_query(qeri);
             Int32 id_banco = 0;
@@ -92,6 +99,8 @@ namespace PagoElectronico.Depositos
             {
                 id_banco = Convert.ToInt32(row["banco_id"].ToString());
             };
+ */
+            Int64 id_banco = dicBancos[comboBox_banco.SelectedItem.ToString()];
             //termino de buscar id de banco
             
             string qeri_insert = "insert into qwerty.depositos (numero_cuenta,banco_id,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + id_banco+ ","+ textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
