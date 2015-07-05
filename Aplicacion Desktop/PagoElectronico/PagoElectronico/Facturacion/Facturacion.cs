@@ -103,9 +103,27 @@ namespace PagoElectronico.Facturacion
         private void button_seleccionar_Click(object sender, EventArgs e)
         {
             if (user.getRol() == "Cliente")
-            {// le facturo todas las cuentas
-                string facturo_cliente = "exec qwerty.facturar_cliente " + id_cliente;
+            {// chequeo qe no tenga mas de cinco transacciones por cuenta/banco sino lo tengo q inhabilitar
+                string qeri = "select t.numero_cuenta,t.banco_id, COUNT(*) as cant from qwerty.transacciones t where t.factura_id is null and t.cliente_id="+id_cliente+" group by t.numero_cuenta,t.banco_id";
                 Database db = new Database();
+                DataTable dt = new DataTable();
+                dt = db.select_query(qeri);
+                foreach(DataRow row in dt.Rows) {//inhabilitar 
+                    if (Convert.ToInt32(row["cant"].ToString())>5) {//inhabilito cuenta!! 
+                        //necesito campos: inhabilitacion id es siempre 1,numero_cuenta, banco_id, y fecha
+                        Dia dia = new Dia();
+                        string insert_cuenta_inhabilitada = "insert into qwerty.inhabilitaciones_por_cuenta (inhabilitacion_id,numero_cuenta,banco_id,fecha) values (1," + Convert.ToInt64(row["numero_cuenta"].ToString()) + "," + Convert.ToInt32(row["banco_id"].ToString()) + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "')";
+                        db.insert_query(insert_cuenta_inhabilitada);
+                        MessageBox.Show("Cuenta inhabilitada:"+" "+row["numero_cuenta"].ToString());
+                        
+                    };
+                    
+                }
+                //termino de hacer el cheqeo de la cantidad de transacciones
+                
+                // le facturo todas las cuentas
+                string facturo_cliente = "exec qwerty.facturar_cliente " + id_cliente;
+                
                 db.select_query(facturo_cliente);
                 MessageBox.Show("Facturacion realizada correctamente");
                 this.Close();
@@ -130,6 +148,26 @@ namespace PagoElectronico.Facturacion
                         idUser= Convert.ToInt32(row["cliente_id"]);
                     }
                     //termino de buscar el cliente_id
+
+                    // chequeo qe no tenga mas de cinco transacciones por cuenta/banco sino lo tengo q inhabilitar
+                    string qeri = "select t.numero_cuenta,t.banco_id, COUNT(*) as cant from qwerty.transacciones t where t.factura_id is null and t.cliente_id=" + idUser + " group by t.numero_cuenta,t.banco_id";
+                    dt = db.select_query(qeri);
+                    foreach (DataRow row in dt.Rows)
+                    {//inhabilitar 
+                        if (Convert.ToInt32(row["cant"].ToString()) > 5)
+                        {//inhabilito cuenta!! 
+                            //necesito campos: inhabilitacion id es siempre 1,numero_cuenta, banco_id, y fecha
+                            Dia dia = new Dia();
+                            string insert_cuenta_inhabilitada = "insert into qwerty.inhabilitaciones_por_cuenta (inhabilitacion_id,numero_cuenta,banco_id,fecha) values (1," + Convert.ToInt64(row["numero_cuenta"].ToString()) + "," + Convert.ToInt32(row["banco_id"].ToString()) + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "')";
+                            db.insert_query(insert_cuenta_inhabilitada);
+                            MessageBox.Show("Cuenta inhabilitada:" + " " + row["numero_cuenta"].ToString());
+
+                        };
+
+                    }
+                    //termino de hacer el cheqeo de la cantidad de transacciones
+
+
                     string facturo_cliente = "exec qwerty.facturar_cliente " + idUser;
                     
                     db.select_query(facturo_cliente);
