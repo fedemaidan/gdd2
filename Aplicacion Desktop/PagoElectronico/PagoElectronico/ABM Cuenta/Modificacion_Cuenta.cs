@@ -182,5 +182,32 @@ namespace PagoElectronico.ABM_Cuenta
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //cheqear qe tenga todo facturado
+            Database db = new Database();
+            DataTable dt = new DataTable();
+
+            string items_sin_facturar = "select * from qwerty.transacciones where numero_cuenta="+nro_cta+" and banco_id="+banco_id+" and factura_id is null";
+            dt = db.select_query(items_sin_facturar);
+            int cantidad = 0;
+            foreach (DataRow row in dt.Rows) {
+                cantidad++;
+            }
+            if (cantidad > 0) { MessageBox.Show("Tiene items sin facturar, no se puede dar de baja"); return; }
+            
+            //termino de cheqear qe tenga todo facturado
+             DialogResult dr = MessageBox.Show("Desea cerrar esta cuenta?", "Confirmación", MessageBoxButtons.YesNo,
+       MessageBoxIcon.Information);
+             if (dr == DialogResult.Yes)
+             {
+                 Dia dia =new Dia();
+                 string cerrar_cuenta = "update qwerty.cuentas set estado_id=2, fecha_cierre='" + dia.Hoy().ToString("yyyy-MM-dd") + "' where numero_cuenta=" + nro_cta + " and banco_id=" + banco_id;
+                 
+                 db.update_query(cerrar_cuenta);
+                 MessageBox.Show("Cuenta cerrada");
+             }
+        }
     }
 }
