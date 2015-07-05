@@ -12,7 +12,7 @@ namespace PagoElectronico.Depositos
 {
     public partial class ABM_depositos : Form
     {
-        private Dictionary<string, Int64> dicBancos = new Dictionary<string, Int64>();
+        
 
         public ABM_depositos(User user)
         {
@@ -39,14 +39,7 @@ namespace PagoElectronico.Depositos
                 
             }
 
-            string query_bancos = "select banco_id,nombre from qwerty.bancos where banco_id <> 10004";
-            dt = db.select_query(query_bancos);
-            foreach (DataRow row in dt.Rows)
-            {
-                cb_d_bancos.Items.Add(row["nombre"].ToString());
-                dicBancos[row["nombre"].ToString()] = Int64.Parse(row["banco_id"].ToString());
-            }
-
+            
             //agrego monedas al combobox
             string qeri_monedas = "select m.descripcion from qwerty.monedas m";
             dt = db.select_query(qeri_monedas);
@@ -89,8 +82,19 @@ namespace PagoElectronico.Depositos
             dt2 = db.select_query(busco_ExisteAsociacion);
 
             if (dt2.Rows.Count==0) { MessageBox.Show("Tarjeta no asociada a la cuenta"); return; }
+            //busco id de banco
+            string qeri = "select c.banco_id from qwerty.cuentas c where c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
             
-            string qeri_insert = "insert into qwerty.depositos (numero_cuenta,banco_id,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + dicBancos[cb_d_bancos.SelectedItem.ToString()] + ","+ textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
+            DataTable dt = new DataTable();
+            dt = db.select_query(qeri);
+            Int32 id_banco = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                id_banco = Convert.ToInt32(row["banco_id"].ToString());
+            };
+            //termino de buscar id de banco
+            
+            string qeri_insert = "insert into qwerty.depositos (numero_cuenta,banco_id,importe,moneda_id,numero_trajeta,fecha_deposito) values (" + comboBox_nrocuenta.SelectedItem.ToString() + "," + id_banco+ ","+ textBox_importe.Text + "," + (Convert.ToInt32(comboBox_tipomoneda.SelectedIndex.ToString()) + 1) + "," + comboBox_tc.SelectedItem.ToString() + ",'" + textBox_fecha.Text + "')";
             db.insert_query(qeri_insert);
 
             string query_codOperacion = "select max(deposito_id) as codigo_operacion from qwerty.depositos;";
@@ -122,6 +126,26 @@ namespace PagoElectronico.Depositos
             
             this.Close();
             
+        }
+
+        private void comboBox_nrocuenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_nrocuenta.SelectedIndex == -1)
+            {
+                textBox_banco.Text = string.Empty;
+            }
+            else
+            {
+                string qeri = "select b.nombre from qwerty.cuentas c,qwerty.bancos b where c.banco_id=b.banco_id and c.numero_cuenta="+comboBox_nrocuenta.SelectedItem.ToString();
+                Database db = new Database();
+                DataTable dt = new DataTable();
+                dt=db.select_query(qeri);
+                string nombre_banco="";
+                foreach(DataRow row in dt.Rows){
+                    nombre_banco = row["nombre"].ToString();
+                };
+                textBox_banco.Text = nombre_banco;
+            }
         }
     }
 }
