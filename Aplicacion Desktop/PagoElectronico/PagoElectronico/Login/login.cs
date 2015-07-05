@@ -148,12 +148,14 @@ namespace PagoElectronico.Login
                     {
                         DateTime fecha = new DateTime(Convert.ToInt32(row["ano"].ToString()), Convert.ToInt32(row["mes"].ToString()), Convert.ToInt32(row["dia"].ToString()));
                         fecha = fecha.AddDays(Convert.ToInt32(row["duracion"].ToString()));
-                        DateTime hoy = new Dia().Hoy();
-                        bool validador = fecha.CompareTo(hoy) < 0;
+                        //DateTime hoy = new Dia().Hoy();
+                        DateTime dia = DateTime.Now;
+                        bool validador = fecha.CompareTo(dia) < 0;
                         if (validador)
                         {
                             string updatequery = "UPDATE [GD1C2015].[qwerty].[cuentas] SET [estado_id] = 4 WHERE numero_cuenta = " + row["numero_cuenta"] + "and banco_id = " + row["banco_id"]  + ";";
                             new Database().update_query(updatequery);
+
                             string insertq =
                                 @"INSERT INTO [GD1C2015].[qwerty].[inhabilitaciones_por_cuenta]
            ([inhabilitacion_id]
@@ -166,7 +168,7 @@ namespace PagoElectronico.Login
              @"
            ,"+row["banco_id"] +
              @"
-           ,'" + (new Dia()).Hoy().ToString("yyyy-MM-dd") + "');";
+           ,'" + dia + "');";
                             new Database().insert_query(insertq);
                         }
 

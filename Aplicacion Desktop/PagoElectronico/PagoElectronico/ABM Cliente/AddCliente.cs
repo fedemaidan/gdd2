@@ -306,5 +306,10 @@ namespace PagoElectronico.ABM_Cliente
             return;
         }
 
+        private void txt_nombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

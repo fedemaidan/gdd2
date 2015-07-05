@@ -69,6 +69,7 @@ namespace PagoElectronico.Transferencias
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBox_importe.Text)) { MessageBox.Show("Debe ingresar el importe"); return; }
             Database db = new Database();
             DataTable dt = new DataTable();
             DataTable dt2 = new DataTable();
@@ -207,9 +208,10 @@ namespace PagoElectronico.Transferencias
             
             if (cantidad > 5)
             {//inhabilito cuenta
-                Dia dia = new Dia();
+                DateTime dia = DateTime.Now;
                 
-                string insert_cuenta_inhabilitada = "insert into qwerty.inhabilitaciones_por_cuenta (inhabilitacion_id,numero_cuenta,banco_id,fecha) values (1," + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "')";
+                
+                string insert_cuenta_inhabilitada = "insert into qwerty.inhabilitaciones_por_cuenta (inhabilitacion_id,numero_cuenta,banco_id,fecha) values (1," + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + dia + "')";
                 db.insert_query(insert_cuenta_inhabilitada);
                 string updateo_cuenta_Estado = "update qwerty.cuentas set estado_id=4 where numero_cuenta=" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString());
                 db.update_query(updateo_cuenta_Estado);
@@ -264,6 +266,16 @@ namespace PagoElectronico.Transferencias
                     cb_b_dest.Items.Add(row["nombre"].ToString());
                 };
                 //textBox_banco.Text = nombre_banco;
+            }
+        }
+
+        private void textBox_importe_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
             }
         }
     }

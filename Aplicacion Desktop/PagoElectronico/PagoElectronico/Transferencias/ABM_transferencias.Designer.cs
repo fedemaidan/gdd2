@@ -102,6 +102,7 @@
             this.textBox_importe.Name = "textBox_importe";
             this.textBox_importe.Size = new System.Drawing.Size(121, 20);
             this.textBox_importe.TabIndex = 8;
+            this.textBox_importe.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_importe_KeyPress);
             // 
             // label2
             // 
