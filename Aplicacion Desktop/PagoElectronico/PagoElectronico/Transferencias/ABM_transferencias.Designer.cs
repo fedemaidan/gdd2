@@ -37,8 +37,8 @@
             this.textBox_importe = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cb_b_origen = new System.Windows.Forms.ComboBox();
             this.cb_b_dest = new System.Windows.Forms.ComboBox();
+            this.cb_b_origen = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // comboBox_ctaorigen
@@ -48,6 +48,7 @@
             this.comboBox_ctaorigen.Name = "comboBox_ctaorigen";
             this.comboBox_ctaorigen.Size = new System.Drawing.Size(121, 21);
             this.comboBox_ctaorigen.TabIndex = 0;
+            this.comboBox_ctaorigen.SelectedIndexChanged += new System.EventHandler(this.comboBox_ctaorigen_SelectedIndexChanged);
             // 
             // comboBox_ctadestino
             // 
@@ -56,6 +57,7 @@
             this.comboBox_ctadestino.Name = "comboBox_ctadestino";
             this.comboBox_ctadestino.Size = new System.Drawing.Size(121, 21);
             this.comboBox_ctadestino.TabIndex = 1;
+            this.comboBox_ctadestino.SelectedIndexChanged += new System.EventHandler(this.comboBox_ctadestino_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -119,14 +121,6 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Banco destino:";
             // 
-            // cb_b_origen
-            // 
-            this.cb_b_origen.FormattingEnabled = true;
-            this.cb_b_origen.Location = new System.Drawing.Point(87, 104);
-            this.cb_b_origen.Name = "cb_b_origen";
-            this.cb_b_origen.Size = new System.Drawing.Size(121, 21);
-            this.cb_b_origen.TabIndex = 11;
-            // 
             // cb_b_dest
             // 
             this.cb_b_dest.FormattingEnabled = true;
@@ -134,6 +128,14 @@
             this.cb_b_dest.Name = "cb_b_dest";
             this.cb_b_dest.Size = new System.Drawing.Size(121, 21);
             this.cb_b_dest.TabIndex = 12;
+            // 
+            // cb_b_origen
+            // 
+            this.cb_b_origen.FormattingEnabled = true;
+            this.cb_b_origen.Location = new System.Drawing.Point(87, 104);
+            this.cb_b_origen.Name = "cb_b_origen";
+            this.cb_b_origen.Size = new System.Drawing.Size(121, 21);
+            this.cb_b_origen.TabIndex = 11;
             // 
             // ABM_transferencias
             // 
@@ -170,7 +172,7 @@
         private System.Windows.Forms.TextBox textBox_importe;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cb_b_origen;
         private System.Windows.Forms.ComboBox cb_b_dest;
+        private System.Windows.Forms.ComboBox cb_b_origen;
     }
 }

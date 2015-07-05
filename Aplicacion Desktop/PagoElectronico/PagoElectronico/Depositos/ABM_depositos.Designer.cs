@@ -40,7 +40,7 @@
             this.textBox_fecha = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox_banco = new System.Windows.Forms.TextBox();
+            this.comboBox_banco = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
@@ -147,20 +147,20 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Banco:";
             // 
-            // textBox_banco
+            // comboBox_banco
             // 
-            this.textBox_banco.Location = new System.Drawing.Point(167, 101);
-            this.textBox_banco.Name = "textBox_banco";
-            this.textBox_banco.ReadOnly = true;
-            this.textBox_banco.Size = new System.Drawing.Size(121, 20);
-            this.textBox_banco.TabIndex = 13;
+            this.comboBox_banco.FormattingEnabled = true;
+            this.comboBox_banco.Location = new System.Drawing.Point(167, 93);
+            this.comboBox_banco.Name = "comboBox_banco";
+            this.comboBox_banco.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_banco.TabIndex = 14;
             // 
             // ABM_depositos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(756, 288);
-            this.Controls.Add(this.textBox_banco);
+            this.Controls.Add(this.comboBox_banco);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox_fecha);
@@ -195,6 +195,6 @@
         private System.Windows.Forms.TextBox textBox_fecha;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox_banco;
+        private System.Windows.Forms.ComboBox comboBox_banco;
     }
 }

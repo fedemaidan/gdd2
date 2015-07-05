@@ -196,5 +196,53 @@ namespace PagoElectronico.Transferencias
 
             }
         }
+
+        private void comboBox_ctaorigen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_ctaorigen.SelectedIndex == -1)
+            {
+                ;
+            }
+            else
+            {
+                cb_b_origen.SelectedIndex = -1;
+                cb_b_origen.Items.Clear();
+                string qeri = "select b.nombre from qwerty.cuentas c,qwerty.bancos b where c.banco_id=b.banco_id and c.numero_cuenta=" + comboBox_ctaorigen.SelectedItem.ToString();
+                Database db = new Database();
+                DataTable dt = new DataTable();
+                dt = db.select_query(qeri);
+                //string nombre_banco="";
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    cb_b_origen.Items.Add(row["nombre"].ToString());
+                };
+                //textBox_banco.Text = nombre_banco;
+            }
+        }
+
+        private void comboBox_ctadestino_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_ctadestino.SelectedIndex == -1)
+            {
+                ;
+            }
+            else
+            {
+                cb_b_dest.SelectedIndex = -1;
+                cb_b_dest.Items.Clear();
+                string qeri = "select b.nombre from qwerty.cuentas c,qwerty.bancos b where c.banco_id=b.banco_id and c.numero_cuenta=" + comboBox_ctadestino.SelectedItem.ToString();
+                Database db = new Database();
+                DataTable dt = new DataTable();
+                dt = db.select_query(qeri);
+                //string nombre_banco="";
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    cb_b_dest.Items.Add(row["nombre"].ToString());
+                };
+                //textBox_banco.Text = nombre_banco;
+            }
+        }
     }
 }

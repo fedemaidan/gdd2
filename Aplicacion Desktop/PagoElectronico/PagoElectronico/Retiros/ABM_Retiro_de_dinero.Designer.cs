@@ -46,6 +46,7 @@
             this.comboBox_nrocuenta.Name = "comboBox_nrocuenta";
             this.comboBox_nrocuenta.Size = new System.Drawing.Size(121, 21);
             this.comboBox_nrocuenta.TabIndex = 0;
+            this.comboBox_nrocuenta.SelectedIndexChanged += new System.EventHandler(this.comboBox_nrocuenta_SelectedIndexChanged);
             // 
             // textBox_importe
             // 

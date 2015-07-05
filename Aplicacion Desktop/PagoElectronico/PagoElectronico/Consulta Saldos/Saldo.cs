@@ -90,6 +90,9 @@ namespace PagoElectronico.Consulta_Saldos
             dataGridDepositos.DataSource = bsource3;
 
             saldo1.Text = home2.getSaldo(numeroCuenta,this.banco);
+
+           
+
         }
 
         private void cb_clientes_SelectedIndexChanged(object sender, EventArgs e)

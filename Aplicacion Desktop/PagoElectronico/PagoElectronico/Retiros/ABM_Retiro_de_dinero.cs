@@ -139,5 +139,29 @@ namespace PagoElectronico.Retiros
             } 
             else {; }
         }
+
+        private void comboBox_nrocuenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_nrocuenta.SelectedIndex == -1)
+            {
+                ;
+            }
+            else
+            {
+                cb_bancos.SelectedIndex = -1;
+                cb_bancos.Items.Clear();
+                string qeri = "select b.nombre from qwerty.cuentas c,qwerty.bancos b where c.banco_id=b.banco_id and c.numero_cuenta=" + comboBox_nrocuenta.SelectedItem.ToString();
+                Database db = new Database();
+                DataTable dt = new DataTable();
+                dt = db.select_query(qeri);
+                //string nombre_banco="";
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    cb_bancos.Items.Add(row["nombre"].ToString());
+                };
+                //textBox_banco.Text = nombre_banco;
+            }
+        }
     }
 }
