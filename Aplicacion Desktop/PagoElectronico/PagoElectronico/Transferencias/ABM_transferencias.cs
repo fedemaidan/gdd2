@@ -195,6 +195,28 @@ namespace PagoElectronico.Transferencias
                 this.Close();
 
             }
+            //chequeo si tiene mas de 5 transacciones sin facturar en esta cuenta entonces si es asi lo inhabilito
+            string cant_transac = "select * from qwerty.transacciones t,qwerty.bancos b where t.banco_id=b.banco_id and t.factura_id is null and t.cliente_id="+this.id_cliente+"  and t.numero_cuenta="+Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString())+" and b.nombre='"+cb_b_origen.SelectedItem.ToString()+"'";
+            dt = db.select_query(cant_transac);
+            int cantidad = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                cantidad++;
+
+            }
+            
+            if (cantidad > 5)
+            {//inhabilito cuenta
+                Dia dia = new Dia();
+                
+                string insert_cuenta_inhabilitada = "insert into qwerty.inhabilitaciones_por_cuenta (inhabilitacion_id,numero_cuenta,banco_id,fecha) values (1," + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()) + "," + bancoId + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "')";
+                db.insert_query(insert_cuenta_inhabilitada);
+                string updateo_cuenta_Estado = "update qwerty.cuentas set estado_id=4 where numero_cuenta=" + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString());
+                db.update_query(updateo_cuenta_Estado);
+                MessageBox.Show("Cuenta inhabilitada:" + " " + Convert.ToInt64(comboBox_ctaorigen.SelectedItem.ToString()));
+            };
+
+            //termino de cheqear
         }
 
         private void comboBox_ctaorigen_SelectedIndexChanged(object sender, EventArgs e)

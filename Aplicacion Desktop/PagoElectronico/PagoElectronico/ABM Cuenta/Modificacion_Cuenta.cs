@@ -12,7 +12,7 @@ namespace PagoElectronico.ABM_Cuenta
 {
     public partial class Modificacion_Cuenta : Form
     {
-        public Modificacion_Cuenta(Int64 numero_cta, string moneda, string categoria, string pais)
+        public Modificacion_Cuenta(Int64 numero_cta, string moneda, string categoria, string pais,Int32 banco_id)
         {
             InitializeComponent();
             
@@ -20,6 +20,7 @@ namespace PagoElectronico.ABM_Cuenta
             this.moneda = moneda;
             this.categoria = categoria;
             this.desc_pais = pais;
+            this.banco_id = banco_id;
 
             //agrego paises  al combobox
             string qeri_paises = "select p.desc_pais from qwerty.paises p";
@@ -65,6 +66,7 @@ namespace PagoElectronico.ABM_Cuenta
         private string categoria;
         private string desc_pais;
         private int id_cliente;
+        private Int32 banco_id;
 
         private void Modificacion_Cuenta_Load(object sender, EventArgs e)
         {
@@ -96,10 +98,9 @@ namespace PagoElectronico.ABM_Cuenta
             //me fijo si cambio el tipo de cuenta FIN
 
             db.update_query(qeri);
-            if (cambio == true) {
-                // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
-            
-            string qeri_buscoIDcliente = "select c.cliente_id from qwerty.cuentas c where c.numero_cuenta="+this.nro_cta;
+            // tengo q buscar cliente_id en la tabla clientes con el nombre_usuario
+
+            string qeri_buscoIDcliente = "select c.cliente_id from qwerty.cuentas c where c.numero_cuenta=" + this.nro_cta;
 
             dt = db.select_query(qeri_buscoIDcliente);
             foreach (DataRow row in dt.Rows)
@@ -107,6 +108,17 @@ namespace PagoElectronico.ABM_Cuenta
                 this.id_cliente = Convert.ToInt32(row["cliente_id"]);
             }
             //termino de buscar el cliente_id
+            if (cambio == true) {
+                //chequeo que la cuenta este habilitada para poder hacer el cambio 
+                string estado_cuenta = "select estado_id from qwerty.cuentas where numero_cuenta ="+this.nro_cta;
+                dt = db.select_query(estado_cuenta);
+                int estado = 0;
+                foreach (DataRow row in dt.Rows) {
+                    estado = Convert.ToInt32(row["estado_id"].ToString());
+                }
+                if (estado == 4) { MessageBox.Show("Cuenta inhabilitada, primero debe pagar para poder cambiar el tipo"); return; }
+                //termino de chequear
+             
                 Dia dia= new Dia();
                 //busco costo de transaccion
                 string qeri_cost_transac = "select ct.costo from qwerty.costos_de_transacciones ct where ct.costo_id=3";
@@ -139,10 +151,36 @@ namespace PagoElectronico.ABM_Cuenta
                 string insert_cambiocta = "insert into qwerty.cambios_de_cuentas (numero_cuenta,categoria,costo_id,fecha_cambio) values (" + this.nro_cta + "," + categoria_nueva + ",2,'" + new Dia().tiempoHoy().ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 db.insert_query(insert_cambiocta);
                 // inserto en cambio de cuenta FIN
+
+                //chequeo si tiene mas de 5 transacciones sin facturar en esta cuenta entonces si es asi lo inhabilito
+                string cant_transac = "select * from qwerty.transacciones t where t.factura_id is null and t.cliente_id=" + id_cliente + " and t.numero_cuenta=" + nro_cta + " and t.banco_id=" + banco_id;
+                dt = db.select_query(cant_transac);
+                int cantidad = 0;
+                foreach (DataRow row in dt.Rows)
+                {
+                    cantidad++;
+
+                }
+                if (cantidad > 5)
+                {//inhabilito cuenta
+                    
+                    string insert_cuenta_inhabilitada = "insert into qwerty.inhabilitaciones_por_cuenta (inhabilitacion_id,numero_cuenta,banco_id,fecha) values (1," + this.nro_cta + "," + this.banco_id + ",'" + dia.Hoy().ToString("yyyy-MM-dd") + "')";
+                    db.insert_query(insert_cuenta_inhabilitada);
+                    string updateo_cuenta_Estado = "update qwerty.cuentas set estado_id=4 where numero_cuenta=" + this.nro_cta;
+                    db.update_query(updateo_cuenta_Estado);
+                    MessageBox.Show("Cuenta inhabilitada:" + " " + this.nro_cta);
+                };
+
+                //termino de cheqear
             }
             
             this.Close();
         
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
