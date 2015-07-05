@@ -119,9 +119,59 @@ namespace PagoElectronico.Login
                     logged_user.funcionalidades.Add(Convert.ToInt32(row["funcion_id"]));
                 }
 
+                //validar 
+                string cliente_id = "";
+                DataTable dtCli = new Database().select_query("select cliente_id as cliente_id, nombre_usuario from qwerty.clientes where nombre_usuario = '"+ logged_user.getUserName() +"';");
+                foreach (DataRow row in dtCli.Rows)
+                {
+                    cliente_id = row["cliente_id"].ToString();
+                }
 
+                if (cliente_id != "")
+                {
+                    string query =
+                        @"
+  SELECT [numero_cuenta]
+      ,[banco_id]
+      ,year([fecha_apertura]) as ano
+      ,month([fecha_apertura]) as mes
+      ,day([fecha_apertura]) as dia
+      ,c.duracion
+  FROM [GD1C2015].[qwerty].[cuentas] cu
+  join qwerty.categorias_de_cuentas c
+  on c.categoria_id = cu.categoria_id
+  where fecha_cierre is  null
+  and cliente_id = " + cliente_id+";";
+                    
+                    DataTable dtcuentas = new Database().select_query(query);
+                    foreach (DataRow row in dtcuentas.Rows)
+                    {
+                        DateTime fecha = new DateTime(Convert.ToInt32(row["ano"].ToString()), Convert.ToInt32(row["mes"].ToString()), Convert.ToInt32(row["dia"].ToString()));
+                        fecha = fecha.AddDays(Convert.ToInt32(row["duracion"].ToString()));
+                        DateTime hoy = new Dia().Hoy();
+                        bool validador = fecha.CompareTo(hoy) < 0;
+                        if (validador)
+                        {
+                            string updatequery = "UPDATE [GD1C2015].[qwerty].[cuentas] SET [estado_id] = 4 WHERE numero_cuenta = " + row["numero_cuenta"] + "and banco_id = " + row["banco_id"]  + ";";
+                            new Database().update_query(updatequery);
+                            string insertq =
+                                @"INSERT INTO [GD1C2015].[qwerty].[inhabilitaciones_por_cuenta]
+           ([inhabilitacion_id]
+           ,[numero_cuenta]
+           ,[banco_id]
+           ,[fecha])
+     VALUES
+           (2
+           ,"+row["numero_cuenta"] +
+             @"
+           ,"+row["banco_id"] +
+             @"
+           ,'" + (new Dia()).Hoy().ToString("yyyy-MM-dd") + "');";
+                            new Database().insert_query(insertq);
+                        }
 
-
+                    }
+                }
                
                 logged_user.setRol(rol);
                 //home_db.verifyUser(user,pass);
